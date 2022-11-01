@@ -2,7 +2,7 @@ package com.example.fitness_first.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple200 = Color(0xFFBB86FC)
-val Purple500 = Color(0xFF6200EE)
-val Purple700 = Color(0xFF3700B3)
-val Teal200 = Color(0xFF03DAC5)
+val Primary = Color(0xFF2CEDAE)
+val Secondary = Color(0xFF14C38E)
+val Tertiary = Color(0xFFB8F1B0)
+val Quaternary = Color(0xFFE3FCBF)
