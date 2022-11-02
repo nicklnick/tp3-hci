@@ -26,20 +26,14 @@ private fun markAsFavourite(context: Context) {
     Toast.makeText(context, "Favourite!", Toast.LENGTH_SHORT).show()
 }
 
-/* Event triggered when user clicks card */
-private fun clickEvent(context: Context) {
-    showToast(context, "Clicked")
-}
-
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun CompactRoutineCard(label : String) {
+fun CompactRoutineCard(label : String, clickEvent: () -> Unit) {
     Row(
         modifier = Modifier.size(width = 150.dp, height = 110.dp),
     ){
-        val context = LocalContext.current
         Card(
-            onClick = { clickEvent(context) },
+            onClick = { clickEvent },
             modifier = Modifier.size(width = 150.dp, height = 110.dp),
             backgroundColor = Quaternary,
             border = BorderStroke(2.dp, Secondary),
