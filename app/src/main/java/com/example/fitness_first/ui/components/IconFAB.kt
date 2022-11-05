@@ -1,4 +1,4 @@
-package com.example.fitness_first
+package com.example.fitness_first.ui.components
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.size

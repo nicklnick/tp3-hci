@@ -1,4 +1,4 @@
-package com.example.fitness_first
+package com.example.fitness_first.ui.components
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.BorderStroke

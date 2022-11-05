@@ -1,4 +1,4 @@
-package com.example.fitness_first
+package com.example.fitness_first.ui.components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape

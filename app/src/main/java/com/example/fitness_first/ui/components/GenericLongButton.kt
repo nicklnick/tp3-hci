@@ -1,4 +1,4 @@
-package com.example.fitness_first
+package com.example.fitness_first.ui.components
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.height
