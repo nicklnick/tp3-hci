@@ -18,25 +18,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             FitnessfirstTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    SeriesCard("Lazy Monday", listOf(ExerciseDetail("Brazos", "2"), ExerciseDetail("Piernas", "3"), ExerciseDetail("cabeza", "5")))
-                }
+
             }
         }
-    }
-}
-
-
-
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    FitnessfirstTheme {
-        SeriesCard("Lazy Monday", listOf(ExerciseDetail("Brazos", "2"), ExerciseDetail("Piernas", "3"), ExerciseDetail("cabeza", "5")))
     }
 }

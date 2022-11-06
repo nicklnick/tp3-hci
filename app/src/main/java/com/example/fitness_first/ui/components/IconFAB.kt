@@ -14,9 +14,8 @@ import com.example.fitness_first.ui.theme.Quaternary
 
 @Composable
 fun IconFAB(icon: ImageVector, func: () -> Unit){
-    val ctx = LocalContext.current
     FloatingActionButton(
-        onClick = { Toast.makeText(ctx, "test", Toast.LENGTH_SHORT).show()}, // remove!!
+        onClick = {func},
         backgroundColor = Quaternary,
         contentColor = Primary
     ) {

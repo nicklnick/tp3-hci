@@ -1,9 +1,6 @@
 package com.example.fitness_first.ui.components
 
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
@@ -16,10 +13,10 @@ import androidx.compose.ui.unit.sp
 import com.example.fitness_first.ui.theme.Primary
 
 @Composable
-fun LongButton(text: String, func: ()->Unit){
+fun GenericLongButton(text: String, func: ()->Unit){
     Button(
         onClick = {func},
-        modifier = Modifier.width(130.dp).height(20.dp).padding(0.dp),
+        modifier = Modifier.fillMaxWidth().height(90.dp).padding(top = 20.dp, bottom = 20.dp),
         shape = RoundedCornerShape(30.dp),
         colors = ButtonDefaults.buttonColors(
             contentColor = Color.DarkGray,
@@ -35,7 +32,7 @@ fun LongButton(text: String, func: ()->Unit){
     ){
         Text(
             text,
-            fontSize = 10.sp,
+            fontSize = 20.sp,
             modifier = Modifier.padding(0.dp)
         )
     }
