@@ -15,7 +15,7 @@ import com.example.fitness_first.ui.theme.Primary
 @Composable
 fun GenericLongButton(text: String, func: ()->Unit){
     Button(
-        onClick = {func},
+        onClick = func,
         modifier = Modifier.fillMaxWidth().height(90.dp).padding(top = 20.dp, bottom = 20.dp),
         shape = RoundedCornerShape(30.dp),
         colors = ButtonDefaults.buttonColors(

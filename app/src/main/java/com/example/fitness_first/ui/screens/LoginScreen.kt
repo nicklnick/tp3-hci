@@ -24,18 +24,17 @@ import com.example.fitness_first.ui.components.GenericLongButton
 import com.example.fitness_first.ui.components.IconFAB
 import com.example.fitness_first.ui.theme.FitnessfirstTheme
 import com.example.fitness_first.ui.theme.Quaternary
-import com.example.fitness_first.ui.theme.Sand
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(backFunc: () -> Unit, loginFunc: () -> Unit) {
     Surface(
         modifier = Modifier.fillMaxSize(),
     ){
-        Image(
-            painter = painterResource(id = R.drawable.bkg3),
-            contentDescription = null,
-            contentScale = ContentScale.FillHeight
-        )
+//        Image(
+//            painter = painterResource(id = R.drawable.bkg3),
+//            contentDescription = null,
+//            contentScale = ContentScale.FillHeight
+//        )
         Column(
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -46,7 +45,7 @@ fun LoginScreen() {
                     .fillMaxWidth()
                     .padding(top = 30.dp, start = 30.dp)
             ) {
-                IconFAB(icon = Icons.Filled.ArrowBack, {})
+                IconFAB(icon = Icons.Filled.ArrowBack, { backFunc() } )
             }
 
             Card(
@@ -70,7 +69,7 @@ fun LoginScreen() {
 
                     GenericInputField(label = stringResource(R.string.login_password), value = "")
 
-                    GenericLongButton(stringResource(R.string.login_continue), {})
+                    GenericLongButton(stringResource(R.string.login_continue), { loginFunc() } )
                 }
 
 
@@ -85,6 +84,6 @@ fun LoginScreen() {
 @Composable
 fun LoginScreenPreview() {
     FitnessfirstTheme {
-        LoginScreen()
+        LoginScreen({},{})
     }
 }

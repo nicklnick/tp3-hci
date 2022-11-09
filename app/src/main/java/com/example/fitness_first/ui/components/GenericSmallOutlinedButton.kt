@@ -28,7 +28,7 @@ fun GenericSmallOutlinedButton(label: String, clickEvent: () -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         OutlinedButton(
-            onClick = { clickEvent },
+            onClick =  clickEvent ,
             enabled = true,
             shape = RoundedCornerShape(30.dp),
             modifier = Modifier.width(150.dp).height(50.dp),

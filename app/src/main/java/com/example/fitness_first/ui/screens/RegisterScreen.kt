@@ -25,16 +25,15 @@ import com.example.fitness_first.ui.theme.Quaternary
 import com.example.fitness_first.ui.theme.Sand
 
 @Composable
-fun RegisterScreen() {
+fun RegisterScreen(backFunc: () -> Unit, registerFunc: () -> Unit) {
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = Sand
     ){
-        Image(
-            painter = painterResource(id = R.drawable.bkg3),
-            contentDescription = null,
-            contentScale = ContentScale.FillHeight
-        )
+//        Image(
+//            painter = painterResource(id = R.drawable.bkg3),
+//            contentDescription = null,
+//            contentScale = ContentScale.FillHeight
+//        )
         Column(
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -45,7 +44,7 @@ fun RegisterScreen() {
                     .fillMaxWidth()
                     .padding(top = 30.dp, start = 30.dp)
             ) {
-                IconFAB(icon = Icons.Filled.ArrowBack, {})
+                IconFAB(icon = Icons.Filled.ArrowBack, { backFunc() } )
             }
 
             Card(
@@ -71,7 +70,7 @@ fun RegisterScreen() {
 
                     GenericInputField(label = stringResource(R.string.reg_password), value = "")
 
-                    GenericLongButton(stringResource(R.string.reg_continue), {})
+                    GenericLongButton(stringResource(R.string.reg_continue),  { registerFunc() } )
                 }
 
 
@@ -86,6 +85,6 @@ fun RegisterScreen() {
 @Composable
 fun RegisterPreview() {
     FitnessfirstTheme {
-        RegisterScreen()
+        RegisterScreen({}, {})
     }
 }

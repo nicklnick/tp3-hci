@@ -15,7 +15,7 @@ import com.example.fitness_first.ui.theme.Quaternary
 @Composable
 fun IconFAB(icon: ImageVector, func: () -> Unit){
     FloatingActionButton(
-        onClick = {func},
+        onClick = func,
         backgroundColor = Quaternary,
         contentColor = Primary,
         modifier = Modifier.size(80.dp)

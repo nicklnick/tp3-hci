@@ -2,12 +2,14 @@ package com.example.fitness_first.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Button
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.fitness_first.R
@@ -16,15 +18,15 @@ import com.example.fitness_first.ui.components.GenericSmallOutlinedButton
 import com.example.fitness_first.ui.theme.FitnessfirstTheme
 
 @Composable
-fun LandingScreen(){
+fun LandingScreen(signupFunc: () -> Unit, loginFunc: () -> Unit){
     Surface(
         modifier = Modifier.fillMaxSize()
     ){
-        Image(
-            painter = painterResource(id = R.drawable.bkg3),
-            contentDescription = null,
-            contentScale = ContentScale.FillHeight
-        )
+//        Image(
+//            painter = painterResource(id = R.drawable.bkg3),
+//            contentDescription = "back",
+//            contentScale = ContentScale.FillHeight
+//        )
         Column(
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -33,7 +35,9 @@ fun LandingScreen(){
             Image(
                 painter = painterResource(id = R.drawable.logo),
                 contentDescription = "Logo",
-                modifier = Modifier.size(300.dp).padding(top = 20.dp)
+                modifier = Modifier
+                    .size(300.dp)
+                    .padding(top = 20.dp)
                 )
 
             Row(
@@ -42,9 +46,9 @@ fun LandingScreen(){
                     .padding(bottom = 70.dp),
                 horizontalArrangement = Arrangement.SpaceEvenly,
             ) {
-                GenericSmallButton(label = "Sign Up", {})
+                GenericSmallButton(label = stringResource(id = R.string.land_signup),  signupFunc )
 
-                GenericSmallOutlinedButton(label = "Log In", {})
+                GenericSmallOutlinedButton(label = stringResource(id = R.string.land_login), loginFunc  )
             }
         }
     }
@@ -55,6 +59,6 @@ fun LandingScreen(){
 @Composable
 fun LandingScreenPreview() {
     FitnessfirstTheme {
-        LandingScreen()
+        LandingScreen({}, {})
     }
 }

@@ -2,6 +2,9 @@
 <resources>
     <string name="app_name">fitness-first</string>
 
+    <!--  Landing screen   -->
+    <string name="land_signup">Registrarse</string>
+    <string name="land_login">Ingresar</string>
 
     <!--  Register screen  -->
     <string name="reg_title">Registrarse</string>
