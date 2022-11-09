@@ -32,7 +32,7 @@ import com.example.fitness_first.ui.theme.Tertiary
 @Composable
 fun DetailedRoutineButton(name: String, category: String, liked: Boolean, func: ()->Unit, likeFunc: ()->Unit ){
     OutlinedButton(
-        onClick = { func() },
+        onClick =  func,
         modifier = Modifier
             .width(260.dp)
             .height(70.dp)

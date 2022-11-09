@@ -44,7 +44,7 @@ fun RegisterScreen(backFunc: () -> Unit, registerFunc: () -> Unit) {
                     .fillMaxWidth()
                     .padding(top = 30.dp, start = 30.dp)
             ) {
-                IconFAB(icon = Icons.Filled.ArrowBack, { backFunc() } )
+                IconFAB(icon = Icons.Filled.ArrowBack, { backFunc() }, Modifier.size(80.dp) )
             }
 
             Card(

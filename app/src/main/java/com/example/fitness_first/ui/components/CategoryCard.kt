@@ -19,7 +19,7 @@ import com.example.fitness_first.ui.theme.Tertiary
 @Composable
 fun CategoryCard(text: String, icon: ImageVector, func: ()->Unit){
     Button(
-        onClick = {func},
+        onClick = func,
         modifier = Modifier
             .width(140.dp)
             .height(110.dp)
@@ -38,7 +38,7 @@ fun CategoryCard(text: String, icon: ImageVector, func: ()->Unit){
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Button(
-                onClick = {func},
+                onClick = func,
                 modifier = Modifier
                     .width(60.dp)
                     .height(60.dp)

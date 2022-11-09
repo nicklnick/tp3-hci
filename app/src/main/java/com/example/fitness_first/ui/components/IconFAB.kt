@@ -13,12 +13,12 @@ import com.example.fitness_first.ui.theme.Primary
 import com.example.fitness_first.ui.theme.Quaternary
 
 @Composable
-fun IconFAB(icon: ImageVector, func: () -> Unit){
+fun IconFAB(icon: ImageVector, func: () -> Unit, modifier: Modifier){
     FloatingActionButton(
         onClick = func,
         backgroundColor = Quaternary,
         contentColor = Primary,
-        modifier = Modifier.size(80.dp)
+        modifier = modifier
     ) {
         Icon(
             imageVector = icon,

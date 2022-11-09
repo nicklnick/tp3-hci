@@ -40,7 +40,7 @@ fun RoutineFavouriteNavigation(selected : String, nonSelected : String){
 @Composable
 fun SelectedButton(label: String, clickEvent: () -> Unit) {
     Button(
-        onClick = { clickEvent },
+        onClick =  clickEvent,
         enabled = true,
         shape = RoundedCornerShape(16.dp),
         colors = ButtonDefaults.buttonColors(
@@ -58,7 +58,7 @@ fun SelectedButton(label: String, clickEvent: () -> Unit) {
 @Composable
 fun NonSelectedButton(label: String, clickEvent: () -> Unit) {
     Button(
-        onClick = { clickEvent },
+        onClick =  clickEvent ,
         enabled = true,
         shape = RoundedCornerShape(16.dp),
         colors = ButtonDefaults.buttonColors(

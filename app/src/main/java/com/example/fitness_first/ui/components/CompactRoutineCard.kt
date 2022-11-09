@@ -33,7 +33,7 @@ fun CompactRoutineCard(label : String, clickEvent: () -> Unit) {
         modifier = Modifier.size(width = 150.dp, height = 110.dp),
     ){
         Card(
-            onClick = { clickEvent },
+            onClick =  clickEvent ,
             modifier = Modifier.size(width = 150.dp, height = 110.dp),
             backgroundColor = Quaternary,
             border = BorderStroke(2.dp, Secondary),
