@@ -1,3 +1,19 @@
+
 <resources>
     <string name="app_name">fitness-first</string>
+
+
+<!--  Register screen  -->
+    <string name="reg_title">Register</string>
+    <string name="reg_email">Email</string>
+    <string name="reg_user">Username</string>
+    <string name="reg_password">Password</string>
+    <string name="reg_continue">Continue</string>
+
+<!--  Login screen  -->
+    <string name="login_title">Log in</string>
+    <string name="login_user">Email or Username</string>
+    <string name="login_password">Password</string>
+    <string name="login_continue">Continue</string>
+
 </resources>

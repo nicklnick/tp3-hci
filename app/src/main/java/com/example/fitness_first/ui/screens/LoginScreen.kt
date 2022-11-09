@@ -2,7 +2,9 @@ package com.example.fitness_first.ui.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.Card
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
@@ -22,7 +24,7 @@ import com.example.fitness_first.ui.theme.Quaternary
 import com.example.fitness_first.ui.theme.Sand
 
 @Composable
-fun RegisterScreen() {
+fun LoginScreen() {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = Sand
@@ -53,17 +55,15 @@ fun RegisterScreen() {
                         .padding(30.dp)
                 ) {
                     Text(
-                        text = stringResource(R.string.reg_title),
+                        text = stringResource(R.string.login_title),
                         fontSize = 50.sp,
                         color = Color.DarkGray
                     )
-                    GenericInputField(label = stringResource(R.string.reg_email), value = "")
+                    GenericInputField(label = stringResource(R.string.login_user), value = "")
 
-                    GenericInputField(label = stringResource(R.string.reg_user), value = "")
+                    GenericInputField(label = stringResource(R.string.login_password), value = "")
 
-                    GenericInputField(label = stringResource(R.string.reg_password), value = "")
-
-                    GenericLongButton(stringResource(R.string.reg_continue), {})
+                    GenericLongButton(stringResource(R.string.login_continue), {})
                 }
 
 
@@ -76,8 +76,8 @@ fun RegisterScreen() {
 
 @Preview(showBackground = true)
 @Composable
-fun RegisterPreview() {
+fun LoginScreenPreview() {
     FitnessfirstTheme {
-        RegisterScreen()
+        LoginScreen()
     }
 }

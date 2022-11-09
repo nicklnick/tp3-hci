@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">fitness-first</string>
+
+
+    <!--  Register screen  -->
+    <string name="reg_title">Registrarse</string>
+    <string name="reg_email">Email</string>
+    <string name="reg_user">Usuario</string>
+    <string name="reg_password">Contraseña</string>
+    <string name="reg_continue">Siguiente</string>
+
+    <!--  Login screen  -->
+    <string name="login_title">Ingresar</string>
+    <string name="login_user">Email o Nombre de Usuario</string>
+    <string name="login_password">Contraseña</string>
+    <string name="login_continue">Siguiente</string>
+</resources>

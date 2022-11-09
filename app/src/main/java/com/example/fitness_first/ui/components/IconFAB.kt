@@ -17,7 +17,8 @@ fun IconFAB(icon: ImageVector, func: () -> Unit){
     FloatingActionButton(
         onClick = {func},
         backgroundColor = Quaternary,
-        contentColor = Primary
+        contentColor = Primary,
+        modifier = Modifier.size(80.dp)
     ) {
         Icon(
             imageVector = icon,
