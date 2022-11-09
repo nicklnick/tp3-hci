@@ -24,7 +24,7 @@ fun GenericInputField(label: String, value: String){
             .padding(top = 20.dp, bottom = 20.dp)
             .fillMaxWidth(),
         colors = TextFieldDefaults.textFieldColors(
-            backgroundColor = Sand
+            backgroundColor = Color.White
         ),
 
 
