@@ -28,10 +28,11 @@ val rowHeight = 20.dp
 fun SeriesCard(title: String, exerciseDetailList: List<ExerciseDetail>) {
     Card(
         modifier = Modifier
-            .width(150.dp)
+            .fillMaxWidth(0.8f)
             .height(rowHeight + rowHeight * exerciseDetailList.size),
         backgroundColor = Quaternary,
-        border = BorderStroke(1.dp, Secondary)
+        border = BorderStroke(1.dp, Secondary),
+        shape = RoundedCornerShape(15)
     ) {
         Column {
             Surface(
@@ -67,7 +68,7 @@ fun SeriesCard(title: String, exerciseDetailList: List<ExerciseDetail>) {
 }
 
 @Composable
-fun ExerciseDetailRow(exerciseDetail: ExerciseDetail) {
+private fun ExerciseDetailRow(exerciseDetail: ExerciseDetail) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
