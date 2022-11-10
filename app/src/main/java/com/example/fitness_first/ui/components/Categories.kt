@@ -4,6 +4,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import com.example.fitness_first.R
 
@@ -15,6 +16,7 @@ sealed class Categories(
     object Bicep: Categories(
         route = "bicep",
         title = "Bicep",
+//        icon = painterResource(R.drawable.muscle)
         icon = Icons.Filled.Person
     )
     object Tricep: Categories(

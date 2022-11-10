@@ -1,8 +1,18 @@
-import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -20,9 +30,48 @@ import com.example.fitness_first.ui.theme.Secondary
 fun MainScreen(){
     val navController = rememberNavController()
     Scaffold(
+        topBar = {topBar()},
         bottomBar = { BottomBar(navController = navController) }
     ){
         AppNavHost(navController = navController)
+    }
+}
+
+@Composable
+fun topBar(){
+    TopAppBar(
+        modifier = Modifier.height(128.dp),
+        backgroundColor = Color.Transparent,
+        elevation = 0.dp
+    ) {
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                IconButton(onClick = { /*TODO*/ }) {
+                    Icon(
+                        Icons.Filled.Menu,
+                        contentDescription = "menu",
+                        tint = Secondary,
+                        modifier = Modifier.size(38.dp)
+                    )
+                }
+                IconButton(onClick = { /*TODO*/ }) {
+                    Icon(
+                        Icons.Filled.Person,
+                        contentDescription = "settings",
+                        tint = Secondary,
+                        modifier = Modifier.size(38.dp)
+                    )
+                }
+
+            }
+            SearchBar()
+        }
     }
 }
 
@@ -35,7 +84,7 @@ fun BottomBar(navController: NavHostController){
     )
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
-    
+
     BottomNavigation(
         backgroundColor = Quaternary
     ) {
