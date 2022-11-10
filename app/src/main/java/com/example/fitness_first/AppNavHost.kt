@@ -3,22 +3,17 @@ package com.example.fitness_first
 import CategoryScreen
 import FavouritesScreen
 import HomeScreen
-import MainScreen
-import RoutinesScreen
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavBackStackEntry
-import androidx.navigation.NavHostController
-import androidx.navigation.NavType
+import androidx.navigation.*
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import com.example.fitness_first.ui.components.BottomBarScreen
-//import com.example.fitness_first.ui.screens.HomeScreen
-import com.example.fitness_first.ui.screens.TestScreen
 import com.example.fitness_first.ui.screens.*
 
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun AppNavHost(
     navController: NavHostController = rememberNavController(),
@@ -60,14 +55,29 @@ fun AppNavHost(
         composable(
             "category/{route}",
             arguments = listOf(navArgument("route") { type = NavType.StringType})
-        ){  NavBackStackEntry ->
+        ) {
+            NavBackStackEntry ->
             CategoryScreen(NavBackStackEntry.arguments?.getString("route").toString())
         }
+
         composable(route = BottomBarScreen.Favourites.route){
             FavouritesScreen()
         }
+
         composable(route = BottomBarScreen.Routines.route){
-            RoutinesScreen()
+            /* TODO: Esto es provisorio, sacar!!! */
+            val data = listOf(
+                BasicRoutineData("hola", "chau", true),
+            )
+            MyRoutinesScreen(routineData = data)
+        }
+
+        composable(
+            route = "routineDetails/{title}",
+            arguments = listOf(navArgument("title") { type = NavType.StringType })
+        ) {
+            NavBackStackEntry ->
+            RoutineDetailsScreen(NavBackStackEntry.arguments?.getString("title").toString())
         }
 
 
@@ -81,7 +91,5 @@ fun AppNavHost(
         composable("test"){
             TestScreen()
         }
-
-
     }
 }
