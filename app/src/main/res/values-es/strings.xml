@@ -25,14 +25,14 @@
     <string name="navdrw_settings">Ajustes</string>
     <string name="navdrw_help">Ayuda</string>
     <string name="navdrw_signout">Cerrar Sessión</string>
-    
+
     <!--    Category Names-->
-    <string name="bicep">Bicep</string>
-    <string name="tricep">Tricep</string>
+    <string name="bicep">Bíceps</string>
+    <string name="tricep">Tríceps</string>
     <string name="chest">Pecho</string>
     <string name="shoulders">Hombros</string>
     <string name="legs">Piernas</string>
-    <string name="abs">Abs</string>
+    <string name="abs">Abdominales</string>
     <string name="full_body">Cuerpo Entero</string>
     <string name="back">Espalda</string>
 </resources>

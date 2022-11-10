@@ -1,10 +1,12 @@
 package com.example.fitness_first
 
+import CategoryScreen
 import FavouritesScreen
 import HomeScreen
 import MainScreen
 import RoutinesScreen
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -51,7 +53,15 @@ fun AppNavHost(
         }
 
         composable(route = BottomBarScreen.Home.route){
-            HomeScreen()
+            HomeScreen(
+                NavigateToCategoryScreen = { route -> navController.navigate("category/$route")}
+            )
+        }
+        composable(
+            "category/{route}",
+            arguments = listOf(navArgument("route") { type = NavType.StringType})
+        ){  NavBackStackEntry ->
+            CategoryScreen(NavBackStackEntry.arguments?.getString("route").toString())
         }
         composable(route = BottomBarScreen.Favourites.route){
             FavouritesScreen()

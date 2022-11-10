@@ -23,14 +23,17 @@ import com.example.fitness_first.ui.theme.Secondary
 
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    NavigateToCategoryScreen: (route: String) -> Unit
+) {
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White),
-        contentAlignment = Alignment.Center
     ) {
-        Column {
+        Column(
+
+        ) {
             SearchBar()
             Text(
                 text = "Categories",
@@ -38,25 +41,19 @@ fun HomeScreen() {
                 fontWeight = FontWeight.Bold,
                 color = Secondary,
             )
-//            LazyRow(){
-//                items(Categories){ item ->
-//                    CategoryCard(text = item., icon = )
-//                }
-//            }
-//            CategoryCard(
-//                text = "Bicep",
-//                icon = Icons.Filled.Person,
-//            )
-            CategoryRow(categories = listOf(
-                Categories.Bicep,
-                Categories.Tricep,
-                Categories.Abs,
-                Categories.Chest,
-                Categories.Back,
-                Categories.Legs,
-                Categories.Shoulders,
-                Categories.FullBody
-            ))
+            CategoryRow(
+                categories = listOf(
+                    Categories.Bicep,
+                    Categories.Tricep,
+                    Categories.Abs,
+                    Categories.Chest,
+                    Categories.Back,
+                    Categories.Legs,
+                    Categories.Shoulders,
+                    Categories.FullBody
+                ),
+                NavigateToCategoryScreen,
+            )
             Text(
                 text = "Recent",
                 fontSize = MaterialTheme.typography.h5.fontSize,
@@ -78,6 +75,6 @@ fun HomeScreen() {
 @Preview
 fun HomeScreenPreview() {
     FitnessfirstTheme() {
-        HomeScreen()
+        HomeScreen({})
     }
 }

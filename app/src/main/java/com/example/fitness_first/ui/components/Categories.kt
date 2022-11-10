@@ -2,6 +2,7 @@ package com.example.fitness_first.ui.components
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import com.example.fitness_first.R
@@ -12,43 +13,44 @@ sealed class Categories(
     val icon: ImageVector
 ){
     object Bicep: Categories(
-        route = "category/bicep",
+        route = "bicep",
         title = "Bicep",
         icon = Icons.Filled.Person
     )
     object Tricep: Categories(
-        route = "category/tricep",
-        title = "Tricep",
+        route = "triceps",
+//        title = stringResource(R.string.tricep),
+        title = "Triceps",
         icon = Icons.Filled.Person
     )
     object Chest: Categories(
-        route = "category/chest",
+        route = "chest",
         title = "Chest",
         icon = Icons.Filled.Person
     )
     object Shoulders: Categories(
-        route = "category/shoulders",
+        route = "shoulders",
 //        title = stringResource(R.string.bicep),
         title = "Shoulders",
         icon = Icons.Filled.Person
     )
     object Back: Categories(
-        route = "category/back",
+        route = "back",
         title = "Back",
         icon = Icons.Filled.Person
     )
     object Legs: Categories(
-        route = "category/legs",
+        route = "legs",
         title = "Legs",
         icon = Icons.Filled.Person
     )
     object Abs: Categories(
-        route = "category/abs",
+        route = "abs",
         title = "Abs",
         icon = Icons.Filled.Person
     )
     object FullBody: Categories(
-        route = "category/fullbody",
+        route = "fullbody",
         title = "Fullbody",
         icon = Icons.Filled.Person
     )

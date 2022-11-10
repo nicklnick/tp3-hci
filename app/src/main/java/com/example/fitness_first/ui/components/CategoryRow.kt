@@ -9,7 +9,10 @@ import com.example.fitness_first.ui.components.Categories
 import com.example.fitness_first.ui.components.CategoryCard
 
 @Composable
-fun CategoryRow(categories: List<Categories>){
+fun CategoryRow(
+    categories: List<Categories>,
+    NavigateToCategoryScreen: (route: String) -> Unit
+){
     LazyRow(
         contentPadding = PaddingValues(
             start = 16.dp,
@@ -23,7 +26,7 @@ fun CategoryRow(categories: List<Categories>){
             CategoryCard(
                 text = item.title,
                 icon = item.icon,
-                func = {},
+                func = {NavigateToCategoryScreen(item.route)},
             )
         }
     }
