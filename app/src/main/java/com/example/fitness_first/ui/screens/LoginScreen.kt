@@ -32,11 +32,11 @@ fun LoginScreen(backFunc: () -> Unit, loginFunc: () -> Unit) {
     Surface(
         modifier = Modifier.fillMaxSize(),
     ){
-//        Image(
-//            painter = painterResource(id = R.drawable.bkg3),
-//            contentDescription = null,
-//            contentScale = ContentScale.FillHeight
-//        )
+        Image(
+            painter = painterResource(id = R.drawable.bkg3),
+            contentDescription = null,
+            contentScale = ContentScale.FillWidth,
+        )
         Column(
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.CenterHorizontally,

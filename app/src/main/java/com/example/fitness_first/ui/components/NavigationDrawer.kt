@@ -23,10 +23,9 @@ class NavItem(
     val name: String,
     val icon: ImageVector,
     val click: () -> Unit,  // event that will occur when clicked (navigation)
-
 )
 
-@OptIn(ExperimentalMaterialApi::class)          // EEH!?!? REMOVE
+@OptIn(ExperimentalMaterialApi::class)          // EEH!?!?
 @Composable
 fun NavigationDrawer(nav_items: List<NavItem>) {
     Column(

@@ -70,6 +70,14 @@ fun AppNavHost(
             RoutinesScreen()
         }
 
+
+
+
+        composable("execution"){
+            ExecutionScreen()
+        }
+
+
         composable("test"){
             TestScreen()
         }
