@@ -14,46 +14,46 @@ sealed class Categories(
     val icon: ImageVector
 ){
     object Bicep: Categories(
-        route = "bicep",
+        route = "Bicep",
         title = "Bicep",
 //        icon = painterResource(R.drawable.muscle)
         icon = Icons.Filled.Person
     )
     object Tricep: Categories(
-        route = "triceps",
+        route = "Triceps",
 //        title = stringResource(R.string.tricep),
         title = "Triceps",
         icon = Icons.Filled.Person
     )
     object Chest: Categories(
-        route = "chest",
+        route = "Chest",
         title = "Chest",
         icon = Icons.Filled.Person
     )
     object Shoulders: Categories(
-        route = "shoulders",
+        route = "Shoulders",
 //        title = stringResource(R.string.bicep),
         title = "Shoulders",
         icon = Icons.Filled.Person
     )
     object Back: Categories(
-        route = "back",
+        route = "Back",
         title = "Back",
         icon = Icons.Filled.Person
     )
     object Legs: Categories(
-        route = "legs",
+        route = "Legs",
         title = "Legs",
         icon = Icons.Filled.Person
     )
     object Abs: Categories(
-        route = "abs",
+        route = "Abs",
         title = "Abs",
         icon = Icons.Filled.Person
     )
     object FullBody: Categories(
-        route = "fullbody",
-        title = "Fullbody",
+        route = "Full body",
+        title = "Full body",
         icon = Icons.Filled.Person
     )
 }
