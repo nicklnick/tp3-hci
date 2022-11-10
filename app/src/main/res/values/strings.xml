@@ -36,5 +36,6 @@
     <string name="abs">Abs</string>
     <string name="full_body">Full Body</string>
     <string name="back">Back</string>
+    <string name="exec_next">Next:</string>
 
 </resources>

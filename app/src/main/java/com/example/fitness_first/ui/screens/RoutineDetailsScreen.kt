@@ -25,9 +25,7 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.Velocity
 import androidx.compose.ui.unit.dp
 import com.example.fitness_first.ui.components.*
-import com.example.fitness_first.ui.theme.FitnessfirstTheme
-import com.example.fitness_first.ui.theme.Secondary
-import com.example.fitness_first.ui.theme.Tertiary
+import com.example.fitness_first.ui.theme.*
 import kotlin.math.roundToInt
 
 /* Credits: https://proandroiddev.com/how-to-master-swipeable-and-nestedscroll-modifiers-in-compose-bb0635d6a760 */
@@ -168,7 +166,9 @@ fun TopBarRoutineDetails(title: String, difficulty: Float, duration: Int) {
             IconFAB(
                 icon = Icons.Default.Share,
                 func = { shareRoutine() },
-                modifier = Modifier
+                modifier = Modifier,
+                Quaternary,
+                Primary
             )
 
             Text(
@@ -181,7 +181,9 @@ fun TopBarRoutineDetails(title: String, difficulty: Float, duration: Int) {
             IconFAB(
                 icon = Icons.Default.Favorite,
                 func = { favRoutine() },
-                modifier = Modifier
+                modifier = Modifier,
+                Quaternary,
+                Primary
             )
         }
 

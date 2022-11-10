@@ -8,6 +8,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,6 +24,7 @@ import com.example.fitness_first.ui.components.GenericInputField
 import com.example.fitness_first.ui.components.GenericLongButton
 import com.example.fitness_first.ui.components.IconFAB
 import com.example.fitness_first.ui.theme.FitnessfirstTheme
+import com.example.fitness_first.ui.theme.Primary
 import com.example.fitness_first.ui.theme.Quaternary
 
 @Composable
@@ -45,7 +47,7 @@ fun LoginScreen(backFunc: () -> Unit, loginFunc: () -> Unit) {
                     .fillMaxWidth()
                     .padding(top = 30.dp, start = 30.dp)
             ) {
-                IconFAB(icon = Icons.Filled.ArrowBack, { backFunc() } , Modifier.size(80.dp))
+                IconFAB(icon = Icons.Filled.KeyboardArrowLeft, { backFunc() } , Modifier.size(80.dp), Quaternary, Primary)
             }
 
             Card(

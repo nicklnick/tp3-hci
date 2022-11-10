@@ -35,4 +35,5 @@
     <string name="abs">Abdominales</string>
     <string name="full_body">Cuerpo Entero</string>
     <string name="back">Espalda</string>
+    <string name="exec_next">Próximo:</string>
 </resources>
