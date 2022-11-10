@@ -10,50 +10,50 @@ import com.example.fitness_first.R
 
 sealed class Categories(
     val route: String,
-    val title: String,
-    val icon: ImageVector
+    val title: Int,
+    val icon: Int
 ){
     object Bicep: Categories(
         route = "Bicep",
-        title = "Bicep",
-//        icon = painterResource(R.drawable.muscle)
-        icon = Icons.Filled.Person
+        title = R.string.bicep,
+        icon = R.drawable.muscle
+//        icon = Icons.Filled.Person
     )
     object Tricep: Categories(
         route = "Triceps",
 //        title = stringResource(R.string.tricep),
-        title = "Triceps",
-        icon = Icons.Filled.Person
+        title = R.string.tricep,
+        icon = R.drawable.triceps
     )
     object Chest: Categories(
         route = "Chest",
-        title = "Chest",
-        icon = Icons.Filled.Person
+        title = R.string.chest,
+        icon = R.drawable.torso
     )
     object Shoulders: Categories(
         route = "Shoulders",
 //        title = stringResource(R.string.bicep),
-        title = "Shoulders",
-        icon = Icons.Filled.Person
+        title = R.string.shoulders,
+        icon = R.drawable.shoulders
     )
     object Back: Categories(
         route = "Back",
-        title = "Back",
-        icon = Icons.Filled.Person
+        title = R.string.back,
+        icon = R.drawable.bodypart
     )
     object Legs: Categories(
         route = "Legs",
-        title = "Legs",
-        icon = Icons.Filled.Person
+        title = R.string.legs,
+        icon = R.drawable.piernas
     )
     object Abs: Categories(
         route = "Abs",
-        title = "Abs",
-        icon = Icons.Filled.Person
+        title = R.string.abs,
+        icon = R.drawable.abdominals
     )
     object FullBody: Categories(
         route = "Full body",
-        title = "Full body",
-        icon = Icons.Filled.Person
+        title = R.string.full_body,
+        icon = R.drawable.full_body
     )
 }

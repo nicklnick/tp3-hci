@@ -15,20 +15,20 @@ import com.example.fitness_first.ui.theme.Primary
 import com.example.fitness_first.ui.theme.Quaternary
 import com.example.fitness_first.ui.theme.Secondary
 
-//@Composable
-//fun FilterButton(){
-//    Button(
-//        onClick = {},
-//        colors = ButtonDefaults.buttonColors(backgroundColor = Color.Green),
-//        shape = CircleShape,
-//        modifier = Modifier.size(50.dp)
-//    ) {
-//        Image(
-//            painterResource(id = android.R.drawable.ic_menu_sort_by_size),
-//            contentDescription = "Filter Icon",
-//        )
-//    }
-//}
+@Composable
+fun FilterButton(){
+    Button(
+        onClick = {},
+        colors = ButtonDefaults.buttonColors(backgroundColor = Primary),
+        shape = CircleShape,
+        modifier = Modifier.size(50.dp)
+    ) {
+        Image(
+            painterResource(id = android.R.drawable.ic_menu_sort_by_size),
+            contentDescription = "Filter Icon",
+        )
+    }
+}
 
 @Composable
 fun content(){
@@ -129,11 +129,8 @@ fun DropDownMenu(
 @Composable
 fun defaultPreview(){
     FitnessfirstTheme {
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colors.background
-        ) {
-            content()
-        }
+
+            FilterButton()
+
     }
 }

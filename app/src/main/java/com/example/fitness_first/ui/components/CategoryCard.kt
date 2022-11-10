@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -21,7 +22,7 @@ import com.example.fitness_first.ui.theme.Primary
 import com.example.fitness_first.ui.theme.Tertiary
 
 @Composable
-fun CategoryCard(text: String, icon: ImageVector, func: ()->Unit = {}){
+fun CategoryCard(text: String, icon: Painter, func: ()->Unit = {}){
     Button(
         onClick = func,
         modifier = Modifier
@@ -56,7 +57,7 @@ fun CategoryCard(text: String, icon: ImageVector, func: ()->Unit = {}){
                 contentPadding = PaddingValues(0.dp)
 
             ){
-                Icon(imageVector = icon,"My Profile")
+                Icon(icon,"My Profile", modifier = Modifier.size(35.dp))
             }
             Text(
                 text,
@@ -68,11 +69,11 @@ fun CategoryCard(text: String, icon: ImageVector, func: ()->Unit = {}){
 
     }
 }
-
-@Composable
-@Preview
-fun CategoryCardPreview() {
-    FitnessfirstTheme() {
-        CategoryCard(text = "hola", icon = Icons.Filled.Person)
-    }
-}
+//
+//@Composable
+//@Preview
+//fun CategoryCardPreview() {
+//    FitnessfirstTheme() {
+//        CategoryCard(text = "hola", icon = Icons.Filled.Person)
+//    }
+//}

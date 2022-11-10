@@ -43,6 +43,6 @@ fun SearchBar() {
                 modifier = Modifier.padding(horizontal = 5.dp),
                 textAlign = TextAlign.Center)
         },
-        singleLine = true
+        singleLine = true,
     )
 }

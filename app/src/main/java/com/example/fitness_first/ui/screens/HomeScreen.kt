@@ -40,7 +40,6 @@ fun HomeScreen(
         Column(
 
         ) {
-//            SearchBar()
             Text(
                 text = "Categories",
                 fontSize = MaterialTheme.typography.h5.fontSize,

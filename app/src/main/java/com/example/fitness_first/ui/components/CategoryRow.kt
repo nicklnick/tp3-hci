@@ -4,6 +4,8 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.fitness_first.ui.components.Categories
 import com.example.fitness_first.ui.components.CategoryCard
@@ -24,8 +26,8 @@ fun CategoryRow(
     ){
         items(categories){ item ->
             CategoryCard(
-                text = item.title,
-                icon = item.icon,
+                text = stringResource(item.title),
+                icon = painterResource(item.icon),
                 func = {NavigateToCategoryScreen(item.route)},
             )
         }
