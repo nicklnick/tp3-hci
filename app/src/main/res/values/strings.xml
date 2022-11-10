@@ -27,5 +27,14 @@
     <string name="navdrw_help">Help</string>
     <string name="navdrw_signout">Sign Out</string>
 
+<!--    Category Names-->
+    <string name="bicep">Bicep</string>
+    <string name="tricep">Tricep</string>
+    <string name="chest">Chest</string>
+    <string name="shoulders">Shoulders</string>
+    <string name="legs">Legs</string>
+    <string name="abs">Abs</string>
+    <string name="full_body">Full Body</string>
+    <string name="back">Back</string>
 
 </resources>

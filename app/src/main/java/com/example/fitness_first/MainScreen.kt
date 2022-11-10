@@ -9,8 +9,9 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.fitness_first.AppNavHost
 import com.example.fitness_first.ui.components.BottomBarScreen
-import com.example.fitness_first.ui.components.BottomNavGraph
+import com.example.fitness_first.ui.components.SearchBar
 import com.example.fitness_first.ui.theme.FitnessfirstTheme
 import com.example.fitness_first.ui.theme.Quaternary
 import com.example.fitness_first.ui.theme.Secondary
@@ -21,7 +22,7 @@ fun MainScreen(){
     Scaffold(
         bottomBar = { BottomBar(navController = navController) }
     ){
-        BottomNavGraph(NavController = navController)
+        AppNavHost(navController = navController)
     }
 }
 
@@ -29,6 +30,7 @@ fun MainScreen(){
 fun BottomBar(navController: NavHostController){
     val screens = listOf(
         BottomBarScreen.Home,
+        BottomBarScreen.Favourites,
         BottomBarScreen.Routines
     )
     val navBackStackEntry by navController.currentBackStackEntryAsState()

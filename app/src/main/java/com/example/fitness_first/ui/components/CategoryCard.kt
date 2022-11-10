@@ -5,19 +5,23 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.fitness_first.ui.theme.FitnessfirstTheme
 import com.example.fitness_first.ui.theme.LightBlue
 import com.example.fitness_first.ui.theme.Primary
 import com.example.fitness_first.ui.theme.Tertiary
 
 @Composable
-fun CategoryCard(text: String, icon: ImageVector, func: ()->Unit){
+fun CategoryCard(text: String, icon: ImageVector, func: ()->Unit = {}){
     Button(
         onClick = func,
         modifier = Modifier
@@ -62,5 +66,13 @@ fun CategoryCard(text: String, icon: ImageVector, func: ()->Unit){
             )
         }
 
+    }
+}
+
+@Composable
+@Preview
+fun CategoryCardPreview() {
+    FitnessfirstTheme() {
+        CategoryCard(text = "hola", icon = Icons.Filled.Person)
     }
 }

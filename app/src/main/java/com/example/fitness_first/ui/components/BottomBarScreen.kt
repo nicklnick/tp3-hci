@@ -15,6 +15,11 @@ sealed class BottomBarScreen(
         title = "Home",
         icon = Icons.Default.Home
     )
+    object Favourites: BottomBarScreen(
+        route = "favourites",
+        title = "Favourites",
+        icon = Icons.Filled.Favorite
+    )
     object Routines: BottomBarScreen(
         route = "routines",
         title = "Routines",

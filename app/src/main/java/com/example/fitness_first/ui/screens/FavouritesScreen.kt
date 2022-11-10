@@ -9,17 +9,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.fitness_first.ui.components.BottomBarScreen
 
 @Composable
-fun RoutinesScreen() {
+fun FavouritesScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Blue),
+            .background(Color.Green),
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = "Routines",
+            text = "Favourites",
             fontSize = MaterialTheme.typography.h3.fontSize,
             fontWeight = FontWeight.Bold,
             color = Color.White
@@ -29,6 +30,6 @@ fun RoutinesScreen() {
 
 @Composable
 @Preview
-fun RoutinesScreenPreview() {
-    RoutinesScreen()
+fun FavouritesScreenPreview() {
+    FavouritesScreen()
 }
