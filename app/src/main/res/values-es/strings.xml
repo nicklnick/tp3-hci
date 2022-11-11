@@ -36,4 +36,13 @@
     <string name="full_body">Cuerpo Entero</string>
     <string name="back">Espalda</string>
     <string name="exec_next">Próximo:</string>
+
+    <!-- My Routines -->
+    <string name="sort_by">Ordenar Por</string>
+    <string name="diff_up">Dificultad Ascendente</string>
+    <string name="diff_down">Dificultad Descendente</string>
+    <string name="rating_up">Rating Ascendente</string>
+    <string name="rating_down">Rating Descendente</string>
+    <string name="date_up">Fecha Ascendente</string>
+    <string name="date_down">Fecha Descendente</string>
 </resources>

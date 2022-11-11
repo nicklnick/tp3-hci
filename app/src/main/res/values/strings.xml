@@ -38,4 +38,13 @@
     <string name="back">Back</string>
     <string name="exec_next">Next:</string>
 
+    <!-- My Routines -->
+    <string name="sort_by">Sort By</string>
+    <string name="diff_up">Difficulty Up</string>
+    <string name="diff_down">Difficulty Down</string>
+    <string name="rating_up">Rating Up</string>
+    <string name="rating_down">Rating Down</string>
+    <string name="date_up">Date Up</string>
+    <string name="date_down">Date Down</string>
+
 </resources>
