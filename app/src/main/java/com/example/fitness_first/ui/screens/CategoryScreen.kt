@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -12,29 +13,43 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import com.example.fitness_first.AppNavHost
+import com.example.fitness_first.ui.components.BottomBar
+import com.example.fitness_first.ui.components.topBar
 import com.example.fitness_first.ui.theme.Secondary
 import java.util.Locale.Category
 
 @Composable
-fun CategoryScreen(muscle: String) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White),
-    ) {
-        Column(
-
+fun CategoryScreen(
+    muscle: String,
+    navController: NavHostController
+) {
+    Scaffold(
+        topBar = {topBar()},
+        bottomBar = { BottomBar(navController = navController) }
+    ){
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.White),
         ) {
-            Text(
-                text = "$muscle Routines",
-                fontSize = MaterialTheme.typography.h4.fontSize,
-                fontWeight = FontWeight.Bold,
-                color = Secondary,
-                modifier = Modifier.padding(start = 10.dp, top = 5.dp)
-            )
-        }
+            Column(
 
+            ) {
+                Text(
+                    text = "$muscle Routines",
+                    fontSize = MaterialTheme.typography.h4.fontSize,
+                    fontWeight = FontWeight.Bold,
+                    color = Secondary,
+                    modifier = Modifier.padding(start = 10.dp, top = 5.dp)
+                )
+            }
+
+        }
     }
+
 }
 
 //@Composable

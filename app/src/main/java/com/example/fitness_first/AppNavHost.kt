@@ -49,7 +49,8 @@ fun AppNavHost(
 
         composable(route = BottomBarScreen.Home.route){
             HomeScreen(
-                NavigateToCategoryScreen = { route -> navController.navigate("category/$route")}
+                NavigateToCategoryScreen = { route -> navController.navigate("category/$route")},
+                navController
             )
         }
         composable(
@@ -57,11 +58,16 @@ fun AppNavHost(
             arguments = listOf(navArgument("route") { type = NavType.StringType})
         ) {
             NavBackStackEntry ->
-            CategoryScreen(NavBackStackEntry.arguments?.getString("route").toString())
+            CategoryScreen(
+                NavBackStackEntry.arguments?.getString("route").toString(),
+                navController
+            )
         }
 
         composable(route = BottomBarScreen.Favourites.route){
-            FavouritesScreen()
+            FavouritesScreen(
+                navController
+            )
         }
 
         composable(route = BottomBarScreen.Routines.route){
@@ -69,7 +75,10 @@ fun AppNavHost(
             val data = listOf(
                 BasicRoutineData("hola", "chau", true),
             )
-            MyRoutinesScreen(routineData = data)
+            MyRoutinesScreen(
+                routineData = data,
+                navController
+            )
         }
 
         composable(

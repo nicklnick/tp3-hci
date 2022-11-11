@@ -207,9 +207,9 @@ private fun favRoutine() {
 }
 
 @OptIn(ExperimentalMaterialApi::class)
-@Preview
+//@Preview
 @Composable
-fun RoutineDetailsScreen() {
+fun RoutineDetailsScreen(title: String) {
     FitnessfirstTheme {
         FullHeightBottomSheet()
     }
