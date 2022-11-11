@@ -10,6 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import androidx.navigation.navDeepLink
 import com.example.fitness_first.ui.components.BottomBarScreen
 import com.example.fitness_first.ui.screens.*
 
@@ -19,12 +20,14 @@ fun AppNavHost(
     navController: NavHostController = rememberNavController(),
     startDestination: String = "landing",
 ) {
+    val uri = "http://fitness-first.com"
+    val secureUri = "https://fitness-first.com"
+
     NavHost(
         navController = navController,
         startDestination = startDestination
     )
     {
-
 //          - = - = - App screens go here - = - = -
         composable("landing"){
             LandingScreen(
@@ -78,25 +81,21 @@ fun AppNavHost(
             MyRoutinesScreen(
                 routineData = data,
                 navController = navController,
-                NavigateToRoutineDetails = { route -> navController.navigate("routineDetails/$route")}
+                NavigateToRoutineDetails = { route -> navController.navigate("routine/$route")}
             )
         }
 
         composable(
-            route = "routineDetails/{title}",
+            route = "routine/{title}",
+            deepLinks = listOf(navDeepLink { uriPattern = "$uri/routine/{title}" }, navDeepLink { uriPattern = "$secureUri/routine/{title}" }),
             arguments = listOf(navArgument("title") { type = NavType.StringType })
         ) {
-            NavBackStackEntry ->
-            RoutineDetailsScreen(NavBackStackEntry.arguments?.getString("title").toString())
+            NavBackStackEntry -> RoutineDetailsScreen(NavBackStackEntry.arguments?.getString("title").toString())
         }
-
-
-
 
         composable("execution"){
             ExecutionScreen()
         }
-
 
         composable("test"){
             TestScreen()
