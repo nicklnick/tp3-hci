@@ -8,13 +8,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
-import com.example.fitness_first.AppNavHost
 import com.example.fitness_first.ui.components.BottomBar
-import com.example.fitness_first.ui.components.BottomBarScreen
 import com.example.fitness_first.ui.components.topBar
 import com.example.fitness_first.ui.theme.Secondary
 
@@ -44,14 +40,6 @@ fun FavouritesScreen(
                     modifier = Modifier.padding(start = 10.dp, top = 5.dp)
                 )
             }
-
         }
     }
-
 }
-
-//@Composable
-//@Preview
-//fun FavouritesScreenPreview() {
-//    FavouritesScreen()
-//}

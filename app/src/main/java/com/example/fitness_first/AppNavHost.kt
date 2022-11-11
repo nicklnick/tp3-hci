@@ -3,17 +3,17 @@ package com.example.fitness_first
 import CategoryScreen
 import FavouritesScreen
 import HomeScreen
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
-import androidx.navigation.*
+import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.fitness_first.ui.components.BottomBarScreen
 import com.example.fitness_first.ui.screens.*
 
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun AppNavHost(
     navController: NavHostController = rememberNavController(),
@@ -77,7 +77,8 @@ fun AppNavHost(
             )
             MyRoutinesScreen(
                 routineData = data,
-                navController
+                navController = navController,
+                NavigateToRoutineDetails = { route -> navController.navigate("routineDetails/$route")}
             )
         }
 

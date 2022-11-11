@@ -7,19 +7,14 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
-import com.example.fitness_first.AppNavHost
 import com.example.fitness_first.ui.components.BottomBar
 import com.example.fitness_first.ui.components.topBar
 import com.example.fitness_first.ui.theme.Secondary
-import java.util.Locale.Category
 
 @Composable
 fun CategoryScreen(
@@ -35,9 +30,7 @@ fun CategoryScreen(
                 .fillMaxSize()
                 .background(Color.White),
         ) {
-            Column(
-
-            ) {
+            Column {
                 Text(
                     text = "$muscle Routines",
                     fontSize = MaterialTheme.typography.h4.fontSize,
@@ -51,9 +44,3 @@ fun CategoryScreen(
     }
 
 }
-
-//@Composable
-//@Preview
-//fun CategoryScreenPreview() {
-//    CategoryScreen()
-//}

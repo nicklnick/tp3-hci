@@ -3,9 +3,10 @@ package com.example.fitness_first.ui.screens
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.Card
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,7 +25,6 @@ import com.example.fitness_first.ui.components.IconFAB
 import com.example.fitness_first.ui.theme.FitnessfirstTheme
 import com.example.fitness_first.ui.theme.Primary
 import com.example.fitness_first.ui.theme.Quaternary
-import com.example.fitness_first.ui.theme.Sand
 
 @Composable
 fun RegisterScreen(backFunc: () -> Unit, registerFunc: () -> Unit) {
@@ -74,19 +74,7 @@ fun RegisterScreen(backFunc: () -> Unit, registerFunc: () -> Unit) {
 
                     GenericLongButton(stringResource(R.string.reg_continue),  { registerFunc() } )
                 }
-
-
             }
-
         }
-    }
-}
-
-
-@Preview(showBackground = true)
-@Composable
-fun RegisterPreview() {
-    FitnessfirstTheme {
-        RegisterScreen({}, {})
     }
 }
