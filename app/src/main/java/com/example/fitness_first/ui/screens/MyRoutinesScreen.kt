@@ -67,7 +67,7 @@ fun MyRoutinesScreen(
                     verticalArrangement = Arrangement.spacedBy(6.dp)
                 ) {
                     Text(
-                        text = "My Routines",
+                        text = stringResource(R.string.my_routines),
                         fontSize = MaterialTheme.typography.h4.fontSize,
                         fontWeight = FontWeight.Bold,
                         color = Secondary,

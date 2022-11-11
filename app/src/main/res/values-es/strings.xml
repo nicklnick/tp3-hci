@@ -38,6 +38,7 @@
     <string name="exec_next">Próximo:</string>
 
     <!-- My Routines -->
+    <string name="my_routines">Mis Rutinas</string>
     <string name="sort_by">Ordenar Por</string>
     <string name="diff_up">Dificultad Ascendente</string>
     <string name="diff_down">Dificultad Descendente</string>
@@ -45,4 +46,10 @@
     <string name="rating_down">Rating Descendente</string>
     <string name="date_up">Fecha Ascendente</string>
     <string name="date_down">Fecha Descendente</string>
+
+    <!-- Favourites -->
+    <string name="favourites">Favoritos</string>
+
+    <!-- Components -->
+    <string name="search">Buscar</string>
 </resources>
