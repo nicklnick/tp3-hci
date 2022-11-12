@@ -1,6 +1,7 @@
 package com.example.fitness_first.ui.components
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.TopAppBar
@@ -22,17 +23,19 @@ fun topBar(
     navController: NavHostController
 ){
     TopAppBar(
-        modifier = Modifier.height(128.dp),
+        modifier = Modifier.height(128.dp).fillMaxWidth(),
         backgroundColor = Color.Transparent,
         elevation = 0.dp
     ) {
         Column(
             verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxWidth()
         ) {
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+
             ) {
                 IconButton(onClick = menuFunc) {
                     Icon(
@@ -52,6 +55,7 @@ fun topBar(
                 }
 
             }
+            Divider(color = Color.Gray, thickness = 2.dp, modifier = Modifier.fillMaxWidth().padding(top=5.dp, bottom = 10.dp))
             SearchBar(navController)
         }
     }

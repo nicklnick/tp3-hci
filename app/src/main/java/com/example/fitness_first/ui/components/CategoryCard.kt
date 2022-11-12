@@ -16,10 +16,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.fitness_first.ui.theme.FitnessfirstTheme
-import com.example.fitness_first.ui.theme.LightBlue
-import com.example.fitness_first.ui.theme.Primary
-import com.example.fitness_first.ui.theme.Tertiary
+import com.example.fitness_first.ui.theme.*
 
 @Composable
 fun CategoryCard(text: String, icon: Painter, func: ()->Unit = {}){
@@ -32,7 +29,7 @@ fun CategoryCard(text: String, icon: Painter, func: ()->Unit = {}){
         shape = RoundedCornerShape(16.dp),
         colors = ButtonDefaults.buttonColors(
             contentColor = Color.DarkGray,
-            backgroundColor = Tertiary
+            backgroundColor = Quaternary
         ),
         border = BorderStroke(2.dp, Primary),
         contentPadding = PaddingValues(0.dp)
@@ -51,10 +48,10 @@ fun CategoryCard(text: String, icon: Painter, func: ()->Unit = {}){
                 shape = CircleShape,
                 colors = ButtonDefaults.buttonColors(
                     contentColor = Color.DarkGray,
-                    backgroundColor = Tertiary
+                    backgroundColor = Quaternary
                 ),
                 border = BorderStroke(2.dp, Primary),
-                contentPadding = PaddingValues(0.dp)
+                contentPadding = PaddingValues(0.dp),
 
             ){
                 Icon(icon,"My Profile", modifier = Modifier.size(35.dp))

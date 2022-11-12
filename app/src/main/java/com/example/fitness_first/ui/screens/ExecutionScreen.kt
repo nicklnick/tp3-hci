@@ -2,6 +2,7 @@ package com.example.fitness_first.ui.screens
 
 import android.content.res.Configuration
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -18,7 +19,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -49,11 +52,12 @@ private fun showVerticalLayout(routineTitle: String) {
     Surface(
         modifier = Modifier.fillMaxSize()
     ) {
-//        Image(
-//            painter = painterResource(id = com.example.fitness_first.R.drawable.bkg4),
-//            contentDescription = "back",
-//            contentScale = ContentScale.FillHeight
-//        )
+        Image(
+            painter = painterResource(id = com.example.fitness_first.R.drawable.bkg4),
+            contentDescription = "back",
+            contentScale = ContentScale.FillBounds,
+            modifier = Modifier.fillMaxSize()
+        )
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceBetween
@@ -265,11 +269,12 @@ private fun showLandscapeLayout(routineTitle: String) {
     Surface(
         modifier = Modifier.fillMaxSize()
     ) {
-//        Image(
-//            painter = painterResource(id = com.example.fitness_first.R.drawable.bkg4),
-//            contentDescription = "back",
-//            contentScale = ContentScale.FillHeight
-//        )
+        Image(
+            painter = painterResource(id = com.example.fitness_first.R.drawable.bkg4),
+            contentDescription = "back",
+            contentScale = ContentScale.FillBounds,
+            modifier = Modifier.fillMaxSize()
+        )
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceBetween,

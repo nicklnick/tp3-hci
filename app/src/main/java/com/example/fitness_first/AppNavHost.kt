@@ -102,7 +102,7 @@ fun AppNavHost(
         }
 
         composable(
-            route = "execution/{title}/execution",
+            route = "routine/{title}/execution",
             arguments = listOf(navArgument("title") { type = NavType.StringType }),
         ){
             NavBackStackEntry -> ExecutionScreen(NavBackStackEntry.arguments?.getString("title").toString())

@@ -1,5 +1,6 @@
 package com.example.fitness_first.ui.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -10,6 +11,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -50,20 +53,27 @@ fun MyRoutinesScreen(
     val scaffoldScope = rememberCoroutineScope()
     val scaffoldState = rememberScaffoldState()
 
+    Box(){
+        Image(
+            painter = painterResource(id = R.drawable.bkg5),
+            contentDescription = null,
+            contentScale = ContentScale.FillBounds,
+            modifier = Modifier.fillMaxSize()
+        )
 
-    Scaffold(
-        scaffoldState = scaffoldState,
-        topBar = { TopBarWFilter(
-            { scaffoldScope.launch {
-                scaffoldState.drawerState.open()
-            }},
-            onClickFilter = { showFilters(scope = scope, sheetState = sheetState)},
-            navController
-        ) },
-        bottomBar = { BottomBar(navController = navController) },
-        drawerContent = { NavigationDrawer(navController) },
-
-    ){
+        Scaffold(
+            scaffoldState = scaffoldState,
+            topBar = { TopBarWFilter(
+                { scaffoldScope.launch {
+                    scaffoldState.drawerState.open()
+                }},
+                onClickFilter = { showFilters(scope = scope, sheetState = sheetState)},
+                navController
+            ) },
+            bottomBar = { BottomBar(navController = navController) },
+            drawerContent = { NavigationDrawer(navController) },
+            backgroundColor = Color.Transparent
+        ){
         BottomSheetScaffold(
             scaffoldState = bottomScaffoldState,
             sheetContent = { sortSheet() },
@@ -93,17 +103,18 @@ fun MyRoutinesScreen(
                         verticalArrangement = Arrangement.spacedBy(space = 8.dp)
                     ) {
                         items(routineData) {
-                        /* TODO: aca deberias poder hacer detailedRoutineButton(data) */
-                            data -> DetailedRoutineButton(
-                                name = data.name,
-                                category = data.category,
-                                liked = data.liked,
-                                func = { NavigateToRoutineDetails(data.name) } ,
-                            ) { }
+                            /* TODO: aca deberias poder hacer detailedRoutineButton(data) */
+                                data -> DetailedRoutineButton(
+                            name = data.name,
+                            category = data.category,
+                            liked = data.liked,
+                            func = { NavigateToRoutineDetails(data.name) } ,
+                        ) { }
                         }
                     }
                 }
             }
+        }
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.example.fitness_first.ui.screens
 
 import android.content.Intent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -15,9 +16,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.fitness_first.R
 import com.example.fitness_first.ui.components.IconFAB
 import com.example.fitness_first.ui.components.RatingBar
 import com.example.fitness_first.ui.components.SimpleChip
@@ -34,26 +38,35 @@ fun RoutineDetailsScreen(title: String) {
         Modifier
             .fillMaxHeight()
     ) {
-        Scaffold(
-            topBar = {TopBarRoutineDetails(title, 3.5f, 30)},
-            modifier = Modifier.background(Secondary)
-        ) {
-            Box(
-                Modifier
-                    .fillMaxSize()
-                    .verticalScroll(scrollState)
-                    .background(Secondary)
+        Box{
+            Image(
+                painter = painterResource(id = R.drawable.bkg5),
+                contentDescription = null,
+                contentScale = ContentScale.FillBounds,
+                modifier = Modifier.fillMaxSize()
+            )
+            Scaffold(
+                topBar = {TopBarRoutineDetails(title, 3.5f, 30)},
+                modifier = Modifier.background(Secondary),
+                backgroundColor = Color.Transparent
             ) {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(10.dp),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(10.dp)
+                Box(
+                    Modifier
+                        .fillMaxSize()
+                        .verticalScroll(scrollState)
+                        .background(Secondary)
                 ) {
-                    /**
-                     * TODO: Aca tendriamos que poner las series card list de la rutina que clickearon
-                     */
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.spacedBy(10.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(10.dp)
+                    ) {
+                        /**
+                         * TODO: Aca tendriamos que poner las series card list de la rutina que clickearon
+                         */
+                    }
                 }
             }
         }

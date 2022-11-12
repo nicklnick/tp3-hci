@@ -2,6 +2,7 @@ package com.example.fitness_first.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.TopAppBar
@@ -54,7 +55,7 @@ fun TopBarWFilter(
                     )
                 }
             }
-
+            Divider(color = Color.Gray, thickness = 2.dp, modifier = Modifier.fillMaxWidth().padding(top=5.dp, bottom = 10.dp))
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
