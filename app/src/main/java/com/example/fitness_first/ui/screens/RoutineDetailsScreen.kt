@@ -1,5 +1,6 @@
 package com.example.fitness_first.ui.screens
 
+import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -14,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.fitness_first.ui.components.IconFAB
@@ -61,6 +63,17 @@ fun RoutineDetailsScreen(title: String) {
 
 @Composable
 fun TopBarRoutineDetails(title: String, difficulty: Float, duration: Int) {
+
+    // Sharing routine with intent functionality
+    val context = LocalContext.current
+    val sendIntent: Intent = Intent().apply {
+        action = Intent.ACTION_SEND
+        putExtra(Intent.EXTRA_TEXT, "https://fitness-first.com/routine/$title")
+        type = "text/plain"
+    }
+    val shareIntent = Intent.createChooser(sendIntent, null)
+
+
     Column(
         modifier = Modifier.background(Secondary)
     ){
@@ -82,7 +95,7 @@ fun TopBarRoutineDetails(title: String, difficulty: Float, duration: Int) {
         ) {
             IconFAB(
                 icon = Icons.Default.Share,
-                func = { shareRoutine() },
+                func = { context.startActivity(shareIntent) },
                 modifier = Modifier,
                 Quaternary,
                 Primary
@@ -115,9 +128,10 @@ fun TopBarRoutineDetails(title: String, difficulty: Float, duration: Int) {
     }
 }
 
-private fun shareRoutine() {
-    // TODO: hacer!
-}
+
+//private fun shareRoutine() {
+//
+//}
 
 private fun favRoutine() {
     // TODO: hacer!

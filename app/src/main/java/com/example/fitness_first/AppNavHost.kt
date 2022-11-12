@@ -93,8 +93,11 @@ fun AppNavHost(
             NavBackStackEntry -> RoutineDetailsScreen(NavBackStackEntry.arguments?.getString("title").toString())
         }
 
-        composable("execution"){
-            ExecutionScreen()
+        composable(
+            route = "execution/{title}/execution",
+            arguments = listOf(navArgument("title") { type = NavType.StringType }),
+        ){
+            NavBackStackEntry -> ExecutionScreen(NavBackStackEntry.arguments?.getString("title").toString())
         }
 
         composable("test"){

@@ -28,7 +28,7 @@ import com.example.fitness_first.ui.theme.Secondary
 import com.example.fitness_first.ui.theme.Tertiary
 
 @Composable
-fun ExecutionScreen() {
+fun ExecutionScreen(routineTitle: String) {
     Surface(
         modifier = Modifier.fillMaxSize()
     ){
@@ -57,7 +57,7 @@ fun ExecutionScreen() {
                     Primary
                 )
                 Text(
-                    "Routine-Name",
+                    routineTitle,
                     modifier = Modifier.padding(start = 20.dp),
                     fontSize = 40.sp,
                     color = Color.DarkGray,
