@@ -35,7 +35,10 @@
     <string name="abs">Abs</string>
     <string name="full_body">Full Body</string>
     <string name="back">Back</string>
+
+    <!-- Execution Screen -->
     <string name="exec_next">Next:</string>
+    <string name="exec_description">Description</string>
 
     <!-- My Routines -->
     <string name="my_routines">My Routines</string>
