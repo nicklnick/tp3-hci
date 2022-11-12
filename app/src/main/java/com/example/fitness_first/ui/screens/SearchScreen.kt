@@ -11,6 +11,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.fitness_first.ui.components.BottomBar
+import com.example.fitness_first.ui.components.NavigationDrawer
 import com.example.fitness_first.ui.components.TopBarWFilter
 import com.example.fitness_first.ui.components.topBar
 import com.example.fitness_first.ui.screens.showFilters
@@ -43,7 +44,8 @@ fun SearchScreen(
             onClickFilter = { showFilters(scope = scope, sheetState = sheetState) },
             navController)
         },
-        bottomBar = { BottomBar(navController = navController) }
+        bottomBar = { BottomBar(navController = navController) },
+        drawerContent = { NavigationDrawer(navController)}
     ){
         BottomSheetScaffold(
             scaffoldState = bottomScaffoldState,
