@@ -27,21 +27,21 @@ fun AppNavHost(
     )
     {
 //          - = - = - App screens go here - = - = -
-        composable("landing"){
+        composable(route = "landing"){
             LandingScreen(
                 { navController.navigate("register") },
                 { navController.navigate("login") },
             )
         }
 
-        composable("login"){
+        composable(route = "login"){
             LoginScreen(
                 { navController.navigate("landing") },
                 { navController.navigate("home") },
             )
         }
 
-        composable("register"){
+        composable(route = "register"){
             RegisterScreen(
                 { navController.navigate("landing") },
                 { navController.navigate("home") },
@@ -55,7 +55,7 @@ fun AppNavHost(
             )
         }
         composable(
-            "category/{route}",
+            route = "category/{route}",
             arguments = listOf(navArgument("route") { type = NavType.StringType})
         ) {
             NavBackStackEntry ->
@@ -65,7 +65,7 @@ fun AppNavHost(
             )
         }
         composable(
-            "search/{route}",
+            route = "search/{route}",
             arguments = listOf(navArgument("route") { type = NavType.StringType})
         ){
             NavBackStackEntry ->
