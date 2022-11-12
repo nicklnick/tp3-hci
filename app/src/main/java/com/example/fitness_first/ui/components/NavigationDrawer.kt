@@ -42,7 +42,9 @@ fun NavigationDrawer(navController: NavController) {
         ){
             Card(
                 backgroundColor = Tertiary,
-                modifier = Modifier.size(100.dp).padding(6.dp),
+                modifier = Modifier
+                    .size(100.dp)
+                    .padding(6.dp),
                 contentColor = Color.DarkGray,
                 shape = CircleShape,
             ){
@@ -58,11 +60,16 @@ fun NavigationDrawer(navController: NavController) {
             ) {
                 items(
                     listOf(
-                        NavItem("My Profile", Icons.Filled.AccountCircle,{}),
-                        NavItem("Favorites", Icons.Filled.Favorite,{}),
-                        NavItem("Settings", Icons.Filled.Settings,{}),
-                        NavItem("Help", Icons.Filled.Info,{}),
-                        NavItem("Sign Out", Icons.Filled.ExitToApp,{}),
+                        NavItem("My Profile", Icons.Filled.AccountCircle) { navController.navigate("profile") },
+                        NavItem("My Routines", Icons.Filled.AccountCircle) { navController.navigate("routines") },
+                        NavItem("Favorites", Icons.Filled.Favorite) { navController.navigate("favourites") },
+                        NavItem("Settings", Icons.Filled.Settings) { navController.navigate("settings") },
+                        NavItem("Help", Icons.Filled.Info) { navController.navigate("help") },
+                        NavItem("Sign Out", Icons.Filled.ExitToApp
+                        ) {
+                            // TODO: hacer logout con la API
+                            navController.navigate("landing")
+                        },
                     )
                 ){ item ->
                     Card(

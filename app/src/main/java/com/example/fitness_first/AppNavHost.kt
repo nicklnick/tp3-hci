@@ -108,6 +108,20 @@ fun AppNavHost(
             NavBackStackEntry -> ExecutionScreen(NavBackStackEntry.arguments?.getString("title").toString())
         }
 
+        composable(route = "profile"){
+            MyProfileScreen()
+        }
+
+        composable(route = "settings"){
+            SettingsScreen()
+        }
+
+        composable(route = "help"){
+            HelpScreen()
+        }
+
+
+
         composable("test"){
             TestScreen()
         }
