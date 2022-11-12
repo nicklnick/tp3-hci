@@ -3,14 +3,12 @@ package com.example.fitness_first
 import CategoryScreen
 import FavouritesScreen
 import HomeScreen
+import SearchScreen
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavHostController
-import androidx.navigation.NavType
+import androidx.navigation.*
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
-import androidx.navigation.navDeepLink
 import com.example.fitness_first.ui.components.BottomBarScreen
 import com.example.fitness_first.ui.screens.*
 
@@ -62,6 +60,16 @@ fun AppNavHost(
         ) {
             NavBackStackEntry ->
             CategoryScreen(
+                NavBackStackEntry.arguments?.getString("route").toString(),
+                navController
+            )
+        }
+        composable(
+            "search/{route}",
+            arguments = listOf(navArgument("route") { type = NavType.StringType})
+        ){
+            NavBackStackEntry ->
+            SearchScreen(
                 NavBackStackEntry.arguments?.getString("route").toString(),
                 navController
             )

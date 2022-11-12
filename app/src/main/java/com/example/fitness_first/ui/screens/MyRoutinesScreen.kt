@@ -57,10 +57,12 @@ fun MyRoutinesScreen(
             { scaffoldScope.launch {
                 scaffoldState.drawerState.open()
             }},
-            onClickFilter = { showFilters(scope = scope, sheetState = sheetState)}
+            onClickFilter = { showFilters(scope = scope, sheetState = sheetState)},
+            navController
         ) },
         bottomBar = { BottomBar(navController = navController) },
         drawerContent = { NavigationDrawer(navController) },
+
     ){
         BottomSheetScaffold(
             scaffoldState = bottomScaffoldState,
@@ -107,7 +109,7 @@ fun MyRoutinesScreen(
 }
 
 @Composable
-private fun sortSheet() {
+public fun sortSheet() {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -150,7 +152,7 @@ private fun sortSheet() {
 }
 
 @OptIn(ExperimentalMaterialApi::class)
-private fun showFilters(scope: CoroutineScope, sheetState: BottomSheetState) {
+public fun showFilters(scope: CoroutineScope, sheetState: BottomSheetState) {
     scope.launch {
         if (sheetState.isCollapsed) {
             sheetState.expand()

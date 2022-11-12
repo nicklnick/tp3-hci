@@ -3,6 +3,8 @@ package com.example.fitness_first.ui.components
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
@@ -13,15 +15,19 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import com.example.fitness_first.R
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.fitness_first.R
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.example.fitness_first.ui.theme.Secondary
 import com.example.fitness_first.ui.theme.Tertiary
 
 @Composable
-fun SearchBar() {
+fun SearchBar(navController: NavHostController) {
     var query by remember { mutableStateOf(TextFieldValue("")) }
     TextField(
         modifier = Modifier
@@ -48,5 +54,11 @@ fun SearchBar() {
                 textAlign = TextAlign.Center)
         },
         singleLine = true,
+        keyboardOptions = KeyboardOptions(
+            imeAction = ImeAction.Search
+        ),
+        keyboardActions = KeyboardActions(
+            onSearch = { navController.navigate("search/${query.text}") }
+        )
     )
 }

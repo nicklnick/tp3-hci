@@ -12,10 +12,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.example.fitness_first.ui.theme.Secondary
 
 @Composable
-fun topBar(menuFunc: () -> Unit){
+fun topBar(
+    menuFunc: () -> Unit,
+    navController: NavHostController
+){
     TopAppBar(
         modifier = Modifier.height(128.dp),
         backgroundColor = Color.Transparent,
@@ -47,7 +52,7 @@ fun topBar(menuFunc: () -> Unit){
                 }
 
             }
-            SearchBar()
+            SearchBar(navController)
         }
     }
 }

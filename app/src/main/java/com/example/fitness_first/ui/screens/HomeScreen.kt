@@ -31,11 +31,12 @@ fun HomeScreen(
     val scope = rememberCoroutineScope()
 
     Scaffold(
-        topBar = {topBar {
-            scope.launch {
+        topBar = {topBar(
+            {scope.launch {
                 scaffoldState.drawerState.open()
-            }
-        }
+            }},
+            navController
+        )
         },
         bottomBar = { BottomBar(navController = navController) },
 

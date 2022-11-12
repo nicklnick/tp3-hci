@@ -1,14 +1,12 @@
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -29,22 +27,28 @@ fun CategoryScreen(
     val scope = rememberCoroutineScope()
 
     Scaffold(
-        topBar = {topBar {
-            scope.launch {
+        topBar = {topBar(
+            {scope.launch {
                 scaffoldState.drawerState.open()
-            }
-        }
+            }},
+            navController
+        )
         },
         bottomBar = { BottomBar(navController = navController) },
         scaffoldState = scaffoldState,
         drawerContent = { NavigationDrawer(navController) },
+
     ){
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .background(Color.White),
         ) {
-            Column {
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(6.dp)
+            ) {
                 Text(
                     text = "$muscle Routines",
                     fontSize = MaterialTheme.typography.h4.fontSize,
