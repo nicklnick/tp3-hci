@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import com.example.fitness_first.ui.theme.Secondary
 
 @Composable
-fun TopBarWFilter(onClickFilter: () -> Unit){
+fun TopBarWFilter(onClickMenu:() -> Unit, onClickFilter: () -> Unit){
     TopAppBar(
         modifier = Modifier.height(128.dp),
         backgroundColor = Color.Transparent,
@@ -31,7 +31,7 @@ fun TopBarWFilter(onClickFilter: () -> Unit){
                 horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                IconButton(onClick = { /*TODO*/ }) {
+                IconButton(onClick = onClickMenu) {
                     Icon(
                         Icons.Filled.Menu,
                         contentDescription = "menu",
@@ -39,7 +39,7 @@ fun TopBarWFilter(onClickFilter: () -> Unit){
                         modifier = Modifier.size(38.dp)
                     )
                 }
-                IconButton(onClick = onClickFilter) {
+                IconButton({/* TODO */}) {
                     Icon(
                         Icons.Filled.Person,
                         contentDescription = "settings",

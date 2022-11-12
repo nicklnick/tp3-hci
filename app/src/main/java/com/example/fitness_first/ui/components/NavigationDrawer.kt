@@ -16,7 +16,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.fitness_first.ui.theme.FitnessfirstTheme
+import com.example.fitness_first.ui.theme.Secondary
 import com.example.fitness_first.ui.theme.Tertiary
 
 class NavItem(
@@ -25,55 +27,70 @@ class NavItem(
     val click: () -> Unit,  // event that will occur when clicked (navigation)
 )
 
-@OptIn(ExperimentalMaterialApi::class)          // EEH!?!?
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun NavigationDrawer(nav_items: List<NavItem>) {
-    Column(
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+fun NavigationDrawer(navController: NavController) {
+    Card(
+        modifier =  Modifier.fillMaxSize(),
+        backgroundColor = Secondary
     ){
-        Card(
-            backgroundColor = Tertiary,
-            modifier = Modifier.size(100.dp).padding(6.dp),
-            contentColor = Color.DarkGray,
-            shape = CircleShape,
-        ){
-            Icon(
-                imageVector = Icons.Filled.AccountCircle,
-                contentDescription = "Account",
-                modifier = Modifier.size(50.dp)
-            )
-        }
-        LazyColumn(
+
+        Column(
             verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            items(nav_items){ item ->
-                Card(
-                    backgroundColor = Tertiary,
-                    onClick = item.click,
-                    modifier = Modifier
-                        .width(220.dp)
-                        .height(70.dp)
-                        .padding(6.dp),
-                    contentColor = Color.DarkGray,
-                    shape = RoundedCornerShape(15.dp),
-                ){
-                    Row(
-                        modifier = Modifier.padding(start = 15.dp),
-                        verticalAlignment = Alignment.CenterVertically,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxSize(),
+        ){
+            Card(
+                backgroundColor = Tertiary,
+                modifier = Modifier.size(100.dp).padding(6.dp),
+                contentColor = Color.DarkGray,
+                shape = CircleShape,
+            ){
+                Icon(
+                    imageVector = Icons.Filled.AccountCircle,
+                    contentDescription = "Account",
+                    modifier = Modifier.size(50.dp)
+                )
+            }
+            LazyColumn(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                items(
+                    listOf(
+                        NavItem("My Profile", Icons.Filled.AccountCircle,{}),
+                        NavItem("Favorites", Icons.Filled.Favorite,{}),
+                        NavItem("Settings", Icons.Filled.Settings,{}),
+                        NavItem("Help", Icons.Filled.Info,{}),
+                        NavItem("Sign Out", Icons.Filled.ExitToApp,{}),
+                    )
+                ){ item ->
+                    Card(
+                        backgroundColor = Tertiary,
+                        onClick = item.click,
+                        modifier = Modifier
+                            .width(220.dp)
+                            .height(70.dp)
+                            .padding(6.dp),
+                        contentColor = Color.DarkGray,
+                        shape = RoundedCornerShape(15.dp),
                     ){
-                        Icon(
-                            imageVector = item.icon,
-                            item.name,
-                            Modifier
-                                .size(40.dp)
-                                .padding(end = 10.dp),
-                        )
-                        Text(
-                            item.name,
-                            fontSize = 22.sp
-                        )
+                        Row(
+                            modifier = Modifier.padding(start = 15.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ){
+                            Icon(
+                                imageVector = item.icon,
+                                item.name,
+                                Modifier
+                                    .size(40.dp)
+                                    .padding(end = 10.dp),
+                            )
+                            Text(
+                                item.name,
+                                fontSize = 22.sp
+                            )
+                        }
                     }
                 }
             }
@@ -88,13 +105,7 @@ fun NavigationDrawer(nav_items: List<NavItem>) {
 fun LandingScreenPreview() {
     FitnessfirstTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
-            NavigationDrawer(nav_items = listOf(
-                NavItem("My Profile", Icons.Filled.AccountCircle,{}),
-                NavItem("Favorites", Icons.Filled.Favorite,{}),
-                NavItem("Settings", Icons.Filled.Settings,{}),
-                NavItem("Help", Icons.Filled.Info,{}),
-                NavItem("Sign Out", Icons.Filled.ExitToApp,{}),
-            ))
+            //NavigationDrawer(NavController())
         }
     }
 }

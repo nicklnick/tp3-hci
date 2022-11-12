@@ -18,6 +18,7 @@ import androidx.navigation.NavHostController
 import com.example.fitness_first.R
 import com.example.fitness_first.ui.components.BottomBar
 import com.example.fitness_first.ui.components.DetailedRoutineButton
+import com.example.fitness_first.ui.components.NavigationDrawer
 import com.example.fitness_first.ui.components.TopBarWFilter
 import com.example.fitness_first.ui.theme.Quaternary
 import com.example.fitness_first.ui.theme.Secondary
@@ -39,19 +40,30 @@ fun MyRoutinesScreen(
     routineData: List<BasicRoutineData>,
     navController: NavHostController
 ) {
+    val scope = rememberCoroutineScope()
     val sheetState = rememberBottomSheetState(
         initialValue = BottomSheetValue.Collapsed
     )
-    val scaffoldState = rememberBottomSheetScaffoldState(
+    val bottomScaffoldState = rememberBottomSheetScaffoldState(
         bottomSheetState = sheetState
     )
-    val scope = rememberCoroutineScope()
+    val scaffoldScope = rememberCoroutineScope()
+    val scaffoldState = rememberScaffoldState()
+
+
     Scaffold(
-        topBar = { TopBarWFilter(onClickFilter = { showFilters(scope = scope, sheetState = sheetState)}) },
-        bottomBar = { BottomBar(navController = navController) }
+        scaffoldState = scaffoldState,
+        topBar = { TopBarWFilter(
+            { scaffoldScope.launch {
+                scaffoldState.drawerState.open()
+            }},
+            onClickFilter = { showFilters(scope = scope, sheetState = sheetState)}
+        ) },
+        bottomBar = { BottomBar(navController = navController) },
+        drawerContent = { NavigationDrawer(navController) },
     ){
         BottomSheetScaffold(
-            scaffoldState = scaffoldState,
+            scaffoldState = bottomScaffoldState,
             sheetContent = { sortSheet() },
             sheetBackgroundColor = Quaternary,
             sheetPeekHeight = 0.dp

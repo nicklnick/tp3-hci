@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.example.fitness_first.ui.theme.Secondary
 
 @Composable
-fun topBar(){
+fun topBar(menuFunc: () -> Unit){
     TopAppBar(
         modifier = Modifier.height(128.dp),
         backgroundColor = Color.Transparent,
@@ -29,7 +29,7 @@ fun topBar(){
                 horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                IconButton(onClick = { /*TODO*/ }) {
+                IconButton(onClick = menuFunc) {
                     Icon(
                         Icons.Filled.Menu,
                         contentDescription = "menu",

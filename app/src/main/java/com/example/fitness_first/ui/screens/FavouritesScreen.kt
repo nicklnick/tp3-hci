@@ -3,7 +3,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -14,15 +16,28 @@ import androidx.navigation.NavHostController
 import com.example.fitness_first.ui.components.BottomBar
 import com.example.fitness_first.ui.components.topBar
 import com.example.fitness_first.R
+import com.example.fitness_first.ui.components.NavigationDrawer
 import com.example.fitness_first.ui.theme.Secondary
+import kotlinx.coroutines.launch
 
 @Composable
 fun FavouritesScreen(
     navController: NavHostController
 ) {
+    val scaffoldState = rememberScaffoldState()
+    val scope = rememberCoroutineScope()
+
     Scaffold(
-        topBar = {topBar()},
-        bottomBar = { BottomBar(navController = navController) }
+        topBar = {topBar {
+            scope.launch {
+                scaffoldState.drawerState.open()
+            }
+        }
+        },
+        bottomBar = { BottomBar(navController = navController) },
+
+        scaffoldState = scaffoldState,
+        drawerContent = { NavigationDrawer(navController) },
     ){
         Box(
             modifier = Modifier
