@@ -1,5 +1,6 @@
 package com.example.fitness_first.ui.screens
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -18,6 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.fitness_first.MainViewModel
 import com.example.fitness_first.R
 import com.example.fitness_first.ui.components.BottomBar
 import com.example.fitness_first.ui.components.DetailedRoutineButton
@@ -36,12 +38,14 @@ constructor(name: String, category: String, liked: Boolean, func: (route: String
     val func = func
 }
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun MyRoutinesScreen(
     NavigateToRoutineDetails: (route: String) -> Unit,
     routineData: List<BasicRoutineData>,
-    navController: NavHostController
+    navController: NavHostController,
+    viewModel: MainViewModel
 ) {
     val scope = rememberCoroutineScope()
     val sheetState = rememberBottomSheetState(
@@ -71,7 +75,7 @@ fun MyRoutinesScreen(
                 navController
             ) },
             bottomBar = { BottomBar(navController = navController) },
-            drawerContent = { NavigationDrawer(navController) },
+            drawerContent = { NavigationDrawer(navController,viewModel) },
             backgroundColor = Color.Transparent
         ){
         BottomSheetScaffold(

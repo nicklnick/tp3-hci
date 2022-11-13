@@ -56,7 +56,8 @@ fun AppNavHost(
         composable(route = BottomBarScreen.Home.route){
             HomeScreen(
                 NavigateToCategoryScreen = { route -> navController.navigate("category/$route")},
-                navController
+                navController,
+                viewModel
             )
         }
         composable(
@@ -66,7 +67,8 @@ fun AppNavHost(
             NavBackStackEntry ->
             CategoryScreen(
                 NavBackStackEntry.arguments?.getString("route").toString(),
-                navController
+                navController,
+                viewModel
             )
         }
         composable(
@@ -76,13 +78,15 @@ fun AppNavHost(
             NavBackStackEntry ->
             SearchScreen(
                 NavBackStackEntry.arguments?.getString("route").toString(),
-                navController
+                navController,
+                viewModel
             )
         }
 
         composable(route = BottomBarScreen.Favourites.route){
             FavouritesScreen(
-                navController
+                navController,
+                viewModel
             )
         }
 
@@ -94,7 +98,8 @@ fun AppNavHost(
             MyRoutinesScreen(
                 routineData = data,
                 navController = navController,
-                NavigateToRoutineDetails = { route -> navController.navigate("routine/$route")}
+                NavigateToRoutineDetails = { route -> navController.navigate("routine/$route")},
+                viewModel = viewModel
             )
         }
 

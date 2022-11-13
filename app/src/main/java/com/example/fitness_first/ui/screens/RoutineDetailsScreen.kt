@@ -1,5 +1,6 @@
 package com.example.fitness_first.ui.screens
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -30,6 +31,7 @@ import com.example.fitness_first.ui.theme.Quaternary
 import com.example.fitness_first.ui.theme.Secondary
 import com.example.fitness_first.ui.theme.Tertiary
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun RoutineDetailsScreen(title: String) {
     val scrollState = rememberScrollState()

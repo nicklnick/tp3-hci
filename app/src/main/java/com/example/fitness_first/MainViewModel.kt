@@ -21,7 +21,7 @@ class MainViewModel(
         private set
     var lastGetSportsTimestamp = 0
 
-    fun login(username: String, password: String, func: () -> Unit) = viewModelScope.launch {
+    fun login(username: String, password: String, successFunc: () -> Unit) = viewModelScope.launch {
         uiState = uiState.copy(
             isFetching = true,
             message = null
@@ -33,7 +33,7 @@ class MainViewModel(
                 isFetching = false,
                 isAuthenticated = true
             )
-            func()          // TODO: check!?
+            successFunc()          // TODO: check!?
         }.onFailure { e ->
             // Handle the error and notify the UI when appropriate.
             uiState = uiState.copy(
@@ -43,7 +43,7 @@ class MainViewModel(
         }
     }
 
-    fun logout() = viewModelScope.launch {
+    fun logout(successFunc: () -> Unit) = viewModelScope.launch {
         uiState = uiState.copy(
             isFetching = true,
             message = null
@@ -58,6 +58,7 @@ class MainViewModel(
                 currentSport = null,
                 sports = null
             )
+            successFunc()
         }.onFailure { e ->
             // Handle the error and notify the UI when appropriate.
             uiState = uiState.copy(

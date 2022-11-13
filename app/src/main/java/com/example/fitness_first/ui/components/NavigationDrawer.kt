@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.fitness_first.MainViewModel
 import com.example.fitness_first.ui.theme.FitnessfirstTheme
 import com.example.fitness_first.ui.theme.Secondary
 import com.example.fitness_first.ui.theme.Tertiary
@@ -29,7 +30,10 @@ class NavItem(
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun NavigationDrawer(navController: NavController) {
+fun NavigationDrawer(
+    navController: NavController,
+    viewModel: MainViewModel
+) {
     Card(
         modifier =  Modifier.fillMaxSize(),
         backgroundColor = Secondary
@@ -67,8 +71,9 @@ fun NavigationDrawer(navController: NavController) {
                         NavItem("Help", Icons.Filled.Info) { navController.navigate("help") },
                         NavItem("Sign Out", Icons.Filled.ExitToApp
                         ) {
-                            // TODO: hacer logout con la API
-                            navController.navigate("landing")
+                            viewModel.logout { navController.navigate("landing") }
+                            // TODO: si va demasiado rapido?
+
                         },
                     )
                 ){ item ->

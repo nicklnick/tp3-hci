@@ -1,3 +1,4 @@
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -10,6 +11,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import com.example.fitness_first.MainViewModel
 import com.example.fitness_first.ui.components.BottomBar
 import com.example.fitness_first.ui.components.NavigationDrawer
 import com.example.fitness_first.ui.components.TopBarWFilter
@@ -20,11 +22,13 @@ import com.example.fitness_first.ui.theme.Quaternary
 import com.example.fitness_first.ui.theme.Secondary
 import kotlinx.coroutines.launch
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun SearchScreen(
     query: String,
-    navController: NavHostController
+    navController: NavHostController,
+    viewModel: MainViewModel
 ){
     val scope = rememberCoroutineScope()
     val sheetState = rememberBottomSheetState(
@@ -45,7 +49,7 @@ fun SearchScreen(
             navController)
         },
         bottomBar = { BottomBar(navController = navController) },
-        drawerContent = { NavigationDrawer(navController)}
+        drawerContent = { NavigationDrawer(navController, viewModel)}
     ){
         BottomSheetScaffold(
             scaffoldState = bottomScaffoldState,

@@ -1,3 +1,4 @@
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -17,6 +18,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.fitness_first.MainViewModel
 import com.example.fitness_first.R
 import com.example.fitness_first.ui.components.BottomBar
 import com.example.fitness_first.ui.components.Categories
@@ -26,10 +28,12 @@ import com.example.fitness_first.ui.theme.Secondary
 import kotlinx.coroutines.launch
 
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun HomeScreen(
     NavigateToCategoryScreen: (route: String) -> Unit,
-    navController: NavHostController
+    navController: NavHostController,
+    viewModel: MainViewModel
 ) {
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
@@ -52,7 +56,7 @@ fun HomeScreen(
             bottomBar = { BottomBar(navController = navController) },
 
             scaffoldState = scaffoldState,
-            drawerContent = { NavigationDrawer(navController)},
+            drawerContent = { NavigationDrawer(navController, viewModel)},
 
             backgroundColor = Color.Transparent
 
