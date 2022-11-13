@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -66,11 +67,11 @@ fun RegisterScreen(backFunc: () -> Unit, registerFunc: () -> Unit) {
                         fontSize = 50.sp,
                         color = Color.DarkGray
                     )
-                    GenericInputField(label = stringResource(R.string.reg_email), value = "")
+                    GenericInputField(label = stringResource(R.string.reg_email), value = "", {}, true)
 
-                    GenericInputField(label = stringResource(R.string.reg_user), value = "")
+                    GenericInputField(label = stringResource(R.string.reg_user), value = "", {}, true)
 
-                    GenericInputField(label = stringResource(R.string.reg_password), value = "")
+                    GenericInputField(label = stringResource(R.string.reg_password), value = "", {}, false)
 
                     GenericLongButton(stringResource(R.string.reg_continue),  { registerFunc() } )
                 }

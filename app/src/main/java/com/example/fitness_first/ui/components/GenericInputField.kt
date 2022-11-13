@@ -9,15 +9,19 @@ import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.fitness_first.ui.theme.Sand
 
 @Composable
-fun GenericInputField(label: String, value: String){
+fun GenericInputField(label: String, value: String, onValueChanged: (String) -> Unit, showText: Boolean){
     OutlinedTextField(
         value = value,
-        onValueChange = {},
+        onValueChange = onValueChanged,
+        visualTransformation = if(showText) VisualTransformation.None else PasswordVisualTransformation(),
         label = { Text(label, fontSize = 20.sp) },
         shape = RoundedCornerShape(30.dp),
         modifier = Modifier

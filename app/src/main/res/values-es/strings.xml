@@ -15,7 +15,7 @@
 
     <!--  Login screen  -->
     <string name="login_title">Ingresar</string>
-    <string name="login_user">Email o Nombre de Usuario</string>
+    <string name="login_user">Nombre de Usuario</string>
     <string name="login_password">Contraseña</string>
     <string name="login_continue">Siguiente</string>
 

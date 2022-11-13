@@ -47,9 +47,9 @@ fun RowScope.addItem(
     navController: NavHostController
 ){
     BottomNavigationItem(
-//        label = {
-//            Text(text = screen.title)
-//        },
+        label = {
+            Text(text = screen.title)
+        },
         icon = {
             Icon(
                 imageVector = screen.icon,

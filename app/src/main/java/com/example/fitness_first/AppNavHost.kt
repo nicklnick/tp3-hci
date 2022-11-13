@@ -11,12 +11,14 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.fitness_first.ui.components.BottomBarScreen
 import com.example.fitness_first.ui.screens.*
+import com.example.fitness_first.util.getViewModelFactory
 
 
 @Composable
 fun AppNavHost(
     navController: NavHostController = rememberNavController(),
     startDestination: String = "landing",
+    viewModel: MainViewModel = androidx.lifecycle.viewmodel.compose.viewModel(factory = getViewModelFactory())
 ) {
     val uri = "http://fitness-first.com"
     val secureUri = "https://fitness-first.com"
@@ -31,6 +33,8 @@ fun AppNavHost(
             LandingScreen(
                 { navController.navigate("register") },
                 { navController.navigate("login") },
+                { navController.navigate("home") },
+                viewModel
             )
         }
 
@@ -38,6 +42,7 @@ fun AppNavHost(
             LoginScreen(
                 { navController.navigate("landing") },
                 { navController.navigate("home") },
+                viewModel
             )
         }
 

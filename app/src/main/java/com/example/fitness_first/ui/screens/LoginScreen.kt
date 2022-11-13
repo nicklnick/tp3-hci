@@ -8,16 +8,20 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.fitness_first.MainViewModel
 import com.example.fitness_first.R
 import com.example.fitness_first.ui.components.GenericInputField
 import com.example.fitness_first.ui.components.GenericLongButton
@@ -25,9 +29,17 @@ import com.example.fitness_first.ui.components.IconFAB
 import com.example.fitness_first.ui.theme.FitnessfirstTheme
 import com.example.fitness_first.ui.theme.Primary
 import com.example.fitness_first.ui.theme.Quaternary
+import com.example.fitness_first.util.getViewModelFactory
 
 @Composable
-fun LoginScreen(backFunc: () -> Unit, loginFunc: () -> Unit) {
+fun LoginScreen(backFunc: () -> Unit, loginFunc: () -> Unit, viewModel: MainViewModel) {
+
+    if(viewModel.uiState.isAuthenticated)
+        loginFunc()
+
+    var user by rememberSaveable { mutableStateOf("")}
+    var password by rememberSaveable { mutableStateOf("")}
+
     Surface(
         modifier = Modifier.fillMaxSize(),
     ){
@@ -66,25 +78,18 @@ fun LoginScreen(backFunc: () -> Unit, loginFunc: () -> Unit) {
                         fontSize = 50.sp,
                         color = Color.DarkGray
                     )
-                    GenericInputField(label = stringResource(R.string.login_user), value = "")
+                    GenericInputField(label = stringResource(R.string.login_user), value = user, {user = it }, true)
 
-                    GenericInputField(label = stringResource(R.string.login_password), value = "")
+                    GenericInputField(label = stringResource(R.string.login_password), value = password, {password = it }, false)
 
-                    GenericLongButton(stringResource(R.string.login_continue), { loginFunc() } )
+                    GenericLongButton(stringResource(R.string.login_continue)) {
+                        viewModel.login(user,password, loginFunc)
+                    }
                 }
 
 
             }
 
         }
-    }
-}
-
-
-@Preview(showBackground = true)
-@Composable
-fun LoginScreenPreview() {
-    FitnessfirstTheme {
-        LoginScreen({},{})
     }
 }
