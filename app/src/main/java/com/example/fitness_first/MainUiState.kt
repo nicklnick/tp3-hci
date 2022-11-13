@@ -1,5 +1,6 @@
 package com.example.fitness_first
 
+import com.example.fitness_first.data.model.Exercise
 import com.example.fitness_first.data.model.Sport
 import com.example.fitness_first.data.model.User
 
@@ -7,8 +8,13 @@ data class MainUiState(
     val isAuthenticated: Boolean = false,
     val isFetching: Boolean = false,
     val currentUser: User? = null,
+
     val sports: List<Sport>? = null,
     val currentSport: Sport? = null,
+
+    val exercises: List<Exercise>? = null,
+    val currentExercise: Exercise? = null,
+
     val message: String? = null
 )
 
