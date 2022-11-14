@@ -38,67 +38,30 @@ fun topBar(
             .height(128.dp)
             .fillMaxWidth(),
         backgroundColor = Color.Transparent,
-        elevation = 0.dp
+        elevation = 0.dp,
+        contentPadding = PaddingValues(0.dp),
     ) {
-        Column(
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Box(modifier = Modifier.fillMaxWidth()){
-                Image(
-                    painter = painterResource(id = R.drawable.tp_bkg1),
-                    contentDescription = null,
-                    contentScale = ContentScale.FillWidth,
-                    modifier = Modifier.fillMaxWidth()
-                )
+            Column(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                UpperBar(menuFunc = menuFunc, navController = navController, viewModel = viewModel)
                 Row(
-                    horizontalArrangement = Arrangement.SpaceBetween,
                     modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly,
                     verticalAlignment = Alignment.CenterVertically
-                    ) {
-                    IconButton(onClick = menuFunc) {
-                        Icon(
-                            Icons.Filled.Menu,
-                            contentDescription = "menu",
-                            tint = Secondary,
-                            modifier = Modifier.size(38.dp)
-                        )
-                    }
-                    OutlinedButton(
-                        modifier = Modifier.size(50.dp),
-                        onClick = {
-                            viewModel.getCurrentUser()
-                            navController.navigate("profile")
-                        },
-                        shape = CircleShape,
-                        colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.White),
-                        contentPadding = PaddingValues(0.dp)
-                    ) {
-                        Icon(
-                            Icons.Filled.Person,
-                            contentDescription = "settings",
-                            tint = Secondary,
-                            modifier = Modifier.size(38.dp)
-                        )
-                    }
-                }
-            }
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceEvenly,
-                verticalAlignment = Alignment.CenterVertically
-            ){
-                SearchBar(navController, viewModel)
-                Button(
-                    shape = CircleShape,
-                    modifier = Modifier.size(50.dp),
-                    onClick = NavigateToAllRoutinesScreen
                 ){
-                    Text(text = stringResource(R.string.seeAll), fontSize = 9.sp, color = Color.Black)
+                    SearchBar(navController, viewModel)
+                    Button(
+                        shape = CircleShape,
+                        modifier = Modifier.size(50.dp),
+                        onClick = NavigateToAllRoutinesScreen
+                    ){
+                        Text(text = stringResource(R.string.seeAll), fontSize = 9.sp, color = Color.Black)
+                    }
                 }
-            }
 
+            }
         }
-    }
 }

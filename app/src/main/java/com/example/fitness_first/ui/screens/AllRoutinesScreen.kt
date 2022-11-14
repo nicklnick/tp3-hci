@@ -46,12 +46,12 @@ fun AllRoutinesScreen(
     )
     val scaffoldState = rememberScaffoldState()
     Box{
-        Image(
-            painter = painterResource(id = R.drawable.bkg5),
-            contentDescription = null,
-            contentScale = ContentScale.FillBounds,
-            modifier = Modifier.fillMaxSize()
-        )
+//        Image(
+//            painter = painterResource(id = R.drawable.bkg5),
+//            contentDescription = null,
+//            contentScale = ContentScale.FillBounds,
+//            modifier = Modifier.fillMaxSize()
+//        )
         Scaffold(
             scaffoldState = scaffoldState,
             topBar = { TopBarWFilter(

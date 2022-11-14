@@ -32,50 +32,14 @@ fun TopBarWFilter(
     TopAppBar(
         modifier = Modifier.height(128.dp),
         backgroundColor = Color.Transparent,
-        elevation = 0.dp
+        elevation = 0.dp,
+        contentPadding = PaddingValues(0.dp),
     ) {
         Column(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Box(modifier = Modifier.fillMaxWidth()){
-                Image(
-                    painter = painterResource(id = R.drawable.tp_bkg1),
-                    contentDescription = null,
-                    contentScale = ContentScale.FillWidth,
-                    modifier = Modifier.fillMaxWidth()
-                )
-                Row(
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    IconButton(onClick = onClickMenu) {
-                        Icon(
-                            Icons.Filled.Menu,
-                            contentDescription = "menu",
-                            tint = Secondary,
-                            modifier = Modifier.size(38.dp)
-                        )
-                    }
-                    OutlinedButton(
-                        modifier = Modifier.size(50.dp),
-                        onClick = {
-                            viewModel.getCurrentUser()
-                            navController.navigate("profile")
-                                  },
-                        shape = CircleShape,
-                        colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.White),
-                        contentPadding = PaddingValues(0.dp)
-                    ) {
-                        Icon(
-                            Icons.Filled.Person,
-                            contentDescription = "settings",
-                            tint = Secondary,
-                            modifier = Modifier.size(38.dp)
-                        )
-                    }
-                }
-            }
+            UpperBar(menuFunc = onClickMenu, navController = navController, viewModel = viewModel)
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
