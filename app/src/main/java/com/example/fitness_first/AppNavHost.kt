@@ -120,7 +120,7 @@ fun AppNavHost(
         }
 
         composable(route = "profile"){
-            MyProfileScreen()
+            MyProfileScreen(viewModel)
         }
 
         composable(route = "settings"){

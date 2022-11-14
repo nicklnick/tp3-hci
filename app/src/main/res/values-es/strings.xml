@@ -59,5 +59,9 @@
     <!-- Home -->
     <string name="seeAll">Ver Todas</string>
     <string name="allRoutines">Todas las Rutinas</string>
+    <string name="profile_name">Nombre</string>
+    <string name="profile_surname">Apellido</string>
+    <string name="profile_username">Nombre de Usuario</string>
+    <string name="profile_email">Email</string>
 
 </resources>

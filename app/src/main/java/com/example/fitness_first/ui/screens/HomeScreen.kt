@@ -33,12 +33,12 @@ fun HomeScreen(
 
 
     Box(){
-        Image(
-            painter = painterResource(id = R.drawable.bkg5),
-            contentDescription = null,
-            contentScale = ContentScale.FillBounds,
-            modifier = Modifier.fillMaxSize()
-        )
+//        Image(
+//            painter = painterResource(id = R.drawable.bkg5),
+//            contentDescription = null,
+//            contentScale = ContentScale.FillBounds,
+//            modifier = Modifier.fillMaxSize()
+//        )
         Scaffold(
             topBar = {topBar(
                 {scope.launch {
@@ -50,12 +50,9 @@ fun HomeScreen(
             )
             },
             bottomBar = { BottomBar(navController = navController) },
-
             scaffoldState = scaffoldState,
             drawerContent = { NavigationDrawer(navController, viewModel)},
-
             backgroundColor = Color.Transparent
-
             ){
             Box(
                 modifier = Modifier

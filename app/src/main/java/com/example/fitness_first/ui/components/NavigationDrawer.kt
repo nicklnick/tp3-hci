@@ -64,7 +64,10 @@ fun NavigationDrawer(
             ) {
                 items(
                     listOf(
-                        NavItem("My Profile", Icons.Filled.AccountCircle) { navController.navigate("profile") },
+                        NavItem("My Profile", Icons.Filled.AccountCircle) {
+                            viewModel.getCurrentUser()
+                            navController.navigate("profile")
+                        },
                         NavItem("My Routines", Icons.Filled.AccountCircle) { navController.navigate("routines") },
                         NavItem("Favorites", Icons.Filled.Favorite) { navController.navigate("favourites") },
                         NavItem("Settings", Icons.Filled.Settings) { navController.navigate("settings") },
@@ -72,8 +75,6 @@ fun NavigationDrawer(
                         NavItem("Sign Out", Icons.Filled.ExitToApp
                         ) {
                             viewModel.logout { navController.navigate("landing") }
-                            // TODO: si va demasiado rapido?
-
                         },
                     )
                 ){ item ->
