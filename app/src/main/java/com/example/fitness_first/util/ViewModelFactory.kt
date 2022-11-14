@@ -17,6 +17,8 @@ class ViewModelFactory constructor(
     private val reviewRepository: ReviewRepository,
     private val categoryRepository: CategoryRepository,
     private val favouriteRepository: FavouriteRepository,
+    private val routinesCyclesRepository: RoutinesCyclesRepository,
+    private val cyclesExercisesRepository: CyclesExercisesRepository,
     owner: SavedStateRegistryOwner,
     defaultArgs: Bundle? = null
 ) : AbstractSavedStateViewModelFactory(owner, defaultArgs) {
@@ -28,7 +30,9 @@ class ViewModelFactory constructor(
     ) = with(modelClass) {
         when {
             isAssignableFrom(MainViewModel::class.java) ->
-                MainViewModel(sessionManager, userRepository, sportRepository, exerciseRepository, routineRepository, reviewRepository, categoryRepository, favouriteRepository)
+                MainViewModel(sessionManager, userRepository, sportRepository, exerciseRepository,
+                    routineRepository, reviewRepository, categoryRepository, favouriteRepository,
+                routinesCyclesRepository, cyclesExercisesRepository)
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

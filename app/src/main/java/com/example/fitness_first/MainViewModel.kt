@@ -21,7 +21,9 @@ class MainViewModel(
     private val routineRepository: RoutineRepository,
     private val reviewRepository: ReviewRepository,
     private val categoryRepository: CategoryRepository,
-    private val favouriteRepository: FavouriteRepository
+    private val favouriteRepository: FavouriteRepository,
+    private val routinesCyclesRepository: RoutinesCyclesRepository,
+    private val cyclesExercisesRepository: CyclesExercisesRepository
     ) : ViewModel() {
 
     var uiState by mutableStateOf(MainUiState(isAuthenticated = sessionManager.loadAuthToken() != null))
@@ -432,4 +434,44 @@ class MainViewModel(
             )
         }
     }
+
+    fun getRoutinesCycles(routineId: Int) = viewModelScope.launch {
+        uiState = uiState.copy(
+            isFetching = true,
+            message = null
+        )
+        runCatching {
+            routinesCyclesRepository.getRoutineCycles(routineId = routineId, refresh = true)
+        }.onSuccess { response ->
+            uiState = uiState.copy(
+                isFetching = false,
+                routinesCycles = response
+            )
+        }.onFailure {  e ->
+            uiState = uiState.copy(
+                message = e.message,
+                isFetching = false
+            )
+        }
+    }
+
+    suspend fun getCycleExercises(cycleId: Int) = viewModelScope.launch {
+        uiState = uiState.copy(
+            isFetching = true,
+            message = null
+        )
+        runCatching {
+            cyclesExercisesRepository.getCycleExercises(cycleId = cycleId)
+        }.onSuccess { response ->
+            uiState = uiState.copy(
+                isFetching = false,
+                cycleExercises = response
+            )
+        }.onFailure {  e ->
+            uiState = uiState.copy(
+                message = e.message,
+                isFetching = false
+            )
+        }
+    }.join()
 }
