@@ -3,7 +3,6 @@ package com.example.fitness_first
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fitness_first.data.model.Category
@@ -475,13 +474,13 @@ class MainViewModel(
         }
     }
 
-    suspend fun getCycleExercises(cycleId: Int) = viewModelScope.launch {
+    fun getCycleExercises(cycleId: Int) = viewModelScope.launch {
         uiState = uiState.copy(
             isFetching = true,
             message = null
         )
         runCatching {
-            cyclesExercisesRepository.getCycleExercises(cycleId = cycleId)
+            cyclesExercisesRepository.getCycleExercises(cycleId = cycleId, refresh = true)
         }.onSuccess { response ->
             uiState = uiState.copy(
                 isFetching = false,
@@ -493,6 +492,34 @@ class MainViewModel(
                 isFetching = false
             )
         }
-    }.join()
+    }
+
+    fun getRoutineDetails(routineId: Int) = viewModelScope.launch {
+        uiState.cycleDataList = emptyList()
+
+        uiState = uiState.copy(
+            isFetching = true,
+            message = null
+        )
+
+        runCatching {
+            getRoutinesCycles(routineId).join()
+
+            for(cycle in uiState.routinesCycles!!) {
+                getCycleExercises(cycle.id).join()
+
+                uiState.cycleDataList = uiState.cycleDataList!!.plus(CycleData(cycle.name, cycle.repetitions, uiState.cycleExercises!!))
+            }
+        }.onSuccess {
+            uiState = uiState.copy(
+                isFetching = false
+            )
+        }.onFailure { e ->
+            uiState = uiState.copy(
+                message = e.message,
+                isFetching = false
+            )
+        }
+    }
 }
 
