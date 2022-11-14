@@ -22,7 +22,9 @@ data class MainUiState(
     val currentReview: Review? = null,
 
     val categories: List<Category>? = null,
-    val currentCategory: Category? = null
+    val currentCategory: Category? = null,
+
+    val favouriteRoutines: List<Routine>? = null
 )
 
 

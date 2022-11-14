@@ -54,7 +54,8 @@ fun HomeScreen(
                     scaffoldState.drawerState.open()
                 }},
                 navController,
-                viewModel
+                viewModel,
+                NavigateToAllRoutinesScreen
             )
             },
             bottomBar = { BottomBar(navController = navController) },
@@ -70,28 +71,13 @@ fun HomeScreen(
                     .fillMaxSize()
             ) {
                 Column {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = "Categories",
-                            fontSize = MaterialTheme.typography.h5.fontSize,
-                            fontWeight = FontWeight.Bold,
-                            color = Secondary,
-                            modifier = Modifier.padding(start = 20.dp, top = 5.dp)
-                        )
-                        Text(
-                            text = stringResource(R.string.seeAll),
-                            fontSize = 20.sp,
-                            color =  Secondary,
-                            style = TextStyle(textDecoration = TextDecoration.Underline),
-                            modifier = Modifier.clickable { NavigateToAllRoutinesScreen() }.padding(end = 15.dp)
-
-                        )
-                    }
-
+                    Text(
+                        text = "Categories",
+                        fontSize = MaterialTheme.typography.h5.fontSize,
+                        fontWeight = FontWeight.Bold,
+                        color = Secondary,
+                        modifier = Modifier.padding(start = 20.dp, top = 5.dp)
+                    )
                     CategoryRow(
                         categories = listOf(
                             Categories.Bicep,

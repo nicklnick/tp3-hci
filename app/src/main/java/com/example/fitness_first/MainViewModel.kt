@@ -20,7 +20,8 @@ class MainViewModel(
     private val exerciseRepository: ExerciseRepository,
     private val routineRepository: RoutineRepository,
     private val reviewRepository: ReviewRepository,
-    private val categoryRepository: CategoryRepository
+    private val categoryRepository: CategoryRepository,
+    private val favouriteRepository: FavouriteRepository
     ) : ViewModel() {
 
     var uiState by mutableStateOf(MainUiState(isAuthenticated = sessionManager.loadAuthToken() != null))
@@ -28,6 +29,7 @@ class MainViewModel(
 
     init {
         getRoutines()
+        getFavourites()
     }
 
     fun login(username: String, password: String, successFunc: () -> Unit) = viewModelScope.launch {
@@ -275,9 +277,9 @@ class MainViewModel(
                 reviews = response
             )
         }.onFailure { e ->
-            uiState = uiState.copy(
-                message = e.message,
-                isFetching = false
+        uiState = uiState.copy(
+            message = e.message,
+            isFetching = false
             )
         }
     }
@@ -370,5 +372,64 @@ class MainViewModel(
                 isFetching = false)
         }
     }
+    fun getFavourites() = viewModelScope.launch {
+        uiState = uiState.copy(
+            isFetching = true,
+            message = null
+        )
+        runCatching {
+            favouriteRepository.getFavourites()
+        }.onSuccess { response ->
+            uiState = uiState.copy(
+                isFetching = false,
+                favouriteRoutines = response
+            )
+        }.onFailure { e ->
+            uiState = uiState.copy(
+                message = e.message,
+                isFetching = false
+            )
+        }
+    }
 
+    fun markFavourite(routineId: Int) = viewModelScope.launch {
+        uiState = uiState.copy(
+            isFetching = true,
+            message = null
+        )
+        runCatching {
+            favouriteRepository.markFavourite(routineId)
+        }.onSuccess { response ->
+            uiState = uiState.copy(
+                isFetching = false,
+            )
+            getFavourites()
+        }.onFailure { e ->
+            uiState = uiState.copy(
+                message = e.message,
+                isFetching = false
+            )
+        }
+
+    }
+
+    fun deleteFavourite(routineId: Int) = viewModelScope.launch {
+        uiState = uiState.copy(
+            isFetching = true,
+            message = null
+        )
+        runCatching {
+            favouriteRepository.removeFavourite(routineId)
+        }.onSuccess { response ->
+            uiState = uiState.copy(
+                isFetching = false,
+            )
+            getFavourites()
+        }.onFailure { e ->
+            uiState = uiState.copy(
+                message = e.message,
+                isFetching = false
+            )
+        }
+    }
 }

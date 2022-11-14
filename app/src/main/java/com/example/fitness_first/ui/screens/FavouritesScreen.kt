@@ -2,6 +2,7 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -13,13 +14,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.fitness_first.MainViewModel
-import com.example.fitness_first.ui.components.BottomBar
-import com.example.fitness_first.ui.components.topBar
 import com.example.fitness_first.R
-import com.example.fitness_first.ui.components.NavigationDrawer
-import com.example.fitness_first.ui.components.TopBarWFilter
+import com.example.fitness_first.ui.components.*
 import com.example.fitness_first.ui.screens.showFilters
 import com.example.fitness_first.ui.screens.sortSheet
 import com.example.fitness_first.ui.theme.Quaternary
@@ -86,6 +85,41 @@ fun FavouritesScreen(
                             color = Secondary,
                             modifier = Modifier.padding(start = 10.dp, top = 5.dp)
                         )
+                        if(viewModel.uiState.isFetching){
+                            Column(
+                                modifier = Modifier.fillMaxSize(),
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.Center
+                            ) {
+                                Text(
+                                    text = "Loading...",
+                                    fontSize = 16.sp
+                                )
+                            }
+                        }
+                        else{
+                            val favList = viewModel.uiState.favouriteRoutines.orEmpty()
+                            LazyColumn(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.spacedBy(space = 8.dp)
+                            ){
+                                items(
+                                    count = favList.size,
+                                    key = { index ->
+                                        favList[index].id.toString()
+                                    }
+                                ){
+                                        index -> DetailedRoutineButton(
+                                    name = favList[index].name.toString(),
+                                    category = favList[index].category.name.toString(),
+                                    liked = true,
+                                    func = { /*TODO*/ },
+                                    likeFunc = {viewModel.deleteFavourite(favList[index].id)}
+                                    )
+                                }
+                            }
+                        }
                     }
                 }
             }

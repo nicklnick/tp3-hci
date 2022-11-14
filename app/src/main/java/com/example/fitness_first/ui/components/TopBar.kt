@@ -12,17 +12,23 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.fitness_first.MainViewModel
+import com.example.fitness_first.R
+import com.example.fitness_first.ui.theme.Primary
 import com.example.fitness_first.ui.theme.Secondary
 
 @Composable
 fun topBar(
     menuFunc: () -> Unit,
     navController: NavHostController,
-    viewModel: MainViewModel
+    viewModel: MainViewModel,
+    NavigateToAllRoutinesScreen: () -> Unit
 ){
     TopAppBar(
         modifier = Modifier
@@ -68,7 +74,21 @@ fun topBar(
             Divider(color = Color.Gray, thickness = 2.dp, modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 5.dp, bottom = 10.dp))
-            SearchBar(navController, viewModel)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                verticalAlignment = Alignment.CenterVertically
+            ){
+                SearchBar(navController, viewModel)
+                Button(
+                    shape = CircleShape,
+                    modifier = Modifier.size(50.dp),
+                    onClick = NavigateToAllRoutinesScreen
+                ){
+                    Text(text = stringResource(R.string.seeAll), fontSize = 9.sp, color = Color.Black)
+                }
+            }
+
         }
     }
 }

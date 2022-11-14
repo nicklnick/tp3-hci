@@ -26,6 +26,9 @@ class MyApplication : Application() {
     private val categoryRemoteDataSource: CategoryRemoteDataSource
         get() = CategoryRemoteDataSource(RetrofitClient.getApiCategoryService(this))
 
+    private val favouriteRemoteDataSource: FavouriteRemoteDataSource
+        get() = FavouriteRemoteDataSource(RetrofitClient.getApiFavouriteService(this))
+
     val sessionManager: SessionManager
         get() = SessionManager(this)
 
@@ -46,4 +49,7 @@ class MyApplication : Application() {
 
     val categoryRepository: CategoryRepository
         get() = CategoryRepository(categoryRemoteDataSource)
+
+    val favouriteRepository: FavouriteRepository
+        get() = FavouriteRepository(favouriteRemoteDataSource)
 }
