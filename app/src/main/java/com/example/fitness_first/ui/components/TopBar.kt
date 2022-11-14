@@ -15,12 +15,14 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import com.example.fitness_first.MainViewModel
 import com.example.fitness_first.ui.theme.Secondary
 
 @Composable
 fun topBar(
     menuFunc: () -> Unit,
-    navController: NavHostController
+    navController: NavHostController,
+    viewModel: MainViewModel
 ){
     TopAppBar(
         modifier = Modifier
@@ -66,7 +68,7 @@ fun topBar(
             Divider(color = Color.Gray, thickness = 2.dp, modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 5.dp, bottom = 10.dp))
-            SearchBar(navController)
+            SearchBar(navController, viewModel)
         }
     }
 }

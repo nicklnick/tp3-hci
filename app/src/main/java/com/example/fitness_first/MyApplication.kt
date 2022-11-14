@@ -6,6 +6,8 @@ import com.example.fitness_first.data.network.SportRemoteDataSource
 import com.example.fitness_first.data.network.UserRemoteDataSource
 import com.example.fitness_first.data.network.api.RetrofitClient
 import com.example.fitness_first.data.repository.ExerciseRepository
+import com.example.fitness_first.data.network.RoutineRemoteDataSource
+import com.example.fitness_first.data.repository.RoutineRepository
 import com.example.fitness_first.data.repository.SportRepository
 import com.example.fitness_first.data.repository.UserRepository
 import com.example.fitness_first.util.SessionManager
@@ -21,6 +23,9 @@ class MyApplication : Application() {
     private val exerciseRemoteDataSource: ExerciseRemoteDataSource
         get() = ExerciseRemoteDataSource(RetrofitClient.getApiExerciseService(this))
 
+    private val routineRemoteDataSource: RoutineRemoteDataSource
+        get() = RoutineRemoteDataSource(RetrofitClient.getApiRoutineService(this))
+
     val sessionManager: SessionManager
         get() = SessionManager(this)
 
@@ -32,4 +37,7 @@ class MyApplication : Application() {
 
     val exerciseRepository: ExerciseRepository
         get() = ExerciseRepository(exerciseRemoteDataSource)
+
+    val routineRepository: RoutineRepository
+        get() = RoutineRepository(routineRemoteDataSource)
 }

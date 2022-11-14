@@ -23,11 +23,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import com.example.fitness_first.MainViewModel
 import com.example.fitness_first.ui.theme.Secondary
 import com.example.fitness_first.ui.theme.Tertiary
 
 @Composable
-fun SearchBar(navController: NavHostController) {
+fun SearchBar(navController: NavHostController, viewModel: MainViewModel) {
     var query by remember { mutableStateOf(TextFieldValue("")) }
     TextField(
         modifier = Modifier
@@ -58,7 +59,7 @@ fun SearchBar(navController: NavHostController) {
             imeAction = ImeAction.Search
         ),
         keyboardActions = KeyboardActions(
-            onSearch = { navController.navigate("search/${query.text}") }
+            onSearch = { navController.navigate("search/${query.text}");viewModel.getRoutinesWName(query = query.text) }
         )
     )
 }

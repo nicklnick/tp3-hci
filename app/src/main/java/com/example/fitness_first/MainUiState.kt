@@ -1,6 +1,7 @@
 package com.example.fitness_first
 
 import com.example.fitness_first.data.model.Exercise
+import com.example.fitness_first.data.model.Routine
 import com.example.fitness_first.data.model.Sport
 import com.example.fitness_first.data.model.User
 
@@ -15,8 +16,12 @@ data class MainUiState(
     val exercises: List<Exercise>? = null,
     val currentExercise: Exercise? = null,
 
-    val message: String? = null
+    val message: String? = null,
+    val routines: List<Routine>? = null,
+    val searchRoutines: List<Routine>? = null,
+    val currentRoutine: Routine? = null
 )
+
 
 val MainUiState.canGetCurrentUser: Boolean get() = isAuthenticated
 val MainUiState.canGetAllSports: Boolean get() = isAuthenticated

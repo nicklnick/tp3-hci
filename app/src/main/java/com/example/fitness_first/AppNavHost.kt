@@ -57,7 +57,8 @@ fun AppNavHost(
             HomeScreen(
                 NavigateToCategoryScreen = { route -> navController.navigate("category/$route")},
                 navController,
-                viewModel
+                viewModel,
+                NavigateToAllRoutinesScreen = { -> navController.navigate("allRoutines") }
             )
         }
         composable(
@@ -128,6 +129,13 @@ fun AppNavHost(
 
         composable(route = "help"){
             HelpScreen()
+        }
+
+        composable("allRoutines"){
+            AllRoutinesScreen(
+                navController,
+                viewModel
+            )
         }
 
 

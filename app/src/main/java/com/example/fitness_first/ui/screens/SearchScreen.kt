@@ -1,6 +1,7 @@
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -9,13 +10,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.fitness_first.MainViewModel
-import com.example.fitness_first.ui.components.BottomBar
-import com.example.fitness_first.ui.components.NavigationDrawer
-import com.example.fitness_first.ui.components.TopBarWFilter
-import com.example.fitness_first.ui.components.topBar
+import com.example.fitness_first.ui.components.*
 import com.example.fitness_first.ui.screens.showFilters
 import com.example.fitness_first.ui.screens.sortSheet
 import com.example.fitness_first.ui.theme.Quaternary
@@ -46,7 +45,9 @@ fun SearchScreen(
                 scaffoldState.drawerState.open()
             }},
             onClickFilter = { showFilters(scope = scope, sheetState = sheetState) },
-            navController)
+            navController,
+            viewModel
+        )
         },
         bottomBar = { BottomBar(navController = navController) },
         drawerContent = { NavigationDrawer(navController, viewModel)}
@@ -74,6 +75,41 @@ fun SearchScreen(
                         color = Secondary,
                         modifier = Modifier.padding(start = 10.dp, top = 5.dp)
                     )
+                    if(viewModel.uiState.isFetching){
+                        Column(
+                            modifier = Modifier.fillMaxSize(),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
+                        ) {
+                            Text(
+                                text = "Loading...",
+                                fontSize = 16.sp
+                            )
+                        }
+                    }
+                    else{
+                        val list = viewModel.uiState.searchRoutines.orEmpty()
+                        LazyColumn(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.spacedBy(space = 8.dp)
+                        ){
+                            items(
+                                count = list.size,
+                                key = { index ->
+                                    list[index].id.toString()
+                                }
+                            ){
+                                    index -> DetailedRoutineButton(
+                                name = list[index].name.toString(),
+                                category = list[index].category.name.toString(),
+                                liked = false,
+                                func = { /*TODO*/ },
+                                likeFunc = {}
+                            )
+                            }
+                        }
+                    }
                 }
             }
         }

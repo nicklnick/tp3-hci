@@ -55,7 +55,8 @@ fun FavouritesScreen(
                     scaffoldState.drawerState.open()
                 }},
                 onClickFilter = { showFilters(scope = scope, sheetState = sheetState) },
-                navController
+                navController,
+                viewModel
             )
             },
             bottomBar = { BottomBar(navController = navController) },

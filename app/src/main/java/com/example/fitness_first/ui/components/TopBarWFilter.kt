@@ -17,13 +17,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import com.example.fitness_first.MainViewModel
 import com.example.fitness_first.ui.theme.Secondary
 
 @Composable
 fun TopBarWFilter(
     onClickMenu:() -> Unit,
     onClickFilter: () -> Unit,
-    navController: NavHostController
+    navController: NavHostController,
+    viewModel: MainViewModel
 ){
     TopAppBar(
         modifier = Modifier.height(128.dp),
@@ -63,7 +65,7 @@ fun TopBarWFilter(
                 horizontalArrangement = Arrangement.SpaceAround,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                SearchBar(navController)
+                SearchBar(navController, viewModel)
                 IconFAB(
                     icon = Icons.Filled.List,
                     func = onClickFilter,

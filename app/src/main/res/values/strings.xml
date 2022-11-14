@@ -56,4 +56,10 @@
     <!-- Components -->
     <string name="search">Search</string>
 
+    <!-- Home -->
+    <string name="seeAll">see all</string>
+    <string name="allRoutines">All Routines</string>
+
+
+
 </resources>

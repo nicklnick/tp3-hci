@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fitness_first.data.model.Sport
 import com.example.fitness_first.data.repository.ExerciseRepository
+import com.example.fitness_first.data.repository.RoutineRepository
 import com.example.fitness_first.data.repository.SportRepository
 import com.example.fitness_first.data.repository.UserRepository
 import com.example.fitness_first.util.SessionManager
@@ -16,11 +17,16 @@ class MainViewModel(
     private val sessionManager: SessionManager,
     private val userRepository: UserRepository,
     private val sportRepository: SportRepository,
-    private val exerciseRepository: ExerciseRepository
+    private val exerciseRepository: ExerciseRepository,
+    private val routineRepository: RoutineRepository
     ) : ViewModel() {
 
     var uiState by mutableStateOf(MainUiState(isAuthenticated = sessionManager.loadAuthToken() != null))
         private set
+
+    init {
+        getRoutines()
+    }
 
     fun login(username: String, password: String, successFunc: () -> Unit) = viewModelScope.launch {
         uiState = uiState.copy(
@@ -173,7 +179,7 @@ class MainViewModel(
         }
     }
 
-     fun getExercises() = viewModelScope.launch {
+    fun getExercises() = viewModelScope.launch {
         uiState = uiState.copy(
             isFetching = true,
             message = null
@@ -209,7 +215,48 @@ class MainViewModel(
             // Handle the error and notify the UI when appropriate.
             uiState = uiState.copy(
                 message = e.message,
-                isFetching = false)
+                isFetching = false
+            )
+        }
+    }
+
+    fun getRoutines() = viewModelScope.launch {
+        uiState = uiState.copy(
+            isFetching = true,
+            message = null
+        )
+        runCatching {
+            routineRepository.getRoutines(true)
+        }.onSuccess { response ->
+            uiState = uiState.copy(
+                isFetching = false,
+                routines = response
+            )
+        }.onFailure { e ->
+            uiState = uiState.copy(
+                message = e.message,
+                isFetching = false
+            )
+        }
+    }
+
+    fun getRoutinesWName(query: String) = viewModelScope.launch {
+        uiState = uiState.copy(
+            isFetching = true,
+            message = null
+        )
+        runCatching {
+            routineRepository.getRoutinesWName(query)
+        }.onSuccess { response ->
+            uiState = uiState.copy(
+                isFetching = false,
+                searchRoutines = response
+            )
+        }.onFailure { e ->
+            uiState = uiState.copy(
+                message = e.message,
+                isFetching = false
+            )
         }
     }
 }

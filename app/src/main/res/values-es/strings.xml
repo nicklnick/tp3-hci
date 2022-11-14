@@ -55,4 +55,9 @@
 
     <!-- Components -->
     <string name="search">Buscar</string>
+
+    <!-- Home -->
+    <string name="seeAll">ver todas</string>
+    <string name="allRoutines">Todas las Rutinas</string>
+
 </resources>
