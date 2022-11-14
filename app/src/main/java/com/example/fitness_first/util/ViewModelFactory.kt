@@ -5,11 +5,8 @@ import androidx.lifecycle.AbstractSavedStateViewModelFactory
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
-import com.example.fitness_first.data.repository.SportRepository
-import com.example.fitness_first.data.repository.UserRepository
 import com.example.fitness_first.MainViewModel
-import com.example.fitness_first.data.repository.ExerciseRepository
-import com.example.fitness_first.data.repository.RoutineRepository
+import com.example.fitness_first.data.repository.*
 
 class ViewModelFactory constructor(
     private val sessionManager: SessionManager,
@@ -17,6 +14,7 @@ class ViewModelFactory constructor(
     private val sportRepository: SportRepository,
     private val exerciseRepository: ExerciseRepository,
     private val routineRepository: RoutineRepository,
+    private val reviewRepository: ReviewRepository,
     owner: SavedStateRegistryOwner,
     defaultArgs: Bundle? = null
 ) : AbstractSavedStateViewModelFactory(owner, defaultArgs) {
@@ -28,7 +26,7 @@ class ViewModelFactory constructor(
     ) = with(modelClass) {
         when {
             isAssignableFrom(MainViewModel::class.java) ->
-                MainViewModel(sessionManager, userRepository, sportRepository, exerciseRepository, routineRepository)
+                MainViewModel(sessionManager, userRepository, sportRepository, exerciseRepository, routineRepository, reviewRepository)
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

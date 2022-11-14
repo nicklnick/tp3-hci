@@ -124,7 +124,7 @@ fun AppNavHost(
         }
 
         composable(route = "settings"){
-            SettingsScreen()
+            SettingsScreen(viewModel)
         }
 
         composable(route = "help"){

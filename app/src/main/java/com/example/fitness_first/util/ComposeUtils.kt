@@ -14,7 +14,8 @@ fun getViewModelFactory(defaultArgs: Bundle? = null): ViewModelFactory {
     val sportRepository = application.sportRepository
     val routineRepository = application.routineRepository
     val exerciseRepository = application.exerciseRepository
-    return ViewModelFactory(sessionManager, userRepository, sportRepository, exerciseRepository, routineRepository,
+    val reviewRepository = application.reviewRepository
+    return ViewModelFactory(sessionManager, userRepository, sportRepository, exerciseRepository, routineRepository, reviewRepository,
         LocalSavedStateRegistryOwner.current, defaultArgs)
 
 }

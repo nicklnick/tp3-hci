@@ -1,15 +1,9 @@
 package com.example.fitness_first
 
 import android.app.Application
-import com.example.fitness_first.data.network.ExerciseRemoteDataSource
-import com.example.fitness_first.data.network.SportRemoteDataSource
-import com.example.fitness_first.data.network.UserRemoteDataSource
+import com.example.fitness_first.data.network.*
 import com.example.fitness_first.data.network.api.RetrofitClient
-import com.example.fitness_first.data.repository.ExerciseRepository
-import com.example.fitness_first.data.network.RoutineRemoteDataSource
-import com.example.fitness_first.data.repository.RoutineRepository
-import com.example.fitness_first.data.repository.SportRepository
-import com.example.fitness_first.data.repository.UserRepository
+import com.example.fitness_first.data.repository.*
 import com.example.fitness_first.util.SessionManager
 
 class MyApplication : Application() {
@@ -26,6 +20,9 @@ class MyApplication : Application() {
     private val routineRemoteDataSource: RoutineRemoteDataSource
         get() = RoutineRemoteDataSource(RetrofitClient.getApiRoutineService(this))
 
+    private val reviewRemoteDataSource: ReviewRemoteDataSource
+        get() = ReviewRemoteDataSource(RetrofitClient.getApiReviewService(this))
+
     val sessionManager: SessionManager
         get() = SessionManager(this)
 
@@ -40,4 +37,7 @@ class MyApplication : Application() {
 
     val routineRepository: RoutineRepository
         get() = RoutineRepository(routineRemoteDataSource)
+
+    val reviewRepository: ReviewRepository
+        get() = ReviewRepository(reviewRemoteDataSource)
 }

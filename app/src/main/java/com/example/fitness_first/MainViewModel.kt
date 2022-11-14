@@ -3,13 +3,12 @@ package com.example.fitness_first
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.fitness_first.data.model.Review
 import com.example.fitness_first.data.model.Sport
-import com.example.fitness_first.data.repository.ExerciseRepository
-import com.example.fitness_first.data.repository.RoutineRepository
-import com.example.fitness_first.data.repository.SportRepository
-import com.example.fitness_first.data.repository.UserRepository
+import com.example.fitness_first.data.repository.*
 import com.example.fitness_first.util.SessionManager
 import kotlinx.coroutines.launch
 
@@ -18,7 +17,8 @@ class MainViewModel(
     private val userRepository: UserRepository,
     private val sportRepository: SportRepository,
     private val exerciseRepository: ExerciseRepository,
-    private val routineRepository: RoutineRepository
+    private val routineRepository: RoutineRepository,
+    private val reviewRepository: ReviewRepository
     ) : ViewModel() {
 
     var uiState by mutableStateOf(MainUiState(isAuthenticated = sessionManager.loadAuthToken() != null))
@@ -259,4 +259,54 @@ class MainViewModel(
             )
         }
     }
+
+    fun getReviews(routineId: Int) = viewModelScope.launch {
+        uiState = uiState.copy(
+            isFetching = true,
+            message = null
+        )
+        runCatching {
+            reviewRepository.getReviews(routineId, true)
+        }.onSuccess { response ->
+            uiState = uiState.copy(
+                isFetching = false,
+                reviews = response
+            )
+        }.onFailure { e ->
+            uiState = uiState.copy(
+                message = e.message,
+                isFetching = false
+            )
+        }
+    }
+
+    fun addReview(routineId:Int, review: Review) = viewModelScope.launch {
+        uiState = uiState.copy(
+            isFetching = true,
+            message = null
+        )
+        runCatching {
+            getReviews(routineId).join()
+            getCurrentUser().join()
+
+            // check that routine hasn't already been reviewed by current user
+            for(currReview in uiState.reviews!!){
+                if(currReview.userId == (uiState.currentUser?.id ?: 0)){
+                    throw java.lang.RuntimeException("You have already reviewed this routine")
+                }
+            }
+            reviewRepository.addReview(routineId, review)
+
+        }.onSuccess { response ->
+            uiState = uiState.copy(
+                isFetching = false,
+            )
+        }.onFailure { e ->
+            // Handle the error and notify the UI when appropriate.
+            uiState = uiState.copy(
+                message = e.message,
+                isFetching = false)
+        }
+    }
+
 }
