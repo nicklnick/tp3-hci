@@ -266,6 +266,26 @@ class MainViewModel(
         }
     }
 
+    fun getRoutinesWFilter(order: String = "name", dir: String = "asc") = viewModelScope.launch {
+        uiState = uiState.copy(
+            isFetching = true,
+            message = null
+        )
+        runCatching {
+            routineRepository.getRoutinesWFilter(order, dir)
+        }.onSuccess { response ->
+            uiState = uiState.copy(
+                isFetching = false,
+                routines = response,
+            )
+        }.onFailure { e ->
+            uiState = uiState.copy(
+                message = e.message,
+                isFetching = false
+            )
+        }
+    }
+
     fun getReviews(routineId: Int) = viewModelScope.launch {
         uiState = uiState.copy(
             isFetching = true,
@@ -475,3 +495,4 @@ class MainViewModel(
         }
     }.join()
 }
+

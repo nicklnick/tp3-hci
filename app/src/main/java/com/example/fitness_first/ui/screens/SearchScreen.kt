@@ -54,7 +54,7 @@ fun SearchScreen(
     ){
         BottomSheetScaffold(
             scaffoldState = bottomScaffoldState,
-            sheetContent = { sortSheet() },
+            sheetContent = { sortSheet(viewModel) },
             sheetBackgroundColor = Quaternary,
             sheetPeekHeight = 0.dp
         ){

@@ -3,6 +3,7 @@ package com.example.fitness_first.ui.screens
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -21,10 +22,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.fitness_first.MainViewModel
 import com.example.fitness_first.R
-import com.example.fitness_first.ui.components.BottomBar
-import com.example.fitness_first.ui.components.DetailedRoutineButton
-import com.example.fitness_first.ui.components.NavigationDrawer
-import com.example.fitness_first.ui.components.TopBarWFilter
+import com.example.fitness_first.ui.components.*
 import com.example.fitness_first.ui.theme.Quaternary
 import com.example.fitness_first.ui.theme.Secondary
 import kotlinx.coroutines.CoroutineScope
@@ -81,7 +79,7 @@ fun MyRoutinesScreen(
         ){
         BottomSheetScaffold(
             scaffoldState = bottomScaffoldState,
-            sheetContent = { sortSheet() },
+            sheetContent = { sortSheet(viewModel) },
             sheetBackgroundColor = Quaternary,
             sheetPeekHeight = 0.dp
         ) {
@@ -125,7 +123,9 @@ fun MyRoutinesScreen(
 }
 
 @Composable
-public fun sortSheet() {
+public fun sortSheet(
+    viewModel: MainViewModel
+) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -147,12 +147,19 @@ public fun sortSheet() {
                 )
             }
             val filters = listOf(
-                stringResource(R.string.date_up),
-                stringResource(R.string.date_down),
-                stringResource(R.string.rating_up),
-                stringResource(R.string.rating_down),
-                stringResource(R.string.diff_up),
-                stringResource(R.string.diff_down),
+                FilterOptions.Date_Up,
+                FilterOptions.Date_Down,
+                FilterOptions.Rating_Up,
+                FilterOptions.Rating_Down,
+                FilterOptions.Difficulty_Up,
+                FilterOptions.Difficulty_Down,
+
+//                stringResource(R.string.date_up),
+//                stringResource(R.string.date_down),
+//                stringResource(R.string.rating_up),
+//                stringResource(R.string.rating_down),
+//                stringResource(R.string.diff_up),
+//                stringResource(R.string.diff_down),
             )
             for (filter in filters) {
                 Row(
@@ -160,7 +167,11 @@ public fun sortSheet() {
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Start
                 ) {
-                    Text(text = filter, fontSize = 24.sp)
+                    Text(
+                        text = stringResource(filter.text),
+                        fontSize = 24.sp,
+                        modifier = Modifier.clickable { viewModel.getRoutinesWFilter(filter.order, filter.dir) }
+                    )
                 }
             }
         }

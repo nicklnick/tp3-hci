@@ -2,10 +2,8 @@ package com.example.fitness_first.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Divider
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.TopAppBar
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Menu
@@ -48,7 +46,13 @@ fun TopBarWFilter(
                         modifier = Modifier.size(38.dp)
                     )
                 }
-                IconButton({/* TODO */}) {
+                OutlinedButton(
+                    modifier = Modifier.size(50.dp),
+                    onClick = { navController.navigate("profile") },
+                    shape = CircleShape,
+                    colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.White),
+                    contentPadding = PaddingValues(0.dp)
+                ) {
                     Icon(
                         Icons.Filled.Person,
                         contentDescription = "settings",

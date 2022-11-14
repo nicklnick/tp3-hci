@@ -64,7 +64,7 @@ fun FavouritesScreen(
         ){
             BottomSheetScaffold(
                 scaffoldState = bottomScaffoldState,
-                sheetContent = { sortSheet() },
+                sheetContent = { sortSheet(viewModel) },
                 sheetBackgroundColor = Quaternary,
                 sheetPeekHeight = 0.dp
             ) {
@@ -99,24 +99,28 @@ fun FavouritesScreen(
                         }
                         else{
                             val favList = viewModel.uiState.favouriteRoutines.orEmpty()
+                            val list = viewModel.uiState.routines.orEmpty()
                             LazyColumn(
                                 modifier = Modifier.fillMaxWidth(),
                                 horizontalAlignment = Alignment.CenterHorizontally,
                                 verticalArrangement = Arrangement.spacedBy(space = 8.dp)
                             ){
                                 items(
-                                    count = favList.size,
+                                    count = list.size,
                                     key = { index ->
-                                        favList[index].id.toString()
+                                        list[index].id.toString()
                                     }
-                                ){
-                                        index -> DetailedRoutineButton(
-                                    name = favList[index].name.toString(),
-                                    category = favList[index].category.name.toString(),
-                                    liked = true,
-                                    func = { /*TODO*/ },
-                                    likeFunc = {viewModel.deleteFavourite(favList[index].id)}
-                                    )
+                                ){ index ->
+                                    if(favList.find { it.id == list[index].id } != null){
+                                        DetailedRoutineButton(
+                                            name = list[index].name.toString(),
+                                            category = list[index].category.name.toString(),
+                                            liked = true,
+                                            func = { /*TODO*/ },
+                                            likeFunc = {viewModel.deleteFavourite(list[index].id)}
+                                        )
+                                    }
+
                                 }
                             }
                         }

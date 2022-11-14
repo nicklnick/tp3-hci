@@ -7,10 +7,14 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiRoutineService {
     @GET("routines")
     suspend fun getRoutines() : Response<NetworkPagedContent<NetworkRoutine>>
+
+    @GET("routines")
+    suspend fun getRoutinesWFilter(@Query("orderBy") orderBy: String, @Query("direction") direction: String) : Response<NetworkPagedContent<NetworkRoutine>>
 
 
     @GET("routines/{routineId}")
