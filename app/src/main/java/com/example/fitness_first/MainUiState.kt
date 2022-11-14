@@ -21,6 +21,8 @@ data class MainUiState(
     val reviews: List<Review>? = null,
     val currentReview: Review? = null,
 
+    val categories: List<Category>? = null,
+    val currentCategory: Category? = null
 )
 
 

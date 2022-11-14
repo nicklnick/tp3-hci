@@ -26,7 +26,7 @@ fun CategoryRow(
     ){
         items(categories){ item ->
             CategoryCard(
-                text = stringResource(item.title),
+                text = item.title,
                 icon = painterResource(item.icon),
                 func = {NavigateToCategoryScreen(item.route)},
             )

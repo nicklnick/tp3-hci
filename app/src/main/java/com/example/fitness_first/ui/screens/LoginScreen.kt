@@ -23,6 +23,8 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.fitness_first.MainViewModel
 import com.example.fitness_first.R
+import com.example.fitness_first.data.model.Category
+import com.example.fitness_first.ui.components.Categories
 import com.example.fitness_first.ui.components.GenericInputField
 import com.example.fitness_first.ui.components.GenericLongButton
 import com.example.fitness_first.ui.components.IconFAB
@@ -83,7 +85,17 @@ fun LoginScreen(backFunc: () -> Unit, loginFunc: () -> Unit, viewModel: MainView
                     GenericInputField(label = stringResource(R.string.login_password), value = password, {password = it }, false)
 
                     GenericLongButton(stringResource(R.string.login_continue)) {
-                        viewModel.login(user,password, loginFunc)
+                        viewModel.login(user,password) {
+                            viewModel.addCategory(Category(name = Categories.Bicep.title))
+                            viewModel.addCategory(Category(name = Categories.Tricep.title))
+                            viewModel.addCategory(Category(name = Categories.Chest.title))
+                            viewModel.addCategory(Category(name = Categories.Shoulders.title))
+                            viewModel.addCategory(Category(name = Categories.Back.title))
+                            viewModel.addCategory(Category(name = Categories.Legs.title))
+                            viewModel.addCategory(Category(name = Categories.Abs.title))
+                            viewModel.addCategory(Category(name = Categories.FullBody.title))
+                            loginFunc()
+                        }
                     }
                 }
 

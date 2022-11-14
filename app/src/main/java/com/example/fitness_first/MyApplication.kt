@@ -23,6 +23,9 @@ class MyApplication : Application() {
     private val reviewRemoteDataSource: ReviewRemoteDataSource
         get() = ReviewRemoteDataSource(RetrofitClient.getApiReviewService(this))
 
+    private val categoryRemoteDataSource: CategoryRemoteDataSource
+        get() = CategoryRemoteDataSource(RetrofitClient.getApiCategoryService(this))
+
     val sessionManager: SessionManager
         get() = SessionManager(this)
 
@@ -40,4 +43,7 @@ class MyApplication : Application() {
 
     val reviewRepository: ReviewRepository
         get() = ReviewRepository(reviewRemoteDataSource)
+
+    val categoryRepository: CategoryRepository
+        get() = CategoryRepository(categoryRemoteDataSource)
 }

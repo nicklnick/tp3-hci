@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.fitness_first.data.model.Category
 import com.example.fitness_first.data.model.Review
 import com.example.fitness_first.data.model.Sport
 import com.example.fitness_first.data.repository.*
@@ -18,7 +19,8 @@ class MainViewModel(
     private val sportRepository: SportRepository,
     private val exerciseRepository: ExerciseRepository,
     private val routineRepository: RoutineRepository,
-    private val reviewRepository: ReviewRepository
+    private val reviewRepository: ReviewRepository,
+    private val categoryRepository: CategoryRepository
     ) : ViewModel() {
 
     var uiState by mutableStateOf(MainUiState(isAuthenticated = sessionManager.loadAuthToken() != null))
@@ -300,6 +302,66 @@ class MainViewModel(
         }.onSuccess { response ->
             uiState = uiState.copy(
                 isFetching = false,
+            )
+        }.onFailure { e ->
+            // Handle the error and notify the UI when appropriate.
+            uiState = uiState.copy(
+                message = e.message,
+                isFetching = false)
+        }
+    }
+
+    fun getCategories() = viewModelScope.launch {
+        uiState = uiState.copy(
+            isFetching = true,
+            message = null
+        )
+        runCatching {
+            categoryRepository.getCategories( true)
+        }.onSuccess { response ->
+            uiState = uiState.copy(
+                isFetching = false,
+                categories = response
+            )
+        }.onFailure { e ->
+            uiState = uiState.copy(
+                message = e.message,
+                isFetching = false
+            )
+        }
+    }
+
+    fun getCategory(categoryId: Int) = viewModelScope.launch {
+        uiState = uiState.copy(
+            isFetching = true,
+            message = null
+        )
+        runCatching {
+            categoryRepository.getCategory(categoryId)
+        }.onSuccess { response ->
+            uiState = uiState.copy(
+                isFetching = false,
+                currentCategory = response
+            )
+        }.onFailure { e ->
+            // Handle the error and notify the UI when appropriate.
+            uiState = uiState.copy(
+                message = e.message,
+                isFetching = false)
+        }
+    }
+
+    fun addCategory(category: Category) = viewModelScope.launch {
+        uiState = uiState.copy(
+            isFetching = true,
+            message = null
+        )
+        runCatching {
+                categoryRepository.addCategory(category)
+        }.onSuccess { response ->
+            uiState = uiState.copy(
+                isFetching = false,
+                currentCategory = response,
             )
         }.onFailure { e ->
             // Handle the error and notify the UI when appropriate.

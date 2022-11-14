@@ -24,6 +24,26 @@ fun SettingsScreen(viewModel: MainViewModel) {
     Surface(
         modifier = Modifier.fillMaxSize(),
     ) {
-
+        Column() {
+            Button(onClick = { viewModel.getCategories() }) {
+                Text("get")
+            }
+//            Button(onClick = { viewModel.addReview(1, Review(4)) }) {
+//                Text("put")
+//            }
+            (if(viewModel.uiState.message != null) viewModel.uiState.message else "No errors")?.let {
+                Text(
+                    it
+                )
+            }
+            LazyColumn(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                items(viewModel.uiState.categories.orEmpty()) { item ->
+                    Text(String.format("id: %d, name: %s", item.id, item.name))
+                }
+            }
+        }
     }
 }
