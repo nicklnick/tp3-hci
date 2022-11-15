@@ -20,10 +20,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.fitness_first.MainViewModel
 import com.example.fitness_first.R
 import com.example.fitness_first.data.model.Review
@@ -41,10 +39,21 @@ fun RoutineDetailsScreen(id: Int, exec: () -> Unit, viewModel: MainViewModel) {
         Text(text = "Routine not found")
 
     if (viewModel.uiState.isFetching) {
-        LoadingScreen()
+        LoadingScreen(Secondary)
     }
     else {
-        loadRoutineDetails(viewModel,exec)
+        if(viewModel.uiState.currentRoutine == null) {
+            Row(
+               modifier = Modifier.fillMaxSize(),
+               verticalAlignment = Alignment.CenterVertically,
+               horizontalArrangement = Arrangement.Center
+            ) {
+                Text(text = "Waiting for current routine...")
+            }
+        }
+        else {
+            loadRoutineDetails(viewModel,exec)
+        }
     }
 }
 
@@ -172,9 +181,10 @@ fun loadRoutineDetails(viewModel: MainViewModel, exec: () -> Unit) {
                             .fillMaxWidth()
                             .padding(10.dp)
                     ) {
-                        for (cycle in viewModel.uiState.cycleDataList!!) {
+                        for (cycle in viewModel.uiState.cycleDataList) {
                             SeriesCard(
                                 title = cycle.cycleName,
+                                repetitions = cycle.cycleRepetitions,
                                 cycleExerciseList = cycle.cycleExercises
                             )
                         }

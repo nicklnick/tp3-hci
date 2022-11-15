@@ -13,9 +13,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun LoadingScreen() {
+fun LoadingScreen(color: Color = Color.Transparent) {
     Column(
-        modifier = Modifier.fillMaxSize().background(Color.Transparent),
+        modifier = Modifier.fillMaxSize().background(color),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {

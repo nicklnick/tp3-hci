@@ -5,12 +5,14 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.fitness_first.data.model.FullCycleExercise
@@ -21,7 +23,7 @@ import com.example.fitness_first.ui.theme.Tertiary
 val rowHeight = 30.dp
 
 @Composable
-fun SeriesCard(title: String, cycleExerciseList: List<FullCycleExercise>) {
+fun SeriesCard(title: String, repetitions: Int, cycleExerciseList: List<FullCycleExercise>) {
     Card(
         modifier = Modifier
             .fillMaxWidth(0.9f)
@@ -39,12 +41,43 @@ fun SeriesCard(title: String, cycleExerciseList: List<FullCycleExercise>) {
                     .height(rowHeight)
             ) {
                 Row(
+                    modifier = Modifier
+                        .fillMaxSize(),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center
-                ){
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Spacer(modifier = Modifier)
+
                     Text(
                         text = title,
+                        fontWeight = FontWeight.Medium,
+                        fontSize = MaterialTheme.typography.h6.fontSize
                     )
+
+                    Surface(
+                        modifier = Modifier
+                            .fillMaxHeight()
+                            .width(30.dp)
+                            .padding(2.dp),
+                        shape = RoundedCornerShape(30),
+                        color = Color(
+                            green = Secondary.green,
+                            red = Secondary.red,
+                            blue = Secondary.blue,
+                            alpha = 0.6f
+                        )
+                    ) {
+                        Row(
+                            modifier = Modifier.fillMaxSize(),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.Center
+                        ) {
+                            Text(
+                                text = "x${repetitions}",
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+                    }
                 }
             }
             Surface(
@@ -53,7 +86,6 @@ fun SeriesCard(title: String, cycleExerciseList: List<FullCycleExercise>) {
             ) {
                 Column(
                     modifier = Modifier.fillMaxSize()
-                        .background(Color.Red)
                 ) {
                     for(fullCycleExercise in cycleExerciseList)
                         ExerciseDetailRow(fullCycleExercise = fullCycleExercise)
