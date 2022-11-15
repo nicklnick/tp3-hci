@@ -14,6 +14,8 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,6 +29,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.times
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.fitness_first.MainViewModel
 import com.example.fitness_first.ui.components.IconFAB
 import com.example.fitness_first.R
@@ -36,22 +39,23 @@ import com.example.fitness_first.ui.theme.Secondary
 import com.example.fitness_first.ui.theme.Tertiary
 
 @Composable
-fun ExecutionScreen(id: Int, viewModel: MainViewModel) {
+fun ExecutionScreen(id: Int, prev: () -> Unit, finish: () -> Unit, viewModel: MainViewModel) {
     val configuration = LocalConfiguration.current
-    viewModel.getRoutine(id)
-
+    if(viewModel.uiState.execFinished){
+        finish()
+    }
     when(configuration.orientation) {
         Configuration.ORIENTATION_PORTRAIT -> {
-            showVerticalLayout(viewModel.uiState.currentRoutine!!.name)
+            showVerticalLayout(viewModel.uiState.currentRoutine!!.name, prev,  viewModel)
         }
         else -> {
-            showLandscapeLayout(viewModel.uiState.currentRoutine!!.name)
+            showLandscapeLayout(viewModel.uiState.currentRoutine!!.name, viewModel)
         }
     }
 }
 
 @Composable
-private fun showVerticalLayout(routineTitle: String) {
+private fun showVerticalLayout(routineTitle: String, prev: () -> Unit, viewModel: MainViewModel) {
     Surface(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -73,9 +77,10 @@ private fun showVerticalLayout(routineTitle: String) {
                     .fillMaxWidth()
                     .padding(start = 20.dp, top = 15.dp)
             ) {
+
                 IconFAB(
                     icon = Icons.Filled.KeyboardArrowLeft,
-                    {},
+                    prev,
                     Modifier.size(40.dp),
                     Quaternary,
                     Primary
@@ -98,7 +103,7 @@ private fun showVerticalLayout(routineTitle: String) {
                         .width(200.dp)
                         .clip(CircleShape),
                     backgroundColor = Color.DarkGray,
-                    progress = .1f
+                    progress = 0.1f
                 )
                 Row {
                     Spacer(modifier = Modifier.width(.1f * 165.dp))         // MMM MEDIO DUDOSO
@@ -138,7 +143,7 @@ private fun showVerticalLayout(routineTitle: String) {
                             verticalAlignment = Alignment.CenterVertically
                         ) {
 
-                            Text("Series 1", fontSize = 30.sp, fontWeight = FontWeight.Bold)
+                            Text(viewModel.uiState.currentExecSeries!!.cycleName, fontSize = 30.sp, fontWeight = FontWeight.Bold)
 
                             Spacer(modifier = Modifier.size(100.dp))
 
@@ -150,7 +155,7 @@ private fun showVerticalLayout(routineTitle: String) {
                                 elevation = 20.dp
                             ) {
                                 Text(
-                                    "2/3",
+                                    "${viewModel.uiState.currentExecSeriesIdx + 1} / ${viewModel.uiState.cycleDataList.size}",
                                     fontSize = 20.sp,
                                     fontWeight = FontWeight.Bold,
                                     modifier = Modifier.padding(
@@ -180,7 +185,7 @@ private fun showVerticalLayout(routineTitle: String) {
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
                                 Text(
-                                    "Pull Ups",
+                                    viewModel.uiState.currentExecExercise!!.exercise.name,
                                     fontSize = 35.sp,
                                     fontWeight = FontWeight.Bold,
                                     modifier = Modifier.padding(20.dp)
@@ -190,37 +195,78 @@ private fun showVerticalLayout(routineTitle: String) {
                                     backgroundColor = Tertiary,
                                     elevation = 20.dp,
                                 ) {
-                                    Text(
-                                        "20 reps",
-                                        fontSize = 35.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        modifier = Modifier.padding(
-                                            start = 20.dp,
-                                            end = 20.dp,
-                                            top = 10.dp,
-                                            bottom = 10.dp
+                                    if(viewModel.uiState.currentExecExercise!!.duration != 0)
+                                        Text(
+                                            "${viewModel.uiState.currentTimeExercise} seconds",
+                                            fontSize = 35.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            modifier = Modifier.padding(
+                                                start = 20.dp,
+                                                end = 20.dp,
+                                                top = 10.dp,
+                                                bottom = 10.dp
+                                            )
                                         )
-                                    )
+                                    else
+                                        Text(
+                                            "${viewModel.uiState.currentExecExercise!!.repetitions} reps",
+                                            fontSize = 35.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            modifier = Modifier.padding(
+                                                start = 20.dp,
+                                                end = 20.dp,
+                                                top = 10.dp,
+                                                bottom = 10.dp
+                                            )
+                                        )
                                 }
                             }
                         }
 
                         Row {
-                            // TODO: condicional si mostrar o no el boton de pausa
-                            //                        IconFAB(
-                            //                            icon = Icons.Filled.,
-                            //                            func = { /*TODO*/ },
-                            //                            modifier = Modifier
-                            //                                .size(125.dp)
-                            //                                .padding(20.dp),
-                            //                            Tertiary,
-                            //                            Secondary
-                            //                        )
+                            if(!viewModel.isFirstExercise()){
+                                IconFAB(
+                                    icon = Icons.Filled.KeyboardArrowLeft,
+                                    func = { viewModel.previousExercise() },
+                                    modifier = Modifier
+                                        .size(125.dp)
+                                        .padding(20.dp),
+                                    Tertiary,
+                                    Secondary
+                                )
+                            }
+
+
+                            if(viewModel.canPauseExecution()){
+                                if(viewModel.uiState.pausedExec){
+                                    IconFAB(
+                                        icon = Icons.Filled.PlayArrow,
+                                        func = { viewModel.unpauseExecution() },
+                                        modifier = Modifier
+                                            .size(125.dp)
+                                            .padding(20.dp),
+                                        Tertiary,
+                                        Secondary
+                                    )
+                                }
+                                else{
+                                    IconFAB(
+                                        icon = Icons.Filled.Lock,
+                                        func = { viewModel.pauseExecution() },
+                                        modifier = Modifier
+                                            .size(125.dp)
+                                            .padding(20.dp),
+                                        Tertiary,
+                                        Secondary
+                                    )
+                                }
+                            }
+
                             IconFAB(
                                 icon = Icons.Filled.KeyboardArrowRight,
-                                func = { /*TODO*/ },
+                                func = { viewModel.nextExercise() },
                                 modifier = Modifier
-                                    .size(150.dp)
+                                    .size(125.dp)
                                     .padding(20.dp),
                                 Tertiary,
                                 Secondary
@@ -268,7 +314,7 @@ private fun showVerticalLayout(routineTitle: String) {
 }
 
 @Composable
-private fun showLandscapeLayout(routineTitle: String) {
+private fun showLandscapeLayout(routineTitle: String, viewModel: MainViewModel) {
     Surface(
         modifier = Modifier.fillMaxSize()
     ) {

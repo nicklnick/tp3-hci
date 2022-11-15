@@ -107,14 +107,34 @@ fun AppNavHost(
             deepLinks = listOf(navDeepLink { uriPattern = "$uri/routine/{id}" }, navDeepLink { uriPattern = "$secureUri/routine/{id}" }),
             arguments = listOf(navArgument("id") { type = NavType.IntType })
         ) {
-            NavBackStackEntry -> RoutineDetailsScreen(NavBackStackEntry.arguments?.getInt("id")!!, viewModel)
+            NavBackStackEntry -> RoutineDetailsScreen(
+            NavBackStackEntry.arguments?.getInt("id")!!,
+            {navController.navigate("routine/${NavBackStackEntry.arguments?.getInt("id")}/execution")},
+            viewModel)
         }
 
         composable(
             route = "routine/{id}/execution",
             arguments = listOf(navArgument("id") { type = NavType.IntType }),
         ){
-            NavBackStackEntry -> ExecutionScreen(NavBackStackEntry.arguments?.getInt("id")!!, viewModel)
+            NavBackStackEntry ->
+            ExecutionScreen(
+                NavBackStackEntry.arguments?.getInt("id")!!,
+                {navController.navigate("routine/${NavBackStackEntry.arguments?.getInt("id")}")},
+                {navController.navigate("routine/${NavBackStackEntry.arguments?.getInt("id")}/review")},
+                viewModel
+            )
+        }
+
+        composable(
+            route = "routine/{id}/review",
+            arguments = listOf(navArgument("id") { type = NavType.IntType }),
+        ){ NavBackStackEntry ->
+            RoutineReviewScreen(
+                NavBackStackEntry.arguments?.getInt("id")!!,
+                {navController.navigate("home")},
+                viewModel
+            )
         }
 
         composable(route = "profile"){

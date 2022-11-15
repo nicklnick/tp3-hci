@@ -8,10 +8,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Share
@@ -30,10 +27,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.fitness_first.MainViewModel
 import com.example.fitness_first.R
 import com.example.fitness_first.data.model.Review
-import com.example.fitness_first.ui.components.IconFAB
-import com.example.fitness_first.ui.components.RatingBar
-import com.example.fitness_first.ui.components.SeriesCard
-import com.example.fitness_first.ui.components.SimpleChip
+import com.example.fitness_first.ui.components.*
 import com.example.fitness_first.ui.theme.Primary
 import com.example.fitness_first.ui.theme.Quaternary
 import com.example.fitness_first.ui.theme.Secondary
@@ -41,7 +35,7 @@ import com.example.fitness_first.ui.theme.Tertiary
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun RoutineDetailsScreen(id: Int, viewModel: MainViewModel) {
+fun RoutineDetailsScreen(id: Int, exec: () -> Unit, viewModel: MainViewModel) {
 
     if (viewModel.uiState.message != null)
         Text(text = "Routine not found")
@@ -50,7 +44,7 @@ fun RoutineDetailsScreen(id: Int, viewModel: MainViewModel) {
         LoadingScreen()
     }
     else {
-        loadRoutineDetails(viewModel)
+        loadRoutineDetails(viewModel,exec)
     }
 }
 
@@ -142,7 +136,7 @@ fun TopBarRoutineDetails(title: String, difficulty: String, rating: Int, liked: 
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun loadRoutineDetails(viewModel: MainViewModel) {
+fun loadRoutineDetails(viewModel: MainViewModel, exec: () -> Unit) {
     val scrollState = rememberScrollState()
 
     // For liking and disliking current routine
@@ -198,6 +192,10 @@ fun loadRoutineDetails(viewModel: MainViewModel) {
                                 title = cycle.cycleName,
                                 cycleExerciseList = cycle.cycleExercises
                             )
+                        }
+                        GenericSmallOutlinedButton("Start!") {
+                            viewModel.setupExecution()
+                            exec()
                         }
                     }
                 }

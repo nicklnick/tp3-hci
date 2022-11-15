@@ -28,9 +28,23 @@ data class MainUiState(
     val favouriteRoutines: List<Routine>? = null,
     val userRoutines: List<Routine>? = null,
 
-    val routinesCycles: List<FullCycle>? = emptyList(),
-    val cycleExercises: List<FullCycleExercise>? = emptyList(),
-    var cycleDataList: List<CycleData>? = emptyList()
+    val routinesCycles: List<FullCycle> = emptyList(),
+    val cycleExercises: List<FullCycleExercise> = emptyList(),
+    var cycleDataList: List<CycleData> = emptyList(),
+
+
+
+    //  - - - EXECUTION - - -
+    val currentExecExercise: FullCycleExercise? = null,
+    val currentExecSeries: CycleData? = null,
+    val currentExecSeriesIdx: Int= 0,
+    val currentExecExerciseIdx: Int = 0,
+
+    val execFinished: Boolean = false,
+
+    val currentTimeExercise: Int = 0,
+    val timerRunning: Boolean = false,
+    val pausedExec: Boolean = false,
 )
 
 
@@ -41,6 +55,8 @@ val MainUiState.canAddSport: Boolean get() = isAuthenticated && currentSport == 
 val MainUiState.canModifySport: Boolean get() = isAuthenticated && currentSport != null
 val MainUiState.canDeleteSport: Boolean get() = canModifySport
 val MainUiState.canGetRoutineCycles: Boolean get() = isAuthenticated
+
+
 
 data class CycleData(
     val cycleName: String,

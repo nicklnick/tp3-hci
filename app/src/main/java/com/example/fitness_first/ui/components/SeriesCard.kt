@@ -18,13 +18,13 @@ import com.example.fitness_first.ui.theme.Quaternary
 import com.example.fitness_first.ui.theme.Secondary
 import com.example.fitness_first.ui.theme.Tertiary
 
-val rowHeight = 20.dp
+val rowHeight = 30.dp
 
 @Composable
 fun SeriesCard(title: String, cycleExerciseList: List<FullCycleExercise>) {
     Card(
         modifier = Modifier
-            .fillMaxWidth(0.8f)
+            .fillMaxWidth(0.9f)
             .height(rowHeight + rowHeight * cycleExerciseList.size),
         backgroundColor = Quaternary,
         border = BorderStroke(1.dp, Secondary),

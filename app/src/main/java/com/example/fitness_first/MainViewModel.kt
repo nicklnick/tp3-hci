@@ -10,7 +10,9 @@ import com.example.fitness_first.data.model.Review
 import com.example.fitness_first.data.model.Sport
 import com.example.fitness_first.data.repository.*
 import com.example.fitness_first.util.SessionManager
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.time.Duration.Companion.seconds
 
 class MainViewModel(
     private val sessionManager: SessionManager,
@@ -28,10 +30,10 @@ class MainViewModel(
     var uiState by mutableStateOf(MainUiState(isAuthenticated = sessionManager.loadAuthToken() != null))
         private set
 
-    init {
-        getRoutines()
-        getFavourites()
-    }
+//    init {
+//        getRoutines()
+//        getFavourites()
+//    }
 
     fun login(username: String, password: String, successFunc: () -> Unit, failureFunc: suspend () -> Unit) = viewModelScope.launch {
         uiState = uiState.copy(
@@ -583,5 +585,105 @@ class MainViewModel(
             )
         }
     }
+
+
+    fun isFirstExercise(): Boolean{
+        return uiState.currentExecExerciseIdx == 0  && uiState.currentExecSeriesIdx == 0
+    }
+
+    fun setupExecution(){
+        uiState = uiState.copy(currentExecSeriesIdx = 0)
+        uiState = uiState.copy(currentExecExerciseIdx = 0)
+
+
+        uiState = uiState.copy(currentExecSeries = uiState.cycleDataList[uiState.currentExecSeriesIdx])
+        uiState = uiState.copy(currentExecExercise = uiState.currentExecSeries!!.cycleExercises[uiState.currentExecExerciseIdx])
+
+        if(uiState.currentExecExercise!!.duration!! > 0) {
+            uiState = uiState.copy(currentTimeExercise = uiState.currentExecExercise!!.duration!!)
+            beginTimer()
+        }
+        uiState = uiState.copy(execFinished = false)
+
+    }
+
+    fun nextExercise(){
+        uiState = uiState.copy(timerRunning = false)
+
+        // Aun quedan ejercicios en la serie
+        if(uiState.currentExecExerciseIdx < uiState.currentExecSeries!!.cycleExercises.size - 1){
+            uiState = uiState.copy(currentExecExerciseIdx = uiState.currentExecExerciseIdx + 1)
+            uiState = uiState.copy(currentExecExercise = uiState.currentExecSeries!!.cycleExercises[uiState.currentExecExerciseIdx])
+        }
+        else{
+            // Aun quedan series y por ende, ejercicios
+            if(uiState.currentExecSeriesIdx < uiState.cycleDataList.size - 1){
+                uiState = uiState.copy(currentExecSeriesIdx = uiState.currentExecSeriesIdx + 1)
+                uiState = uiState.copy(currentExecSeries = uiState.cycleDataList[uiState.currentExecSeriesIdx])
+
+                uiState = uiState.copy(currentExecExerciseIdx = 0)
+                uiState = uiState.copy(currentExecExercise = uiState.currentExecSeries!!.cycleExercises[uiState.currentExecExerciseIdx])
+            }
+            // No quedan ejercicios o series
+            else{
+                uiState = uiState.copy(execFinished = true)
+                return
+            }
+        }
+        if(uiState.currentExecExercise!!.duration!! > 0){
+            beginTimer()
+        }
+    }
+
+    fun previousExercise(){
+        uiState = uiState.copy(timerRunning = false)
+        // Puedo volver para atras en la serie actual
+        if(uiState.currentExecExerciseIdx > 0){
+            uiState = uiState.copy(currentExecExerciseIdx = uiState.currentExecExerciseIdx - 1)
+            uiState = uiState.copy(currentExecExercise = uiState.currentExecSeries!!.cycleExercises[uiState.currentExecExerciseIdx])
+        }
+        else{
+            // Tengo que pasar a la serie anterior
+            if(uiState.currentExecSeriesIdx > 0){
+                uiState = uiState.copy(currentExecSeriesIdx = uiState.currentExecSeriesIdx - 1)
+                uiState = uiState.copy(currentExecSeries = uiState.cycleDataList[uiState.currentExecSeriesIdx])
+
+                uiState = uiState.copy(currentExecExerciseIdx = uiState.currentExecSeries!!.cycleExercises.size - 1)
+                uiState = uiState.copy(currentExecExercise = uiState.currentExecSeries!!.cycleExercises[uiState.currentExecExerciseIdx])
+            }
+        }
+        if(uiState.currentExecExercise!!.duration!! > 0){
+            beginTimer()
+        }
+    }
+
+    fun beginTimer(){
+        uiState = uiState.copy(currentTimeExercise = uiState.currentExecExercise!!.duration!!)
+        viewModelScope.launch {
+
+            // Usamos el delay para que las otras corutinas pueden cancelarse
+            // TODO: CHECK
+            delay(1.seconds)
+
+            uiState = uiState.copy(timerRunning = true)
+            while(uiState.currentTimeExercise > 0 && uiState.timerRunning){
+                delay(1.seconds)
+                if(!uiState.pausedExec)
+                    uiState = uiState.copy(currentTimeExercise = uiState.currentTimeExercise - 1)
+            }
+            if(uiState.currentTimeExercise == 0)
+                nextExercise()
+        }
+    }
+    fun canPauseExecution(): Boolean{
+        return uiState.timerRunning
+    }
+    fun pauseExecution(){
+        uiState = uiState.copy(pausedExec = true)
+    }
+    fun unpauseExecution(){
+        uiState = uiState.copy(pausedExec = false)
+    }
+
 }
 
