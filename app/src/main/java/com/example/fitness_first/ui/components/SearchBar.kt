@@ -59,7 +59,10 @@ fun SearchBar(navController: NavHostController, viewModel: MainViewModel) {
             imeAction = ImeAction.Search
         ),
         keyboardActions = KeyboardActions(
-            onSearch = { navController.navigate("search/${query.text}");viewModel.getRoutinesWName(query = query.text) }
+            onSearch = {
+                viewModel.getRoutinesWName(query = query.text)
+                navController.navigate("search/${query.text}")
+            }
         )
     )
 }
