@@ -1,13 +1,10 @@
 package com.example.fitness_first.ui.screens
 
-import android.media.Rating
 import android.view.MotionEvent
-import android.widget.RatingBar
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -26,7 +23,6 @@ import com.example.fitness_first.R
 import com.example.fitness_first.data.model.Review
 import com.example.fitness_first.ui.components.GenericSmallButton
 import com.example.fitness_first.ui.components.GenericSmallOutlinedButton
-import com.example.fitness_first.ui.components.RatingBar
 import com.example.fitness_first.ui.theme.Secondary
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -48,13 +44,13 @@ fun RoutineReviewScreen(id: Int, func: () -> Unit, viewModel: MainViewModel ) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ){
                 Text(
-                    text = "Good Job!",
+                    text = stringResource(R.string.good_job),
                     fontSize = MaterialTheme.typography.h4.fontSize,
                     fontWeight = FontWeight.Bold,
                     color = Secondary
                 )
                 Text(
-                    text = "You're a RockStar!",
+                    text = stringResource(R.string.killed_it),
                     fontSize = MaterialTheme.typography.h4.fontSize,
                     fontWeight = FontWeight.Bold,
                     color = Secondary
@@ -69,7 +65,7 @@ fun RoutineReviewScreen(id: Int, func: () -> Unit, viewModel: MainViewModel ) {
                     val userRev = viewModel.uiState.reviews!!.find { it.userId!! == viewModel.uiState.currentUser!!.id && it.routineId == viewModel.uiState.currentRoutine!!.id}
                     if( userRev != null){
                         Text(
-                            text = "Thank you for your Review",
+                            text = stringResource(R.string.review_thank),
                             fontSize = MaterialTheme.typography.h5.fontSize,
                             fontWeight = FontWeight.Medium,
                             color = Secondary
@@ -77,7 +73,7 @@ fun RoutineReviewScreen(id: Int, func: () -> Unit, viewModel: MainViewModel ) {
                         RatingBar2(rating = userRev.score, viewModel = viewModel)
                     }else{
                         Text(
-                            text = "Want to leave a Review?",
+                            text = stringResource(R.string.review_ask),
                             fontSize = MaterialTheme.typography.h5.fontSize,
                             fontWeight = FontWeight.Medium,
                             color = Secondary
@@ -87,7 +83,7 @@ fun RoutineReviewScreen(id: Int, func: () -> Unit, viewModel: MainViewModel ) {
                 }
             }
             GenericSmallButton(
-                label = "Go Home",
+                label = stringResource(R.string.go_home),
                 clickEvent = func
             )
         }
@@ -155,7 +151,7 @@ fun RatingBar2(
 
     }
     GenericSmallOutlinedButton(
-        label = "Publish",
+        label = stringResource(R.string.publish_review),
         enabled = ratingState > 0 && viewModel.uiState.reviews!!.find { it.userId!! == viewModel.uiState.currentUser!!.id && it.routineId == viewModel.uiState.currentRoutine!!.id} == null,
         clickEvent = { viewModel.addReview(
             viewModel.uiState.currentRoutine!!.id,

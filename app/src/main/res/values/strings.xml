@@ -65,7 +65,14 @@
     <string name="profile_email">Email</string>
     <string name="cat_name">%1$s Routines</string>
 
+    <!-- ReviewRoutine -->
     <string name="review_routine">Review this Routine!</string>
+    <string name="review_ask">Want to leave a Review?</string>
+    <string name="review_thank">Thank You for your Review</string>
+    <string name="good_job">Good Job!</string>
+    <string name="killed_it">You Killed It!</string>
+    <string name="go_home">Go Home</string>
+    <string name="publish_review">Publish</string>
 
 
 

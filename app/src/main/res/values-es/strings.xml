@@ -65,7 +65,14 @@
     <string name="profile_email">Email</string>
     <string name="cat_name">Rutinas de %1$s</string>
 
+    <!-- ReviewRoutine -->
     <string name="review_routine">Califica esta Rutina!</string>
+    <string name="review_ask">Querés dejar una Calificación?</string>
+    <string name="review_thank">Gracias por tu Calificación!</string>
+    <string name="good_job">Buen Trabajo!</string>
+    <string name="killed_it">Lo hiciste muy bien!</string>
+    <string name="go_home">Ir a Inicio</string>
+    <string name="publish_review">Publicar</string>
 
 
 </resources>
