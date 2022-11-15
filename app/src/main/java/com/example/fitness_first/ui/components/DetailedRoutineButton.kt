@@ -34,8 +34,8 @@ fun DetailedRoutineButton(name: String, category: String, liked: Boolean, func: 
     OutlinedButton(
         onClick =  func,
         modifier = Modifier
-            .width(260.dp)
-            .height(70.dp)
+            .width(350.dp)
+            .height(85.dp)
             .padding(0.dp),
         shape = RoundedCornerShape(16.dp),
         colors = ButtonDefaults.buttonColors(

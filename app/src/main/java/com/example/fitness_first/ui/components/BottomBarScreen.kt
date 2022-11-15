@@ -1,6 +1,7 @@
 package com.example.fitness_first.ui.components
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -23,6 +24,6 @@ sealed class BottomBarScreen(
     object Routines: BottomBarScreen(
         route = "routines",
         title = "Routines",
-        icon = Icons.Filled.Favorite
+        icon = Icons.Filled.DateRange
     )
 }

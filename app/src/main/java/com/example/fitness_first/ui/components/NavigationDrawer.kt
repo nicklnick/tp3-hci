@@ -68,7 +68,7 @@ fun NavigationDrawer(
                             viewModel.getCurrentUser()
                             navController.navigate("profile")
                         },
-                        NavItem("My Routines", Icons.Filled.AccountCircle) { navController.navigate("routines") },
+                        NavItem("My Routines", Icons.Filled.DateRange) { navController.navigate("routines") },
                         NavItem("Favorites", Icons.Filled.Favorite) { navController.navigate("favourites") },
                         NavItem("Settings", Icons.Filled.Settings) { navController.navigate("settings") },
                         NavItem("Help", Icons.Filled.Info) { navController.navigate("help") },

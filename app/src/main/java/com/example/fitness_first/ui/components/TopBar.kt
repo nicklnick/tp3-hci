@@ -31,7 +31,7 @@ fun topBar(
     menuFunc: () -> Unit,
     navController: NavHostController,
     viewModel: MainViewModel,
-    NavigateToAllRoutinesScreen: () -> Unit
+    //NavigateToAllRoutinesScreen: () -> Unit
 ){
     TopAppBar(
         modifier = Modifier
@@ -53,13 +53,6 @@ fun topBar(
                     verticalAlignment = Alignment.CenterVertically
                 ){
                     SearchBar(navController, viewModel)
-                    Button(
-                        shape = CircleShape,
-                        modifier = Modifier.size(50.dp),
-                        onClick = NavigateToAllRoutinesScreen
-                    ){
-                        Text(text = stringResource(R.string.seeAll), fontSize = 9.sp, color = Color.Black)
-                    }
                 }
 
             }

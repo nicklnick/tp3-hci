@@ -46,7 +46,7 @@ fun HomeScreen(
                 }},
                 navController,
                 viewModel,
-                NavigateToAllRoutinesScreen
+                //NavigateToAllRoutinesScreen
             )
             },
             bottomBar = { BottomBar(navController = navController) },
