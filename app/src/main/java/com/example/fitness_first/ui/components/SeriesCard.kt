@@ -88,7 +88,7 @@ private fun ExerciseDetailRow(fullCycleExercise: FullCycleExercise) {
             border = BorderStroke(1.dp, Secondary)
         ) {
             var detail = fullCycleExercise.repetitions
-            if(detail == null)
+            if(detail == 0)
                 detail = fullCycleExercise.duration
 
             Text(

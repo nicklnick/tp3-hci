@@ -542,5 +542,26 @@ class MainViewModel(
             )
         }
     }
+
+    fun getRoutine(id: Int) = viewModelScope.launch {
+        uiState = uiState.copy(
+            isFetching = true,
+            message = null
+        )
+        runCatching {
+            routineRepository.getRoutine(id)
+        }.onSuccess { response ->
+            uiState = uiState.copy(
+                isFetching = false,
+                currentRoutine = response
+            )
+            getRoutineDetails(id)
+        }.onFailure { e ->
+            uiState = uiState.copy(
+                message = e.message,
+                isFetching = false
+            )
+        }
+    }
 }
 

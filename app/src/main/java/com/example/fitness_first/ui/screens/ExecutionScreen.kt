@@ -27,6 +27,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.times
+import com.example.fitness_first.MainViewModel
 import com.example.fitness_first.ui.components.IconFAB
 import com.example.fitness_first.R
 import com.example.fitness_first.ui.theme.Primary
@@ -35,14 +36,16 @@ import com.example.fitness_first.ui.theme.Secondary
 import com.example.fitness_first.ui.theme.Tertiary
 
 @Composable
-fun ExecutionScreen(routineTitle: String) {
+fun ExecutionScreen(id: Int, viewModel: MainViewModel) {
     val configuration = LocalConfiguration.current
+    viewModel.getRoutine(id)
+
     when(configuration.orientation) {
         Configuration.ORIENTATION_PORTRAIT -> {
-            showVerticalLayout(routineTitle)
+            showVerticalLayout(viewModel.uiState.currentRoutine!!.name)
         }
         else -> {
-            showLandscapeLayout(routineTitle)
+            showLandscapeLayout(viewModel.uiState.currentRoutine!!.name)
         }
     }
 }
@@ -53,7 +56,7 @@ private fun showVerticalLayout(routineTitle: String) {
         modifier = Modifier.fillMaxSize()
     ) {
         Image(
-            painter = painterResource(id = com.example.fitness_first.R.drawable.bkg4),
+            painter = painterResource(id = R.drawable.bkg4),
             contentDescription = "back",
             contentScale = ContentScale.FillBounds,
             modifier = Modifier.fillMaxSize()

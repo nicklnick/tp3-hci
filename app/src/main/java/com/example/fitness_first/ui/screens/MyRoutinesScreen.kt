@@ -122,7 +122,11 @@ fun MyRoutinesScreen(
                                         name = list[index].name.toString(),
                                         category = list[index].category.name.toString(),
                                         liked = true,
-                                        func = { /*TODO*/ },
+                                        func = {
+                                            viewModel.getRoutine(list[index].id)
+
+                                            NavigateToRoutineDetails(list[index].id.toString())
+                                           },
                                         likeFunc = {viewModel.deleteFavourite(list[index].id)}
                                     )
                                 }

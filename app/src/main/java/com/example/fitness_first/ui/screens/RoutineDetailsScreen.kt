@@ -22,9 +22,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.fitness_first.MainViewModel
 import com.example.fitness_first.R
 import com.example.fitness_first.ui.components.IconFAB
 import com.example.fitness_first.ui.components.RatingBar
+import com.example.fitness_first.ui.components.SeriesCard
 import com.example.fitness_first.ui.components.SimpleChip
 import com.example.fitness_first.ui.theme.Primary
 import com.example.fitness_first.ui.theme.Quaternary
@@ -33,51 +36,21 @@ import com.example.fitness_first.ui.theme.Tertiary
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun RoutineDetailsScreen(title: String) {
-    val scrollState = rememberScrollState()
+fun RoutineDetailsScreen(id: Int, viewModel: MainViewModel) {
 
-    Column(
-        Modifier
-            .fillMaxHeight()
-    ) {
-        Box{
-            Image(
-                painter = painterResource(id = R.drawable.bkg5),
-                contentDescription = null,
-                contentScale = ContentScale.FillBounds,
-                modifier = Modifier.fillMaxSize()
-            )
-            Scaffold(
-                topBar = {TopBarRoutineDetails(title, 3.5f, 30)},
-                modifier = Modifier.background(Secondary),
-                backgroundColor = Color.Transparent
-            ) {
-                Box(
-                    Modifier
-                        .fillMaxSize()
-                        .verticalScroll(scrollState)
-                        .background(Secondary)
-                ) {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.spacedBy(10.dp),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(10.dp)
-                    ) {
-                        /**
-                         * TODO: Aca tendriamos que poner las series card list de la rutina que clickearon
-                         */
-                    }
-                }
-            }
-        }
+    if (viewModel.uiState.message != null)
+        Text(text = "Routine not found")
+
+    if (viewModel.uiState.isFetching)
+        Text(text = "Loading...")
+    else {
+        loadRoutineDetails(viewModel)
     }
 }
 
 
 @Composable
-fun TopBarRoutineDetails(title: String, difficulty: Float, duration: Int) {
+fun TopBarRoutineDetails(title: String, difficulty: String, duration: Int) {
 
     // Sharing routine with intent functionality
     val context = LocalContext.current
@@ -91,7 +64,7 @@ fun TopBarRoutineDetails(title: String, difficulty: Float, duration: Int) {
 
     Column(
         modifier = Modifier.background(Secondary)
-    ){
+    ) {
         Spacer(modifier = Modifier.padding(top = 12.dp))
 
         Row(
@@ -140,6 +113,59 @@ fun TopBarRoutineDetails(title: String, difficulty: Float, duration: Int) {
             RatingBar()
         }
         Spacer(modifier = Modifier.padding(bottom = 4.dp))
+    }
+}
+
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
+@Composable
+fun loadRoutineDetails(viewModel: MainViewModel) {
+    val scrollState = rememberScrollState()
+
+    Column(
+        Modifier
+            .fillMaxHeight()
+    ) {
+        Box {
+            Image(
+                painter = painterResource(id = R.drawable.bkg5),
+                contentDescription = null,
+                contentScale = ContentScale.FillBounds,
+                modifier = Modifier.fillMaxSize()
+            )
+            Scaffold(
+                topBar = {
+                    TopBarRoutineDetails(
+                        title = viewModel.uiState.currentRoutine!!.name,
+                        difficulty = viewModel.uiState.currentRoutine!!.difficulty!!,
+                        duration = 20
+                    )
+                },
+                modifier = Modifier.background(Secondary),
+                backgroundColor = Color.Transparent
+            ) {
+                Box(
+                    Modifier
+                        .fillMaxSize()
+                        .verticalScroll(scrollState)
+                        .background(Secondary)
+                ) {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.spacedBy(10.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(10.dp)
+                    ) {
+                        for (cycle in viewModel.uiState.cycleDataList!!) {
+                            SeriesCard(
+                                title = cycle.cycleName,
+                                cycleExerciseList = cycle.cycleExercises
+                            )
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 

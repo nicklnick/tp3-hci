@@ -55,15 +55,15 @@ fun AppNavHost(
 
         composable(route = BottomBarScreen.Home.route){
             HomeScreen(
-                NavigateToCategoryScreen = { route -> navController.navigate("category/$route")},
+                NavigateToCategoryScreen = { route -> navController.navigate("category/$route") },
                 navController,
                 viewModel,
-                NavigateToAllRoutinesScreen = { -> navController.navigate("allRoutines") }
+                NavigateToAllRoutinesScreen = { navController.navigate("allRoutines") }
             )
         }
         composable(
             route = "category/{route}",
-            arguments = listOf(navArgument("route") { type = NavType.StringType})
+            arguments = listOf(navArgument("route") { type = NavType.StringType })
         ) {
             NavBackStackEntry ->
             CategoryScreen(
@@ -74,7 +74,7 @@ fun AppNavHost(
         }
         composable(
             route = "search/{route}",
-            arguments = listOf(navArgument("route") { type = NavType.StringType})
+            arguments = listOf(navArgument("route") { type = NavType.StringType })
         ){
             NavBackStackEntry ->
             SearchScreen(
@@ -100,18 +100,18 @@ fun AppNavHost(
         }
 
         composable(
-            route = "routine/{title}",
-            deepLinks = listOf(navDeepLink { uriPattern = "$uri/routine/{title}" }, navDeepLink { uriPattern = "$secureUri/routine/{title}" }),
-            arguments = listOf(navArgument("title") { type = NavType.StringType })
+            route = "routine/{id}",
+            deepLinks = listOf(navDeepLink { uriPattern = "$uri/routine/{id}" }, navDeepLink { uriPattern = "$secureUri/routine/{id}" }),
+            arguments = listOf(navArgument("id") { type = NavType.IntType })
         ) {
-            NavBackStackEntry -> RoutineDetailsScreen(NavBackStackEntry.arguments?.getString("title").toString())
+            NavBackStackEntry -> RoutineDetailsScreen(NavBackStackEntry.arguments?.getInt("id")!!, viewModel)
         }
 
         composable(
-            route = "routine/{title}/execution",
-            arguments = listOf(navArgument("title") { type = NavType.StringType }),
+            route = "routine/{id}/execution",
+            arguments = listOf(navArgument("id") { type = NavType.IntType }),
         ){
-            NavBackStackEntry -> ExecutionScreen(NavBackStackEntry.arguments?.getString("title").toString())
+            NavBackStackEntry -> ExecutionScreen(NavBackStackEntry.arguments?.getInt("id")!!, viewModel)
         }
 
         composable(route = "profile"){
