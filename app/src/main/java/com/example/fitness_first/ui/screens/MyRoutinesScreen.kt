@@ -28,20 +28,11 @@ import com.example.fitness_first.ui.theme.Secondary
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-class BasicRoutineData
-constructor(name: String, category: String, liked: Boolean, func: (route: String) -> Unit = {}) {
-    val name = name
-    val category = category
-    val liked = liked
-    val func = func
-}
-
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun MyRoutinesScreen(
     NavigateToRoutineDetails: (route: String) -> Unit,
-    routineData: List<BasicRoutineData>,
     navController: NavHostController,
     viewModel: MainViewModel
 ) {
@@ -100,19 +91,42 @@ fun MyRoutinesScreen(
                         color = Secondary,
                         modifier = Modifier.padding(start = 10.dp, top = 5.dp)
                     )
-                    LazyColumn(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.spacedBy(space = 8.dp)
-                    ) {
-                        items(routineData) {
-                            /* TODO: aca deberias poder hacer detailedRoutineButton(data) */
-                                data -> DetailedRoutineButton(
-                            name = data.name,
-                            category = data.category,
-                            liked = data.liked,
-                            func = { NavigateToRoutineDetails(data.name) } ,
-                        ) { }
+                    if(viewModel.uiState.isFetching){
+                        Column(
+                            modifier = Modifier.fillMaxSize(),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
+                        ) {
+                            Text(
+                                text = "Loading...",
+                                fontSize = 16.sp
+                            )
+                        }
+                    }
+                    else{
+                        val userList = viewModel.uiState.userRoutines.orEmpty()
+                        val list = viewModel.uiState.routines.orEmpty()
+                        LazyColumn(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.spacedBy(space = 8.dp)
+                        ) {
+                            items(
+                                count = list.size,
+                                key = { index ->
+                                    list[index].id.toString()
+                                }
+                            ){ index ->
+                                if( userList.find { it.id == list[index].id  } != null){
+                                    DetailedRoutineButton(
+                                        name = list[index].name.toString(),
+                                        category = list[index].category.name.toString(),
+                                        liked = true,
+                                        func = { /*TODO*/ },
+                                        likeFunc = {viewModel.deleteFavourite(list[index].id)}
+                                    )
+                                }
+                            }
                         }
                     }
                 }

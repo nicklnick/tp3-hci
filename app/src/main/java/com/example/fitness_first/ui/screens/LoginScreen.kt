@@ -94,6 +94,7 @@ fun LoginScreen(backFunc: () -> Unit, loginFunc: () -> Unit, viewModel: MainView
                             // TODO: en vez de agregarlos podemos pedir que los tengan agregados de antemano
                             viewModel.getRoutines()
                             viewModel.getFavourites()
+                            viewModel.getCurrentUserRoutines()
 
                             loginFunc()
 

@@ -1,5 +1,6 @@
 package com.example.fitness_first.data.repository
 
+import com.example.fitness_first.data.model.Routine
 import com.example.fitness_first.data.model.User
 import com.example.fitness_first.data.network.UserRemoteDataSource
 import kotlinx.coroutines.sync.Mutex
@@ -13,6 +14,7 @@ class UserRepository(
     private val currentUserMutex = Mutex()
     // Cache of the current user got from the network.
     private var currentUser: User? = null
+    private var routines: List<Routine> = emptyList()
 
     suspend fun login(username: String, password: String) {
         remoteDataSource.login(username, password)
@@ -32,6 +34,14 @@ class UserRepository(
         }
 
         return currentUserMutex.withLock { this.currentUser }
+    }
+
+    suspend fun getCurrentUserRoutines(): List<Routine>{
+        val userRoutines = remoteDataSource.getCurrentUserRoutines()
+        currentUserMutex.withLock {
+            this.routines = userRoutines.content.map { it.asModel() }
+        }
+        return currentUserMutex.withLock { this.routines }
     }
 }
 

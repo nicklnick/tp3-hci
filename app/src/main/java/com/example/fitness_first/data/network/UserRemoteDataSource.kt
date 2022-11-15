@@ -2,6 +2,8 @@ package com.example.fitness_first.data.network
 
 import com.example.fitness_first.data.network.api.ApiUserService
 import com.example.fitness_first.data.network.model.NetworkCredentials
+import com.example.fitness_first.data.network.model.NetworkPagedContent
+import com.example.fitness_first.data.network.model.NetworkRoutine
 import com.example.fitness_first.data.network.model.NetworkUser
 import com.example.fitness_first.util.SessionManager
 
@@ -24,5 +26,11 @@ class UserRemoteDataSource(
 
     suspend fun getCurrentUser() : NetworkUser {
         return handleApiResponse { apiUserService.getCurrentUser() }
+    }
+
+    suspend fun getCurrentUserRoutines() : NetworkPagedContent<NetworkRoutine>{
+        return handleApiResponse {
+            apiUserService.getCurrentUserRoutines()
+        }
     }
 }

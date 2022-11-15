@@ -25,6 +25,7 @@ data class MainUiState(
     val currentCategory: Category? = null,
 
     val favouriteRoutines: List<Routine>? = null,
+    val userRoutines: List<Routine>? = null,
 
     val routinesCycles: List<FullCycle>? = emptyList(),
     val cycleExercises: List<FullCycleExercise>? = emptyList(),

@@ -99,6 +99,26 @@ class MainViewModel(
         }
     }
 
+    fun getCurrentUserRoutines() = viewModelScope.launch {
+        uiState = uiState.copy(
+            isFetching = true,
+            message = null
+        )
+        runCatching {
+            userRepository.getCurrentUserRoutines()
+        }.onSuccess { response ->
+            uiState = uiState.copy(
+                isFetching = false,
+                userRoutines = response
+            )
+        }.onFailure { e ->
+            // Handle the error and notify the UI when appropriate.
+            uiState = uiState.copy(
+                message = e.message,
+                isFetching = false)
+        }
+    }
+
     fun getSports() = viewModelScope.launch {
         uiState = uiState.copy(
             isFetching = true,

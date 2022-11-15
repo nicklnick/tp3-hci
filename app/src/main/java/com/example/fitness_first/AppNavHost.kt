@@ -92,12 +92,7 @@ fun AppNavHost(
         }
 
         composable(route = BottomBarScreen.Routines.route){
-            /* TODO: Esto es provisorio, sacar!!! */
-            val data = listOf(
-                BasicRoutineData("hola", "chau", true),
-            )
             MyRoutinesScreen(
-                routineData = data,
                 navController = navController,
                 NavigateToRoutineDetails = { route -> navController.navigate("routine/$route")},
                 viewModel = viewModel

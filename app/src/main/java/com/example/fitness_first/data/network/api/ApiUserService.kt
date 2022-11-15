@@ -1,8 +1,6 @@
 package com.example.fitness_first.data.network.api
 
-import com.example.fitness_first.data.network.model.NetworkCredentials
-import com.example.fitness_first.data.network.model.NetworkToken
-import com.example.fitness_first.data.network.model.NetworkUser
+import com.example.fitness_first.data.network.model.*
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -17,4 +15,7 @@ interface ApiUserService {
 
     @GET("users/current")
     suspend fun getCurrentUser(): Response<NetworkUser>
+
+    @GET("users/current/routines")
+    suspend fun getCurrentUserRoutines(): Response<NetworkPagedContent<NetworkRoutine>>
 }

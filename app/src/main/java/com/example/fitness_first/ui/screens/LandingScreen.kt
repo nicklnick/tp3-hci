@@ -22,6 +22,7 @@ fun LandingScreen(signupFunc: () -> Unit, loginFunc: () -> Unit, loggedInFunc: (
     if(viewModel.uiState.isAuthenticated) {
         viewModel.getRoutines()
         viewModel.getFavourites()
+        viewModel.getCurrentUserRoutines()
         loggedInFunc()
     }
     Surface(
