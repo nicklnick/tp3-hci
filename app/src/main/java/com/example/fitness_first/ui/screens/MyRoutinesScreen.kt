@@ -106,6 +106,7 @@ fun MyRoutinesScreen(
                     else{
                         val userList = viewModel.uiState.userRoutines.orEmpty()
                         val list = viewModel.uiState.routines.orEmpty()
+                        val favList = viewModel.uiState.favouriteRoutines.orEmpty()
                         LazyColumn(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalAlignment = Alignment.CenterHorizontally,
@@ -121,13 +122,19 @@ fun MyRoutinesScreen(
                                     DetailedRoutineButton(
                                         name = list[index].name.toString(),
                                         category = list[index].category.name.toString(),
-                                        liked = true,
+                                        liked = favList.find { it.id == list[index].id } != null,
                                         func = {
                                             viewModel.getRoutine(list[index].id)
 
                                             NavigateToRoutineDetails(list[index].id.toString())
                                            },
-                                        likeFunc = {viewModel.deleteFavourite(list[index].id)}
+                                        likeFunc = {
+                                            if(favList.find { it.id == list[index].id } == null){
+                                                viewModel.markFavourite(list[index].id)
+                                            }else{
+                                                viewModel.deleteFavourite(list[index].id)
+                                            }
+                                        }
                                     )
                                 }
                             }
