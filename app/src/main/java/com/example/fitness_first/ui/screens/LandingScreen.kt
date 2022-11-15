@@ -19,9 +19,11 @@ import com.example.fitness_first.util.getViewModelFactory
 
 @Composable
 fun LandingScreen(signupFunc: () -> Unit, loginFunc: () -> Unit, loggedInFunc: () -> Unit, viewModel: MainViewModel){
-    if(viewModel.uiState.isAuthenticated)
+    if(viewModel.uiState.isAuthenticated) {
+        viewModel.getRoutines()
+        viewModel.getFavourites()
         loggedInFunc()
-
+    }
     Surface(
         modifier = Modifier.fillMaxSize()
     ){

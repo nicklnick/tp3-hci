@@ -36,9 +36,6 @@ import com.example.fitness_first.util.getViewModelFactory
 @Composable
 fun LoginScreen(backFunc: () -> Unit, loginFunc: () -> Unit, viewModel: MainViewModel) {
 
-    if(viewModel.uiState.isAuthenticated)
-        loginFunc()
-
     var user by rememberSaveable { mutableStateOf("")}
     var password by rememberSaveable { mutableStateOf("")}
 
@@ -94,7 +91,12 @@ fun LoginScreen(backFunc: () -> Unit, loginFunc: () -> Unit, viewModel: MainView
                             viewModel.addCategory(Category(name = Categories.Legs.title))
                             viewModel.addCategory(Category(name = Categories.Abs.title))
                             viewModel.addCategory(Category(name = Categories.FullBody.title))
+                            // TODO: en vez de agregarlos podemos pedir que los tengan agregados de antemano
+                            viewModel.getRoutines()
+                            viewModel.getFavourites()
+
                             loginFunc()
+
                         }
                     }
                 }
