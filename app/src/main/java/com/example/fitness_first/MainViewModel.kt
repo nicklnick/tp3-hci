@@ -33,7 +33,7 @@ class MainViewModel(
         getFavourites()
     }
 
-    fun login(username: String, password: String, successFunc: () -> Unit) = viewModelScope.launch {
+    fun login(username: String, password: String, successFunc: () -> Unit, failureFunc: suspend () -> Unit) = viewModelScope.launch {
         uiState = uiState.copy(
             isFetching = true,
             message = null
@@ -52,6 +52,7 @@ class MainViewModel(
                 message = e.message,
                 isFetching = false
             )
+            failureFunc()
         }
     }
 

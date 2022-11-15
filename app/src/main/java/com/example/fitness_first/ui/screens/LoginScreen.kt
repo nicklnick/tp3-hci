@@ -1,11 +1,11 @@
 package com.example.fitness_first.ui.screens
 
+import android.annotation.SuppressLint
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.runtime.*
@@ -24,28 +24,33 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.fitness_first.MainViewModel
 import com.example.fitness_first.R
 import com.example.fitness_first.data.model.Category
-import com.example.fitness_first.ui.components.Categories
-import com.example.fitness_first.ui.components.GenericInputField
-import com.example.fitness_first.ui.components.GenericLongButton
-import com.example.fitness_first.ui.components.IconFAB
+import com.example.fitness_first.ui.components.*
+import com.example.fitness_first.ui.theme.ErrorColor
 import com.example.fitness_first.ui.theme.FitnessfirstTheme
 import com.example.fitness_first.ui.theme.Primary
 import com.example.fitness_first.ui.theme.Quaternary
 import com.example.fitness_first.util.getViewModelFactory
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun LoginScreen(backFunc: () -> Unit, loginFunc: () -> Unit, viewModel: MainViewModel) {
 
     var user by rememberSaveable { mutableStateOf("")}
     var password by rememberSaveable { mutableStateOf("")}
 
-    Surface(
+    val scaffoldState = rememberScaffoldState()
+
+    Scaffold(
         modifier = Modifier.fillMaxSize(),
+        scaffoldState = scaffoldState,
+        snackbarHost = { SnackbarHost(it){ data -> ErrorSnackBar(data = data) } },
+
     ){
         Image(
             painter = painterResource(id = R.drawable.bkg3),
             contentDescription = null,
             contentScale = ContentScale.FillWidth,
+            modifier = Modifier.fillMaxSize(),
         )
         Column(
             verticalArrangement = Arrangement.SpaceBetween,
@@ -65,7 +70,8 @@ fun LoginScreen(backFunc: () -> Unit, loginFunc: () -> Unit, viewModel: MainView
                     .fillMaxWidth()
                     .height(650.dp),
                 shape = RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp),
-                backgroundColor = Quaternary
+                backgroundColor = Quaternary,
+                //border = BorderStroke(5.dp, Primary)
             ) {
                 Column(
                     modifier = Modifier
@@ -82,7 +88,7 @@ fun LoginScreen(backFunc: () -> Unit, loginFunc: () -> Unit, viewModel: MainView
                     GenericInputField(label = stringResource(R.string.login_password), value = password, {password = it }, false)
 
                     GenericLongButton(stringResource(R.string.login_continue)) {
-                        viewModel.login(user,password) {
+                        viewModel.login(user,password,{
                             viewModel.addCategory(Category(name = Categories.Bicep.title))
                             viewModel.addCategory(Category(name = Categories.Tricep.title))
                             viewModel.addCategory(Category(name = Categories.Chest.title))
@@ -92,19 +98,20 @@ fun LoginScreen(backFunc: () -> Unit, loginFunc: () -> Unit, viewModel: MainView
                             viewModel.addCategory(Category(name = Categories.Abs.title))
                             viewModel.addCategory(Category(name = Categories.FullBody.title))
                             // TODO: en vez de agregarlos podemos pedir que los tengan agregados de antemano
+
                             viewModel.getRoutines()
                             viewModel.getFavourites()
-                            viewModel.getCurrentUserRoutines()
 
                             loginFunc()
-
-                        }
+                        },
+                            {
+                                scaffoldState.snackbarHostState.showSnackbar("Invalid username or password.")
+                            }
+                        )
                     }
                 }
 
-
             }
-
         }
     }
 }
