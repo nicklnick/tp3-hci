@@ -23,6 +23,7 @@ data class MainUiState(
 
     val categories: List<Category>? = null,
     val currentCategory: Category? = null,
+    val categoryRoutines: List<Routine>? = null,
 
     val favouriteRoutines: List<Routine>? = null,
     val userRoutines: List<Routine>? = null,

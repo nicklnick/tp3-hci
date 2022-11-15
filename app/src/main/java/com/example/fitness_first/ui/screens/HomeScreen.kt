@@ -78,6 +78,7 @@ fun HomeScreen(
                             Categories.FullBody
                         ),
                         NavigateToCategoryScreen,
+                        viewModel
                     )
                     Text(
                         text = "Recent",

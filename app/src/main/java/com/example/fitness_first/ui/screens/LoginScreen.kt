@@ -1,6 +1,7 @@
 package com.example.fitness_first.ui.screens
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -99,6 +100,29 @@ fun LoginScreen(backFunc: () -> Unit, loginFunc: () -> Unit, viewModel: MainView
                             viewModel.addCategory(Category(name = Categories.FullBody.title))
                             // TODO: en vez de agregarlos podemos pedir que los tengan agregados de antemano
 
+//                            viewModel.getCategories()
+//                            if(!viewModel.uiState.isFetching){
+//                                val categories = viewModel.uiState.categories.orEmpty()
+//                                val categoriesData = listOf(
+//                                    Categories.Bicep,
+//                                    Categories.Tricep,
+//                                    Categories.Chest,
+//                                    Categories.Legs,
+//                                    Categories.Abs,
+//                                    Categories.Back,
+//                                    Categories.FullBody,
+//                                    Categories.Shoulders
+//                                )
+//                                categories.forEach { apiCategory ->
+//                                    categoriesData.forEach { dataCategory ->
+//                                        if( dataCategory.title.equals(apiCategory.name, true)){
+//                                            dataCategory.id = apiCategory.id
+//                                            Log.d("name",dataCategory.title)
+//                                            Log.d("id value for category", dataCategory.id.toString())
+//                                        }
+//                                    }
+//                                }
+//                            }
                             viewModel.getRoutines()
                             viewModel.getFavourites()
 

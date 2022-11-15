@@ -306,6 +306,26 @@ class MainViewModel(
         }
     }
 
+    fun getRoutinesWCategory(categoryId: Int) = viewModelScope.launch {
+        uiState = uiState.copy(
+            isFetching = true,
+            message = null
+        )
+        runCatching {
+            routineRepository.getRoutinesWCategory(categoryId)
+        }.onSuccess { response ->
+            uiState = uiState.copy(
+                isFetching = false,
+                categoryRoutines = response,
+            )
+        }.onFailure { e ->
+            uiState = uiState.copy(
+                message = e.message,
+                isFetching = false
+            )
+        }
+    }
+
     fun getReviews(routineId: Int) = viewModelScope.launch {
         uiState = uiState.copy(
             isFetching = true,
