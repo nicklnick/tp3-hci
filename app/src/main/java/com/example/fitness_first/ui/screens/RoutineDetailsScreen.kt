@@ -2,6 +2,7 @@ package com.example.fitness_first.ui.screens
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -14,6 +15,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,7 +24,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.fitness_first.MainViewModel
 import com.example.fitness_first.R
 import com.example.fitness_first.ui.components.IconFAB
@@ -41,8 +42,9 @@ fun RoutineDetailsScreen(id: Int, viewModel: MainViewModel) {
     if (viewModel.uiState.message != null)
         Text(text = "Routine not found")
 
-    if (viewModel.uiState.isFetching)
-        Text(text = "Loading...")
+    if (viewModel.uiState.isFetching) {
+        LoadingScreen()
+    }
     else {
         loadRoutineDetails(viewModel)
     }
@@ -50,7 +52,7 @@ fun RoutineDetailsScreen(id: Int, viewModel: MainViewModel) {
 
 
 @Composable
-fun TopBarRoutineDetails(title: String, difficulty: String, duration: Int) {
+fun TopBarRoutineDetails(title: String, difficulty: String, liked: Boolean, likeFunc: () -> Unit) {
 
     // Sharing routine with intent functionality
     val context = LocalContext.current
@@ -73,7 +75,6 @@ fun TopBarRoutineDetails(title: String, difficulty: String, duration: Int) {
             horizontalArrangement = Arrangement.Center
         ) {
             SimpleChip("Difficulty: $difficulty", Tertiary)
-            SimpleChip("$duration'", Tertiary)
         }
 
         Row(
@@ -96,12 +97,15 @@ fun TopBarRoutineDetails(title: String, difficulty: String, duration: Int) {
                 color = Color.White
             )
 
+            val tint by animateColorAsState(
+                targetValue = if(liked) Primary else Color.DarkGray
+            )
             IconFAB(
                 icon = Icons.Default.Favorite,
-                func = { favRoutine() },
+                func = likeFunc,
                 modifier = Modifier,
-                Quaternary,
-                Primary
+                backgroundColor = Quaternary,
+                contentColor = tint
             )
         }
 
@@ -121,6 +125,10 @@ fun TopBarRoutineDetails(title: String, difficulty: String, duration: Int) {
 fun loadRoutineDetails(viewModel: MainViewModel) {
     val scrollState = rememberScrollState()
 
+    // For liking and disliking current routine
+    val favList = viewModel.uiState.favouriteRoutines.orEmpty()
+    val currentRoutine = viewModel.uiState.currentRoutine
+
     Column(
         Modifier
             .fillMaxHeight()
@@ -137,7 +145,14 @@ fun loadRoutineDetails(viewModel: MainViewModel) {
                     TopBarRoutineDetails(
                         title = viewModel.uiState.currentRoutine!!.name,
                         difficulty = viewModel.uiState.currentRoutine!!.difficulty!!,
-                        duration = 20
+                        liked = favList.find { it.id == currentRoutine!!.id } != null,
+                        likeFunc = {
+                            if (favList.find { it.id == currentRoutine!!.id } == null) {
+                                viewModel.markFavourite(currentRoutine!!.id)
+                            } else {
+                                viewModel.deleteFavourite(currentRoutine!!.id)
+                            }
+                        }
                     )
                 },
                 modifier = Modifier.background(Secondary),
@@ -167,13 +182,4 @@ fun loadRoutineDetails(viewModel: MainViewModel) {
             }
         }
     }
-}
-
-
-//private fun shareRoutine() {
-//
-//}
-
-private fun favRoutine() {
-    // TODO: hacer!
 }

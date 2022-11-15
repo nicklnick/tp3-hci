@@ -86,6 +86,7 @@ fun AppNavHost(
 
         composable(route = BottomBarScreen.Favourites.route){
             FavouritesScreen(
+                NavigateToRoutineDetails = { route -> navController.navigate("routine/$route")},
                 navController,
                 viewModel
             )

@@ -29,6 +29,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun FavouritesScreen(
+    NavigateToRoutineDetails: (route: String) -> Unit,
     navController: NavHostController,
     viewModel: MainViewModel
 ) {
@@ -115,8 +116,12 @@ fun FavouritesScreen(
                                         DetailedRoutineButton(
                                             name = list[index].name.toString(),
                                             category = list[index].category.name.toString(),
-                                            liked = true,
-                                            func = { /*TODO*/ },
+                                            liked = favList.find { it.id == list[index].id } != null,
+                                            func = {
+                                                viewModel.getRoutine(list[index].id)
+
+                                                NavigateToRoutineDetails(list[index].id.toString())
+                                            },
                                             likeFunc = {viewModel.deleteFavourite(list[index].id)}
                                         )
                                     }
