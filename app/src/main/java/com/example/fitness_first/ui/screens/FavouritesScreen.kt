@@ -102,7 +102,7 @@ fun FavouritesScreen(
                             val favList = viewModel.uiState.favouriteRoutines.orEmpty()
                             val list = viewModel.uiState.routines.orEmpty()
                             LazyColumn(
-                                modifier = Modifier.fillMaxWidth(),
+                                modifier = Modifier.fillMaxWidth().fillMaxHeight(0.91f).padding(bottom = 5.dp),
                                 horizontalAlignment = Alignment.CenterHorizontally,
                                 verticalArrangement = Arrangement.spacedBy(space = 8.dp)
                             ){

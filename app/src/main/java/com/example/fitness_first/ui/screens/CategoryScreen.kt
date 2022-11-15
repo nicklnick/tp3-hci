@@ -31,7 +31,8 @@ import kotlinx.coroutines.launch
 fun CategoryScreen(
     muscle: String,
     navController: NavHostController,
-    viewModel: MainViewModel
+    viewModel: MainViewModel,
+    NavigateToRoutineDetails: (route: String) -> Unit
 ) {
     val scope = rememberCoroutineScope()
     val sheetState = rememberBottomSheetState(
@@ -89,21 +90,22 @@ fun CategoryScreen(
                         )
                         if(viewModel.uiState.isFetching){
                             Column(
-                                modifier = Modifier.fillMaxSize(),
+                                modifier = Modifier.fillMaxSize().background(Color.Transparent),
                                 horizontalAlignment = Alignment.CenterHorizontally,
                                 verticalArrangement = Arrangement.Center
                             ) {
-                                Text(
-                                    text = "Loading...",
-                                    fontSize = 16.sp
-                                )
+                                CircularProgressIndicator()
+//                                Text(
+//                                    text = "Loading...",
+//                                    fontSize = 16.sp
+//                                )
                             }
                         }else{
                             val categoryList = viewModel.uiState.categoryRoutines.orEmpty()
                             val list = viewModel.uiState.routines.orEmpty()
                             val favList = viewModel.uiState.favouriteRoutines.orEmpty()
                             LazyColumn(
-                                modifier = Modifier.fillMaxWidth(),
+                                modifier = Modifier.fillMaxWidth().fillMaxHeight(0.91f).padding(bottom = 5.dp),
                                 horizontalAlignment = Alignment.CenterHorizontally,
                                 verticalArrangement = Arrangement.spacedBy(space = 8.dp)
                             ) {
@@ -120,8 +122,7 @@ fun CategoryScreen(
                                             liked = favList.find { it.id == list[index].id } != null,
                                             func = {
                                                 viewModel.getRoutine(list[index].id)
-//TODO
-//                                                NavigateToRoutineDetails(list[index].id.toString())
+                                                NavigateToRoutineDetails(list[index].id.toString())
                                             },
                                             likeFunc = {
                                                 if(favList.find { it.id == list[index].id } == null){

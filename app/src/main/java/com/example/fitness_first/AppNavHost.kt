@@ -69,7 +69,8 @@ fun AppNavHost(
             CategoryScreen(
                 NavBackStackEntry.arguments?.getString("route").toString(),
                 navController,
-                viewModel
+                viewModel,
+                NavigateToRoutineDetails = { route -> navController.navigate("routine/$route")}
             )
         }
         composable(
@@ -80,7 +81,8 @@ fun AppNavHost(
             SearchScreen(
                 NavBackStackEntry.arguments?.getString("route").toString(),
                 navController,
-                viewModel
+                viewModel,
+                NavigateToRoutineDetails = { route -> navController.navigate("routine/$route")}
             )
         }
 
@@ -130,7 +132,8 @@ fun AppNavHost(
         composable("allRoutines"){
             AllRoutinesScreen(
                 navController,
-                viewModel
+                viewModel,
+                NavigateToRoutineDetails = { route -> navController.navigate("routine/$route")}
             )
         }
 

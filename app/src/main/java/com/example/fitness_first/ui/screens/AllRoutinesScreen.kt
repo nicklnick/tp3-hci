@@ -35,7 +35,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun AllRoutinesScreen(
     navController: NavHostController,
-    viewModel: MainViewModel
+    viewModel: MainViewModel,
+    NavigateToRoutineDetails: (route: String) -> Unit
 ){
     val scope = rememberCoroutineScope()
     val sheetState = rememberBottomSheetState(
@@ -106,7 +107,7 @@ fun AllRoutinesScreen(
                             val list = viewModel.uiState.routines.orEmpty()
                             val favList = viewModel.uiState.favouriteRoutines.orEmpty()
                             LazyColumn(
-                                modifier = Modifier.fillMaxWidth(),
+                                modifier = Modifier.fillMaxWidth().fillMaxHeight(0.91f).padding(bottom = 5.dp),
                                 horizontalAlignment = Alignment.CenterHorizontally,
                                 verticalArrangement = Arrangement.spacedBy(space = 8.dp)
                             ){
@@ -120,7 +121,10 @@ fun AllRoutinesScreen(
                                     name = list[index].name.toString(),
                                     category = list[index].category.name.toString(),
                                     liked = favList.find { list[index].id == it.id  } != null,
-                                    func = { /*TODO*/ },
+                                    func = {
+                                        viewModel.getRoutine(list[index].id)
+                                        NavigateToRoutineDetails(list[index].id.toString())
+                                    },
                                     likeFunc = {
                                         if(favList.find { list[index].id == it.id  } == null){
                                             viewModel.markFavourite(list[index].id)
