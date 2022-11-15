@@ -63,5 +63,6 @@
     <string name="profile_surname">Apellido</string>
     <string name="profile_username">Nombre de Usuario</string>
     <string name="profile_email">Email</string>
+    <string name="cat_name">Rutinas de %1$s</string>
 
 </resources>

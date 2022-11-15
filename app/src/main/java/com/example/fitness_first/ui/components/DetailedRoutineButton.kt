@@ -65,7 +65,7 @@ fun DetailedRoutineButton(name: String, category: String, liked: Boolean, func: 
                 ) {
                     Text(
                         category,
-                        fontSize = 11.sp,
+                        fontSize = 17.sp,
                         modifier = Modifier.padding(2.dp)
                     )
                 }

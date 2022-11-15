@@ -7,10 +7,12 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.fitness_first.MainViewModel
+import com.example.fitness_first.R
 import com.example.fitness_first.ui.components.BottomBar
 import com.example.fitness_first.ui.components.NavigationDrawer
 import com.example.fitness_first.ui.components.TopBarWFilter
@@ -76,7 +78,7 @@ fun CategoryScreen(
                         verticalArrangement = Arrangement.spacedBy(6.dp)
                     ) {
                         Text(
-                            text = "$muscle Routines",
+                            text = stringResource(R.string.cat_name,muscle),
                             fontSize = MaterialTheme.typography.h4.fontSize,
                             fontWeight = FontWeight.Bold,
                             color = Secondary,
