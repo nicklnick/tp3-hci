@@ -26,6 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.fitness_first.MainViewModel
 import com.example.fitness_first.R
+import com.example.fitness_first.data.model.Review
 import com.example.fitness_first.ui.components.IconFAB
 import com.example.fitness_first.ui.components.RatingBar
 import com.example.fitness_first.ui.components.SeriesCard
@@ -52,7 +53,7 @@ fun RoutineDetailsScreen(id: Int, viewModel: MainViewModel) {
 
 
 @Composable
-fun TopBarRoutineDetails(title: String, difficulty: String, liked: Boolean, likeFunc: () -> Unit) {
+fun TopBarRoutineDetails(title: String, difficulty: String, rating: Int, liked: Boolean, likeFunc: () -> Unit) {
 
     // Sharing routine with intent functionality
     val context = LocalContext.current
@@ -114,7 +115,9 @@ fun TopBarRoutineDetails(title: String, difficulty: String, liked: Boolean, like
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            RatingBar()
+            RatingBar(
+                rating = rating
+            )
         }
         Spacer(modifier = Modifier.padding(bottom = 4.dp))
     }
@@ -145,6 +148,7 @@ fun loadRoutineDetails(viewModel: MainViewModel) {
                     TopBarRoutineDetails(
                         title = viewModel.uiState.currentRoutine!!.name,
                         difficulty = viewModel.uiState.currentRoutine!!.difficulty!!,
+                        rating = getAverageRating(viewModel.uiState.reviews!!),
                         liked = favList.find { it.id == currentRoutine!!.id } != null,
                         likeFunc = {
                             if (favList.find { it.id == currentRoutine!!.id } == null) {
@@ -182,4 +186,13 @@ fun loadRoutineDetails(viewModel: MainViewModel) {
             }
         }
     }
+}
+
+fun getAverageRating(reviews: List<Review>) : Int {
+    var sum = 0
+    for(review in reviews) {
+        sum += review.score
+    }
+
+    return (sum / reviews.size)
 }

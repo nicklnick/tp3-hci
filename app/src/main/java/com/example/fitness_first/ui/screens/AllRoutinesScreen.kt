@@ -123,6 +123,7 @@ fun AllRoutinesScreen(
                                     liked = favList.find { list[index].id == it.id  } != null,
                                     func = {
                                         viewModel.getRoutine(list[index].id)
+                                        viewModel.getReviews(list[index].id)
                                         NavigateToRoutineDetails(list[index].id.toString())
                                     },
                                     likeFunc = {

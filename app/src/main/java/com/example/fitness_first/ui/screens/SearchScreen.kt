@@ -94,7 +94,7 @@ fun SearchScreen(
                         val list = viewModel.uiState.searchRoutines.orEmpty()
                         val favList = viewModel.uiState.favouriteRoutines.orEmpty()
                         LazyColumn(
-                            modifier = Modifier.fillMaxWidth().fillMaxHeight(0.91f).padding(bottom = 5.dp),
+                            modifier = Modifier.fillMaxWidth(),
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.spacedBy(space = 8.dp)
                         ){
@@ -110,6 +110,7 @@ fun SearchScreen(
                                 liked = favList.find { list[index].id == it.id  } != null,
                                 func = {
                                     viewModel.getRoutine(list[index].id)
+                                    viewModel.getReviews(list[index].id)
                                     NavigateToRoutineDetails(list[index].id.toString())
                                 },
                                 likeFunc = {

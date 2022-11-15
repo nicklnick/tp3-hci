@@ -122,6 +122,7 @@ fun CategoryScreen(
                                             liked = favList.find { it.id == list[index].id } != null,
                                             func = {
                                                 viewModel.getRoutine(list[index].id)
+                                                viewModel.getReviews(list[index].id)
                                                 NavigateToRoutineDetails(list[index].id.toString())
                                             },
                                             likeFunc = {

@@ -16,33 +16,24 @@ import kotlin.math.floor
 @Composable
 fun RatingBar(
     modifier: Modifier = Modifier,
-    rating: Double = 0.0,
-    stars: Int = 5,
+    rating: Int = 0,
     starsColor: Color = Primary,
 ) {
+    val stars = 5
 
-    val filledStars = floor(rating).toInt()
-    val unfilledStars = (stars - ceil(rating)).toInt()
-    val halfStar = !(rating.rem(1).equals(0.0))
+    val filledStars = rating
+    val unfilledStars = (stars - rating)
 
     Row(modifier = modifier) {
         repeat(filledStars) {
             Icon(imageVector = Icons.Outlined.Star, contentDescription = null, tint = starsColor)
         }
 
-        if (halfStar) {
-            Icon(
-                imageVector = Icons.Outlined.Star,
-                contentDescription = null,
-                tint = starsColor
-            )
-        }
-
         repeat(unfilledStars) {
             Icon(
                 imageVector = Icons.Outlined.Star,
                 contentDescription = null,
-                tint = starsColor
+                tint = Color.DarkGray
             )
         }
     }
