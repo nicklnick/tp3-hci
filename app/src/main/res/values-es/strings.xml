@@ -65,4 +65,7 @@
     <string name="profile_email">Email</string>
     <string name="cat_name">Rutinas de %1$s</string>
 
+    <string name="review_routine">Califica esta Rutina!</string>
+
+
 </resources>

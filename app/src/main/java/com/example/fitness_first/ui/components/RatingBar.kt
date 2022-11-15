@@ -1,6 +1,8 @@
 package com.example.fitness_first.ui.components
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Star
@@ -24,17 +26,20 @@ fun RatingBar(
     val filledStars = rating
     val unfilledStars = (stars - rating)
 
-    Row(modifier = modifier) {
-        repeat(filledStars) {
-            Icon(imageVector = Icons.Outlined.Star, contentDescription = null, tint = starsColor)
-        }
+    Column() {
+        Row(modifier = modifier) {
+            repeat(filledStars) {
+                Icon(imageVector = Icons.Outlined.Star, contentDescription = null, tint = starsColor)
+            }
 
-        repeat(unfilledStars) {
-            Icon(
-                imageVector = Icons.Outlined.Star,
-                contentDescription = null,
-                tint = Color.DarkGray
-            )
+            repeat(unfilledStars) {
+                Icon(
+                    imageVector = Icons.Outlined.Star,
+                    contentDescription = null,
+                    tint = Color.DarkGray
+                )
+            }
         }
     }
+
 }

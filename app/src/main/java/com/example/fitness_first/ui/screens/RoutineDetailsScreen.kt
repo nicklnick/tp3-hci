@@ -8,6 +8,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -22,8 +23,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.fitness_first.MainViewModel
 import com.example.fitness_first.R
 import com.example.fitness_first.data.model.Review
@@ -53,7 +56,7 @@ fun RoutineDetailsScreen(id: Int, viewModel: MainViewModel) {
 
 
 @Composable
-fun TopBarRoutineDetails(title: String, difficulty: String, rating: Int, liked: Boolean, likeFunc: () -> Unit) {
+fun TopBarRoutineDetails(title: String, difficulty: String, rating: Int, liked: Boolean, likeFunc: () -> Unit, viewModel: MainViewModel) {
 
     // Sharing routine with intent functionality
     val context = LocalContext.current
@@ -109,15 +112,29 @@ fun TopBarRoutineDetails(title: String, difficulty: String, rating: Int, liked: 
                 contentColor = tint
             )
         }
+        Column() {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                RatingBar(
+                    rating = rating
+                )
+            }
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ){
+                Button(
+                    onClick = {  },
+                    enabled = viewModel.uiState.reviews?.find { it.userId?.equals(viewModel.uiState.currentUser?.id)!! } != null
+                ) {
+                    Text(text = stringResource(R.string.review_routine))
+                }
+            }
 
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            RatingBar(
-                rating = rating
-            )
         }
         Spacer(modifier = Modifier.padding(bottom = 4.dp))
     }
@@ -156,7 +173,8 @@ fun loadRoutineDetails(viewModel: MainViewModel) {
                             } else {
                                 viewModel.deleteFavourite(currentRoutine!!.id)
                             }
-                        }
+                        },
+                        viewModel
                     )
                 },
                 modifier = Modifier.background(Secondary),
@@ -190,6 +208,8 @@ fun loadRoutineDetails(viewModel: MainViewModel) {
 
 fun getAverageRating(reviews: List<Review>) : Int {
     var sum = 0
+    if(reviews.isEmpty())
+        return 0
     for(review in reviews) {
         sum += review.score
     }
