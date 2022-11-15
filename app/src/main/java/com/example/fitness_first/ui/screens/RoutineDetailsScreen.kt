@@ -106,29 +106,14 @@ fun TopBarRoutineDetails(title: String, difficulty: String, rating: Int, liked: 
                 contentColor = tint
             )
         }
-        Column() {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                RatingBar(
-                    rating = rating
-                )
-            }
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ){
-                Button(
-                    onClick = {  },
-                    enabled = viewModel.uiState.reviews?.find { it.userId?.equals(viewModel.uiState.currentUser?.id)!! } != null
-                ) {
-                    Text(text = stringResource(R.string.review_routine))
-                }
-            }
-
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            RatingBar(
+                rating = rating
+            )
         }
         Spacer(modifier = Modifier.padding(bottom = 4.dp))
     }
@@ -193,10 +178,10 @@ fun loadRoutineDetails(viewModel: MainViewModel, exec: () -> Unit) {
                                 cycleExerciseList = cycle.cycleExercises
                             )
                         }
-                        GenericSmallOutlinedButton("Start!") {
-                            viewModel.setupExecution()
-                            exec()
-                        }
+//                        GenericSmallOutlinedButton("Start!") {
+//                            viewModel.setupExecution()
+//                            exec()
+//                        }
                     }
                 }
             }

@@ -94,6 +94,14 @@ fun HomeScreen(
                         color = Secondary,
                         modifier = Modifier.padding(start = 20.dp)
                     )
+//                    GenericSmallButton(
+//                        label = "go to review",
+//                        clickEvent = {
+//                            viewModel.getCurrentUser()
+//                            viewModel.getReviews(7)
+//                            navController.navigate("routine/7/review")
+//                        }
+//                    )
                 }
             }
         }

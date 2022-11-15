@@ -1,5 +1,6 @@
 package com.example.fitness_first.ui.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material.Button
@@ -20,26 +21,57 @@ fun RatingBar(
     modifier: Modifier = Modifier,
     rating: Int = 0,
     starsColor: Color = Primary,
+    clickable: Boolean = false
 ) {
     val stars = 5
 
     val filledStars = rating
     val unfilledStars = (stars - rating)
+    var id = 1
 
     Column() {
         Row(modifier = modifier) {
             repeat(filledStars) {
-                Icon(imageVector = Icons.Outlined.Star, contentDescription = null, tint = starsColor)
+                if(clickable){
+                    Icon(
+                        imageVector = Icons.Outlined.Star,
+                        contentDescription = null,
+                        tint = starsColor,
+                        modifier = Modifier.clickable { fillStars(id) }
+                    )
+                    id += 1
+                }else{
+                    Icon(
+                        imageVector = Icons.Outlined.Star,
+                        contentDescription = null,
+                        tint = starsColor
+                    )
+                }
             }
-
+            id = 1
             repeat(unfilledStars) {
-                Icon(
-                    imageVector = Icons.Outlined.Star,
-                    contentDescription = null,
-                    tint = Color.DarkGray
-                )
+                if(clickable){
+                    Icon(
+                        imageVector = Icons.Outlined.Star,
+                        contentDescription = null,
+                        tint = Color.DarkGray,
+                        modifier = Modifier.clickable { fillStars(id)}
+                    )
+                    id += 1
+                }else{
+                    Icon(
+                        imageVector = Icons.Outlined.Star,
+                        contentDescription = null,
+                        tint = Color.DarkGray
+                    )
+
+                }
             }
         }
     }
+
+}
+
+fun fillStars(id: Int){
 
 }

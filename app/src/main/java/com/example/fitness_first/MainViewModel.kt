@@ -369,6 +369,7 @@ class MainViewModel(
             uiState = uiState.copy(
                 isFetching = false,
             )
+            getReviews(uiState.currentRoutine!!.id)
         }.onFailure { e ->
             // Handle the error and notify the UI when appropriate.
             uiState = uiState.copy(

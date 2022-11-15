@@ -22,14 +22,14 @@ import com.example.fitness_first.ui.theme.Primary
 
 
 @Composable
-fun GenericSmallOutlinedButton(label: String, clickEvent: () -> Unit) {
+fun GenericSmallOutlinedButton(label: String, clickEvent: () -> Unit, enabled: Boolean = true) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         OutlinedButton(
             onClick =  clickEvent ,
-            enabled = true,
+            enabled = enabled,
             shape = RoundedCornerShape(30.dp),
             modifier = Modifier.width(150.dp).height(50.dp),
             colors = ButtonDefaults.buttonColors(
