@@ -39,11 +39,14 @@ data class MainUiState(
     val currentExecSeries: CycleData? = null,
     val currentExecSeriesIdx: Int= 0,
     val currentExecExerciseIdx: Int = 0,
+    val nextExecExercise: FullCycleExercise? = null,
+
+    val routineSize: Int = 1,
+    val exerciseCount: Int = 0,
 
     val execFinished: Boolean = false,
 
     val currentTimeExercise: Int = 0,
-    val timerRunning: Boolean = false,
     val pausedExec: Boolean = false,
 )
 

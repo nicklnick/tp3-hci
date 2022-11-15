@@ -7,10 +7,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.LinearProgressIndicator
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.KeyboardArrowRight
@@ -23,6 +20,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -41,12 +39,9 @@ import com.example.fitness_first.ui.theme.Tertiary
 @Composable
 fun ExecutionScreen(id: Int, prev: () -> Unit, finish: () -> Unit, viewModel: MainViewModel) {
     val configuration = LocalConfiguration.current
-    if(viewModel.uiState.execFinished){
-        finish()
-    }
     when(configuration.orientation) {
         Configuration.ORIENTATION_PORTRAIT -> {
-            showVerticalLayout(viewModel.uiState.currentRoutine!!.name, prev,  viewModel)
+            showVerticalLayout(viewModel.uiState.currentRoutine!!.name, prev,finish,  viewModel)
         }
         else -> {
             showLandscapeLayout(viewModel.uiState.currentRoutine!!.name, viewModel)
@@ -55,7 +50,7 @@ fun ExecutionScreen(id: Int, prev: () -> Unit, finish: () -> Unit, viewModel: Ma
 }
 
 @Composable
-private fun showVerticalLayout(routineTitle: String, prev: () -> Unit, viewModel: MainViewModel) {
+private fun showVerticalLayout(routineTitle: String, prev: () -> Unit, finish: () -> Unit, viewModel: MainViewModel) {
     Surface(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -103,12 +98,12 @@ private fun showVerticalLayout(routineTitle: String, prev: () -> Unit, viewModel
                         .width(200.dp)
                         .clip(CircleShape),
                     backgroundColor = Color.DarkGray,
-                    progress = 0.1f
+                    progress = (viewModel.uiState.exerciseCount.toFloat() / viewModel.uiState.routineSize.toFloat())
                 )
                 Row {
-                    Spacer(modifier = Modifier.width(.1f * 165.dp))         // MMM MEDIO DUDOSO
+                    Spacer(modifier = Modifier.width((viewModel.uiState.exerciseCount.toFloat() / viewModel.uiState.routineSize.toFloat()) * 165.dp))         // MMM MEDIO DUDOSO
                     Text(
-                        "21%",
+                        "${((viewModel.uiState.exerciseCount.toFloat() / viewModel.uiState.routineSize.toFloat()) * 100).toInt()}%",
                         fontSize = 20.sp,
                         fontWeight = FontWeight.SemiBold,
                         color = Color.DarkGray
@@ -222,15 +217,16 @@ private fun showVerticalLayout(routineTitle: String, prev: () -> Unit, viewModel
                                 }
                             }
                         }
-
-                        Row {
+                        Box(
+                            modifier = Modifier.fillMaxSize().padding(5.dp)
+                        ) {
                             if(!viewModel.isFirstExercise()){
                                 IconFAB(
                                     icon = Icons.Filled.KeyboardArrowLeft,
                                     func = { viewModel.previousExercise() },
                                     modifier = Modifier
-                                        .size(125.dp)
-                                        .padding(20.dp),
+                                        .size(100.dp)
+                                        .offset(x = 20.dp),
                                     Tertiary,
                                     Secondary
                                 )
@@ -243,8 +239,8 @@ private fun showVerticalLayout(routineTitle: String, prev: () -> Unit, viewModel
                                         icon = Icons.Filled.PlayArrow,
                                         func = { viewModel.unpauseExecution() },
                                         modifier = Modifier
-                                            .size(125.dp)
-                                            .padding(20.dp),
+                                            .size(100.dp)
+                                            .offset(x = 130.dp),
                                         Tertiary,
                                         Secondary
                                     )
@@ -254,8 +250,8 @@ private fun showVerticalLayout(routineTitle: String, prev: () -> Unit, viewModel
                                         icon = Icons.Filled.Lock,
                                         func = { viewModel.pauseExecution() },
                                         modifier = Modifier
-                                            .size(125.dp)
-                                            .padding(20.dp),
+                                            .size(100.dp)
+                                            .offset(x = 130.dp),
                                         Tertiary,
                                         Secondary
                                     )
@@ -264,10 +260,14 @@ private fun showVerticalLayout(routineTitle: String, prev: () -> Unit, viewModel
 
                             IconFAB(
                                 icon = Icons.Filled.KeyboardArrowRight,
-                                func = { viewModel.nextExercise() },
+                                func = {
+                                    viewModel.nextExercise()
+                                    if(viewModel.uiState.execFinished){
+                                        finish()
+                                } },
                                 modifier = Modifier
-                                    .size(125.dp)
-                                    .padding(20.dp),
+                                    .size(100.dp)
+                                    .offset(x = 240.dp),
                                 Tertiary,
                                 Secondary
                             )
@@ -277,38 +277,41 @@ private fun showVerticalLayout(routineTitle: String, prev: () -> Unit, viewModel
                 }
             }
 
-            Row(
-                modifier = Modifier.fillMaxSize(),
-                horizontalArrangement = Arrangement.End,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Card(
-                    modifier = Modifier
-                        .height(100.dp)
-                        .width(300.dp),
-                    border = BorderStroke(2.dp, Primary),
-                    backgroundColor = Quaternary,
-                    shape = RoundedCornerShape(topStart = 20.dp, bottomStart = 20.dp),
+            if(viewModel.hasNextExercise()){
+                Row(
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalArrangement = Arrangement.End,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Column(
-                        verticalArrangement = Arrangement.Center,
-                        modifier = Modifier.padding(start = 20.dp)
+                    Card(
+                        modifier = Modifier
+                            .height(100.dp)
+                            .width(300.dp),
+                        border = BorderStroke(2.dp, Primary),
+                        backgroundColor = Quaternary,
+                        shape = RoundedCornerShape(topStart = 20.dp, bottomStart = 20.dp),
                     ) {
+                        Column(
+                            verticalArrangement = Arrangement.Center,
+                            modifier = Modifier.padding(start = 20.dp)
+                        ) {
 
-                        Text(
-                            stringResource(id = R.string.exec_next),
-                            fontSize = 20.sp
-                        )
+                            Text(
+                                stringResource(id = R.string.exec_next),
+                                fontSize = 20.sp
+                            )
 
-                        Text(
-                            "Rest 30s",
-                            fontSize = 35.sp,
-                            fontWeight = FontWeight.Bold
-                        )
+                            Text(
+                                viewModel.uiState.nextExecExercise!!.exercise.name,
+                                fontSize = 35.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
                     }
                 }
-
             }
+            else
+                Divider(modifier = Modifier.fillMaxWidth().height(100.dp), color= Color.Transparent)
         }
     }
 }

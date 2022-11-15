@@ -10,6 +10,7 @@ import com.example.fitness_first.data.model.Review
 import com.example.fitness_first.data.model.Sport
 import com.example.fitness_first.data.repository.*
 import com.example.fitness_first.util.SessionManager
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.seconds
@@ -26,6 +27,8 @@ class MainViewModel(
     private val routinesCyclesRepository: RoutinesCyclesRepository,
     private val cyclesExercisesRepository: CyclesExercisesRepository
     ) : ViewModel() {
+
+    private var timer: Job? = null
 
     var uiState by mutableStateOf(MainUiState(isAuthenticated = sessionManager.loadAuthToken() != null))
         private set
@@ -588,10 +591,6 @@ class MainViewModel(
     }
 
 
-    fun isFirstExercise(): Boolean{
-        return uiState.currentExecExerciseIdx == 0  && uiState.currentExecSeriesIdx == 0
-    }
-
     fun setupExecution(){
         uiState = uiState.copy(currentExecSeriesIdx = 0)
         uiState = uiState.copy(currentExecExerciseIdx = 0)
@@ -600,17 +599,53 @@ class MainViewModel(
         uiState = uiState.copy(currentExecSeries = uiState.cycleDataList[uiState.currentExecSeriesIdx])
         uiState = uiState.copy(currentExecExercise = uiState.currentExecSeries!!.cycleExercises[uiState.currentExecExerciseIdx])
 
+
+        peakNextExercise()
+        uiState = uiState.copy(pausedExec = false)
+        uiState = uiState.copy(execFinished = false)
+
+        // Amount of exercise in routines
+        uiState = uiState.copy(routineSize = 1)       // Asi nunca es 0
+        for(cycle in uiState.cycleDataList){
+            uiState = uiState.copy(routineSize = uiState.routineSize + cycle.cycleExercises.size)
+        }
+        uiState = uiState.copy(routineSize = uiState.routineSize - 1)       // Asi nunca es 0
+        uiState = uiState.copy(exerciseCount = 0)
+
         if(uiState.currentExecExercise!!.duration!! > 0) {
             uiState = uiState.copy(currentTimeExercise = uiState.currentExecExercise!!.duration!!)
             beginTimer()
         }
-        uiState = uiState.copy(execFinished = false)
+    }
 
+    // - - - EXECUTION - - -
+
+    fun isFirstExercise(): Boolean{
+        return uiState.currentExecExerciseIdx == 0  && uiState.currentExecSeriesIdx == 0
+    }
+    fun hasNextExercise() : Boolean{
+        return (uiState.currentExecExerciseIdx < uiState.currentExecSeries!!.cycleExercises.size - 1) ||
+                (uiState.currentExecSeriesIdx < uiState.cycleDataList.size - 1) // asumo que si hay otro ciclo => hay mas ejercicios
+    }
+
+    fun peakNextExercise(){
+        if(!hasNextExercise())
+            return
+        if(uiState.currentExecExerciseIdx < uiState.currentExecSeries!!.cycleExercises.size - 1){
+            val auxiNextExer = uiState.currentExecExerciseIdx + 1
+            uiState = uiState.copy(nextExecExercise = uiState.currentExecSeries!!.cycleExercises[auxiNextExer])
+        }
+        else{
+            // Aun quedan series y por ende, ejercicios
+            if(uiState.currentExecSeriesIdx < uiState.cycleDataList.size - 1){
+                val auxiNextSeries = uiState.currentExecSeriesIdx + 1
+                uiState = uiState.copy(nextExecExercise = uiState.cycleDataList[auxiNextSeries].cycleExercises[0])
+            }
+        }
     }
 
     fun nextExercise(){
-        uiState = uiState.copy(timerRunning = false)
-
+        timer?.cancel()
         // Aun quedan ejercicios en la serie
         if(uiState.currentExecExerciseIdx < uiState.currentExecSeries!!.cycleExercises.size - 1){
             uiState = uiState.copy(currentExecExerciseIdx = uiState.currentExecExerciseIdx + 1)
@@ -634,10 +669,13 @@ class MainViewModel(
         if(uiState.currentExecExercise!!.duration!! > 0){
             beginTimer()
         }
+        unpauseExecution()
+        peakNextExercise()
+        uiState = uiState.copy(exerciseCount = uiState.exerciseCount + 1)
     }
 
     fun previousExercise(){
-        uiState = uiState.copy(timerRunning = false)
+        timer?.cancel()
         // Puedo volver para atras en la serie actual
         if(uiState.currentExecExerciseIdx > 0){
             uiState = uiState.copy(currentExecExerciseIdx = uiState.currentExecExerciseIdx - 1)
@@ -656,18 +694,22 @@ class MainViewModel(
         if(uiState.currentExecExercise!!.duration!! > 0){
             beginTimer()
         }
+        unpauseExecution()
+        peakNextExercise()
+        uiState = uiState.copy(exerciseCount = uiState.exerciseCount - 1)
     }
 
     fun beginTimer(){
         uiState = uiState.copy(currentTimeExercise = uiState.currentExecExercise!!.duration!!)
-        viewModelScope.launch {
+
+        timer?.cancel()
+        timer = viewModelScope.launch {
 
             // Usamos el delay para que las otras corutinas pueden cancelarse
             // TODO: CHECK
             delay(1.seconds)
 
-            uiState = uiState.copy(timerRunning = true)
-            while(uiState.currentTimeExercise > 0 && uiState.timerRunning){
+            while(uiState.currentTimeExercise > 0){
                 delay(1.seconds)
                 if(!uiState.pausedExec)
                     uiState = uiState.copy(currentTimeExercise = uiState.currentTimeExercise - 1)
@@ -675,9 +717,10 @@ class MainViewModel(
             if(uiState.currentTimeExercise == 0)
                 nextExercise()
         }
+
     }
     fun canPauseExecution(): Boolean{
-        return uiState.timerRunning
+        return timer == null || timer?.isActive == true
     }
     fun pauseExecution(){
         uiState = uiState.copy(pausedExec = true)

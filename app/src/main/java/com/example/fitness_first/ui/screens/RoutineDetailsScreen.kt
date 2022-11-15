@@ -188,10 +188,10 @@ fun loadRoutineDetails(viewModel: MainViewModel, exec: () -> Unit) {
                                 cycleExerciseList = cycle.cycleExercises
                             )
                         }
-//                        GenericSmallOutlinedButton("Start!") {
-//                            viewModel.setupExecution()
-//                            exec()
-//                        }
+                        GenericSmallOutlinedButton("Start!",{
+                            viewModel.setupExecution()
+                            exec()
+                        })
                     }
                 }
             }
