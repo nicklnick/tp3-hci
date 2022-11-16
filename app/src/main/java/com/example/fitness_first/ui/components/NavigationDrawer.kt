@@ -13,6 +13,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -21,12 +23,6 @@ import com.example.fitness_first.MainViewModel
 import com.example.fitness_first.ui.theme.FitnessfirstTheme
 import com.example.fitness_first.ui.theme.Secondary
 import com.example.fitness_first.ui.theme.Tertiary
-
-class NavItem(
-    val name: String,
-    val icon: ImageVector,
-    val click: () -> Unit,  // event that will occur when clicked (navigation)
-)
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -38,7 +34,6 @@ fun NavigationDrawer(
         modifier =  Modifier.fillMaxSize(),
         backgroundColor = Secondary
     ){
-
         Column(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -58,29 +53,26 @@ fun NavigationDrawer(
                     modifier = Modifier.size(50.dp)
                 )
             }
+
             LazyColumn(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 items(
                     listOf(
-                        NavItem("My Profile", Icons.Filled.AccountCircle) {
-                            viewModel.getCurrentUser()
-                            navController.navigate("profile")
-                        },
-                        NavItem("My Routines", Icons.Filled.DateRange) { navController.navigate("routines") },
-                        NavItem("Favorites", Icons.Filled.Favorite) { navController.navigate("favourites") },
-                        NavItem("Settings", Icons.Filled.Settings) { navController.navigate("settings") },
-                        NavItem("Help", Icons.Filled.Info) { navController.navigate("help") },
-                        NavItem("Sign Out", Icons.Filled.ExitToApp
-                        ) {
-                            viewModel.logout { navController.navigate("landing") }
-                        },
+                        ClickableNavItem(NavItem.MyProfile) { navController.navigate(NavItem.MyProfile.route) },
+                        ClickableNavItem(NavItem.Routines) { navController.navigate(NavItem.Routines.route) },
+                        ClickableNavItem(NavItem.Favourites) { navController.navigate(NavItem.Favourites.route) },
+                        ClickableNavItem(NavItem.Settings) { navController.navigate(NavItem.Settings.route) },
+                        ClickableNavItem(NavItem.Help) { navController.navigate(NavItem.Help.route) },
+                        ClickableNavItem(NavItem.SignOut) {
+                            viewModel.logout { navController.navigate(NavItem.SignOut.route) }
+                        }
                     )
                 ){ item ->
                     Card(
                         backgroundColor = Tertiary,
-                        onClick = item.click,
+                        onClick = item.onClick,
                         modifier = Modifier
                             .width(220.dp)
                             .height(70.dp)
@@ -93,14 +85,14 @@ fun NavigationDrawer(
                             verticalAlignment = Alignment.CenterVertically,
                         ){
                             Icon(
-                                imageVector = item.icon,
-                                item.name,
-                                Modifier
+                                imageVector = ImageVector.vectorResource(item.navItem.icon),
+                                contentDescription = stringResource(item.navItem.name),
+                                modifier = Modifier
                                     .size(40.dp)
                                     .padding(end = 10.dp),
                             )
                             Text(
-                                item.name,
+                                text = stringResource(item.navItem.name),
                                 fontSize = 22.sp
                             )
                         }

@@ -20,11 +20,10 @@
     <string name="login_continue">Siguiente</string>
 
 <!--   Navigation Drawer  -->
-    <string name="navdrw_profile">Mi Perfil</string>
-    <string name="navdrw_fav">Favoritos</string>
-    <string name="navdrw_settings">Ajustes</string>
-    <string name="navdrw_help">Ayuda</string>
-    <string name="navdrw_signout">Cerrar Sessión</string>
+    <string name="nav_profile">Mi Perfil</string>
+    <string name="nav_settings">Ajustes</string>
+    <string name="nav_help">Ayuda</string>
+    <string name="nav_signout">Cerrar Sessión</string>
 
     <!--    Category Names-->
     <string name="bicep">Bíceps</string>
@@ -32,8 +31,8 @@
     <string name="chest">Pecho</string>
     <string name="shoulders">Hombros</string>
     <string name="legs">Piernas</string>
-    <string name="abs">Abdominales</string>
-    <string name="full_body">Cuerpo Entero</string>
+    <string name="abs">Abs</string>
+    <string name="full_body">C. Entero</string>
     <string name="back">Espalda</string>
 
     <!-- Execution Screen -->
@@ -82,4 +81,9 @@
 
     <!-- SearchScreen -->
     <string name="search_results">Resultados de Búsqueda:</string>
+
+    <!-- NavigationItems -->
+    <string name="nav_home">Inicio</string>
+    <string name="nav_favourites">Favoritos</string>
+    <string name="nav_routines">Rutinas</string>
 </resources>

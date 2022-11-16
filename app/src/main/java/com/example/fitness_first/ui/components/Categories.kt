@@ -2,49 +2,54 @@ package com.example.fitness_first.ui.components
 
 import com.example.fitness_first.R
 
+/**
+ * @property    name Strings resource id
+ * @property    icon Drawable resource id
+ */
 sealed class Categories(
     val route: String,
-    val title: String,
+    val name: Int,
     val icon: Int,
+    var id: Int
 ){
     object Bicep: Categories(
         route = "Bicep",
-        title = "Bicep",
+        name = R.string.bicep,
         icon = R.drawable.muscle,
     )
     object Tricep: Categories(
         route = "Triceps",
-        title ="Triceps",
+        name = R.string.tricep,
         icon = R.drawable.triceps,
     )
     object Chest: Categories(
         route = "Chest",
-        title ="Chest",
+        name = R.string.chest,
         icon = R.drawable.torso,
     )
     object Shoulders: Categories(
         route = "Shoulders",
-        title ="Shoulders",
+        name = R.string.shoulders,
         icon = R.drawable.shoulders,
     )
     object Back: Categories(
         route = "Back",
-        title = "Back",
+        name = R.string.back,
         icon = R.drawable.bodypart,
     )
     object Legs: Categories(
         route = "Legs",
-        title = "Legs",
+        name = R.string.legs,
         icon = R.drawable.piernas,
     )
     object Abs: Categories(
         route = "Abs",
-        title = "Abs",
+        name = R.string.abs,
         icon = R.drawable.abdominals,
     )
     object FullBody: Categories(
         route = "Full body",
-        title = "Full body",
+        name = R.string.full_body,
         icon = R.drawable.full_body,
     )
 }

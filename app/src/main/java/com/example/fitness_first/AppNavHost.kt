@@ -9,7 +9,7 @@ import androidx.navigation.*
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.fitness_first.ui.components.BottomBarScreen
+import com.example.fitness_first.ui.components.NavItem
 import com.example.fitness_first.ui.screens.*
 import com.example.fitness_first.util.getViewModelFactory
 
@@ -53,7 +53,7 @@ fun AppNavHost(
             )
         }
 
-        composable(route = BottomBarScreen.Home.route){
+        composable(route = NavItem.Home.route){
             HomeScreen(
                 NavigateToCategoryScreen = { route -> navController.navigate("category/$route") },
                 navController,
@@ -86,7 +86,7 @@ fun AppNavHost(
             )
         }
 
-        composable(route = BottomBarScreen.Favourites.route){
+        composable(route = NavItem.Favourites.route){
             FavouritesScreen(
                 NavigateToRoutineDetails = { route -> navController.navigate("routine/$route")},
                 navController,
@@ -94,7 +94,7 @@ fun AppNavHost(
             )
         }
 
-        composable(route = BottomBarScreen.Routines.route){
+        composable(route = NavItem.Routines.route){
             MyRoutinesScreen(
                 navController = navController,
                 NavigateToRoutineDetails = { route -> navController.navigate("routine/$route")},

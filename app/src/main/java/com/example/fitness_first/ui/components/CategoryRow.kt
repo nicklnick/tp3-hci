@@ -3,7 +3,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -11,8 +10,6 @@ import androidx.compose.ui.unit.dp
 import com.example.fitness_first.MainViewModel
 import com.example.fitness_first.ui.components.Categories
 import com.example.fitness_first.ui.components.CategoryCard
-import kotlin.math.log
-import kotlin.time.Duration.Companion.days
 
 @Composable
 fun CategoryRow(
@@ -31,7 +28,7 @@ fun CategoryRow(
     ){
         items(categories){ item ->
             CategoryCard(
-                text = item.title,
+                text = stringResource(item.name),
                 icon = painterResource(item.icon),
                 func = {
                     NavigateToCategoryScreen(item.route)

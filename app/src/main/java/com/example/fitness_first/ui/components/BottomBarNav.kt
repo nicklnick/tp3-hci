@@ -7,6 +7,9 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -19,9 +22,9 @@ import com.example.fitness_first.ui.theme.Secondary
 @Composable
 fun BottomBar(navController: NavHostController){
     val screens = listOf(
-        BottomBarScreen.Home,
-        BottomBarScreen.Favourites,
-        BottomBarScreen.Routines
+        NavItem.Home,
+        NavItem.Favourites,
+        NavItem.Routines
     )
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
@@ -42,17 +45,17 @@ fun BottomBar(navController: NavHostController){
 
 @Composable
 fun RowScope.addItem(
-    screen: BottomBarScreen,
+    screen: NavItem,
     currentDestination: NavDestination?,
     navController: NavHostController
 ){
     BottomNavigationItem(
         label = {
-            Text(text = screen.title)
+            Text(stringResource(screen.name))
         },
         icon = {
             Icon(
-                imageVector = screen.icon,
+                imageVector = ImageVector.vectorResource(screen.icon),
                 contentDescription = "Navigation Icon",
                 tint = Secondary,
                 modifier = Modifier.size(32.dp)
@@ -64,7 +67,7 @@ fun RowScope.addItem(
         unselectedContentColor = LocalContentColor.current.copy(alpha = ContentAlpha.disabled),
         onClick = {
             navController.navigate(screen.route){
-                if(screen.route == BottomBarScreen.Home.route)
+                if(screen.route == NavItem.Home.route)
                     popUpTo(navController.graph.findStartDestination().id)
                 launchSingleTop = true
             }

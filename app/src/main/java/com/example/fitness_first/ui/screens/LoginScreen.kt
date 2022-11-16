@@ -1,8 +1,6 @@
 package com.example.fitness_first.ui.screens
 
 import android.annotation.SuppressLint
-import android.util.Log
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -17,20 +15,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.fitness_first.MainViewModel
 import com.example.fitness_first.R
 import com.example.fitness_first.data.model.Category
 import com.example.fitness_first.ui.components.*
-import com.example.fitness_first.ui.theme.ErrorColor
-import com.example.fitness_first.ui.theme.FitnessfirstTheme
 import com.example.fitness_first.ui.theme.Primary
 import com.example.fitness_first.ui.theme.Quaternary
-import com.example.fitness_first.util.getViewModelFactory
+import kotlin.math.abs
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -88,16 +81,25 @@ fun LoginScreen(backFunc: () -> Unit, loginFunc: () -> Unit, viewModel: MainView
 
                     GenericInputField(label = stringResource(R.string.login_password), value = password, {password = it }, false)
 
+                    val bicepName = stringResource(Categories.Bicep.name)
+                    val tricepName = stringResource(Categories.Tricep.name)
+                    val chestName = stringResource(Categories.Chest.name)
+                    val shouldersName = stringResource(Categories.Shoulders.name)
+                    val backName = stringResource(Categories.Back.name)
+                    val legsName = stringResource(Categories.Legs.name)
+                    val absName = stringResource(Categories.Abs.name)
+                    val fullBodyName = stringResource(Categories.FullBody.name)
+
                     GenericLongButton(stringResource(R.string.login_continue)) {
                         viewModel.login(user,password,{
-                            viewModel.addCategory(Category(name = Categories.Bicep.title))
-                            viewModel.addCategory(Category(name = Categories.Tricep.title))
-                            viewModel.addCategory(Category(name = Categories.Chest.title))
-                            viewModel.addCategory(Category(name = Categories.Shoulders.title))
-                            viewModel.addCategory(Category(name = Categories.Back.title))
-                            viewModel.addCategory(Category(name = Categories.Legs.title))
-                            viewModel.addCategory(Category(name = Categories.Abs.title))
-                            viewModel.addCategory(Category(name = Categories.FullBody.title))
+                            viewModel.addCategory(Category(name = bicepName))
+                            viewModel.addCategory(Category(name = tricepName))
+                            viewModel.addCategory(Category(name = chestName))
+                            viewModel.addCategory(Category(name = shouldersName))
+                            viewModel.addCategory(Category(name = backName))
+                            viewModel.addCategory(Category(name = legsName))
+                            viewModel.addCategory(Category(name = absName))
+                            viewModel.addCategory(Category(name = fullBodyName))
                             // TODO: en vez de agregarlos podemos pedir que los tengan agregados de antemano
 
 //                            viewModel.getCategories()

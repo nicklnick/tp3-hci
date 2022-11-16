@@ -1,20 +1,16 @@
 package com.example.fitness_first.ui.screens
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -157,12 +153,12 @@ public fun sortSheet(
                 )
             }
             val filters = listOf(
-                FilterOptions.Date_Up,
-                FilterOptions.Date_Down,
-                FilterOptions.Rating_Up,
-                FilterOptions.Rating_Down,
-                FilterOptions.Difficulty_Up,
-                FilterOptions.Difficulty_Down,
+                FilterOptions.DateUp,
+                FilterOptions.DateDown,
+                FilterOptions.RatingUp,
+                FilterOptions.RatingDown,
+                FilterOptions.DifficultyUp,
+                FilterOptions.DifficultyDown,
 
 //                stringResource(R.string.date_up),
 //                stringResource(R.string.date_down),
