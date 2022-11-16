@@ -157,6 +157,11 @@ fun AppNavHost(
                 NavigateToRoutineDetails = { route -> navController.navigate("routine/$route")}
             )
         }
+        composable("not-signed-in"){
+            NotSignedInScreen {
+                navController.navigate("login")
+            }
+        }
 
 
 

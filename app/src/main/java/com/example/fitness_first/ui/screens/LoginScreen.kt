@@ -91,55 +91,11 @@ fun LoginScreen(backFunc: () -> Unit, loginFunc: () -> Unit, viewModel: MainView
                     val fullBodyName = Categories.FullBody.getName()
 
                     GenericLongButton(stringResource(R.string.login_continue)) {
-                        viewModel.login(user,password,{
-                            viewModel.addCategory(Category(name = bicepName))
-                            viewModel.addCategory(Category(name = tricepName))
-                            viewModel.addCategory(Category(name = chestName))
-                            viewModel.addCategory(Category(name = shouldersName))
-                            viewModel.addCategory(Category(name = backName))
-                            viewModel.addCategory(Category(name = legsName))
-                            viewModel.addCategory(Category(name = absName))
-                            viewModel.addCategory(Category(name = fullBodyName))
-                            // TODO: en vez de agregarlos podemos pedir que los tengan agregados de antemano
-
-//                            viewModel.getCategories()
-//                            if(!viewModel.uiState.isFetching){
-//                                val categories = viewModel.uiState.categories.orEmpty()
-//                                val categoriesData = listOf(
-//                                    Categories.Bicep,
-//                                    Categories.Tricep,
-//                                    Categories.Chest,
-//                                    Categories.Legs,
-//                                    Categories.Abs,
-//                                    Categories.Back,
-//                                    Categories.FullBody,
-//                                    Categories.Shoulders
-//                                )
-//                                categories.forEach { apiCategory ->
-//                                    categoriesData.forEach { dataCategory ->
-//                                        if( dataCategory.title.equals(apiCategory.name, true)){
-//                                            dataCategory.id = apiCategory.id
-//                                            Log.d("name",dataCategory.title)
-//                                            Log.d("id value for category", dataCategory.id.toString())
-//                                        }
-//                                    }
-//                                }
-//                            }
-                            viewModel.getRoutines()
-//                            viewModel.getFavourites()
-//                            viewModel.getCurrentUserRoutines()
-
-//                            viewModel.uiState.routines.orEmpty().forEach { routine ->
-//                                if( viewModel.uiState.favouriteRoutines.orEmpty().find { it.id == routine.id } != null){
-//                                    routine.liked = true
-//                                }
-//                                if( viewModel.uiState.userRoutines.orEmpty().find { it.id == routine.id } != null){
-//                                    routine.fromCUser = true
-//                                }
-//                            }
-
-                            viewModel.getCurrentUser()
-
+                        viewModel.login(
+                            user,
+                            password,
+                            {
+                            viewModel.setupViewModel()
                             loginFunc()
                         },
                             {

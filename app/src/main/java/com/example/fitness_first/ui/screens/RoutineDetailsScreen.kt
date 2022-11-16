@@ -39,11 +39,20 @@ import com.example.fitness_first.ui.theme.Tertiary
 @Composable
 fun RoutineDetailsScreen(id: Int, exec: () -> Unit, viewModel: MainViewModel, navController: NavController) {
 
+    if(!viewModel.uiState.isAuthenticated){
+        navController.navigate("not-signed-in")
+    }
+
     if (viewModel.uiState.message != null)
         Text(text = "Routine not found")
 
-    if (viewModel.uiState.isFetching || viewModel.uiState.currentRoutine == null) {
-        LoadingScreen(Secondary)
+    if(viewModel.uiState.currentRoutine == null){
+        if (viewModel.uiState.isFetching){
+            LoadingScreen(Secondary)
+        }
+        else{
+            viewModel.getRoutine(id)
+        }
     }
     else {
         loadRoutineDetails(viewModel,exec, id, navController)
@@ -154,7 +163,7 @@ fun loadRoutineDetails(viewModel: MainViewModel, exec: () -> Unit, id: Int, navC
                     TopBarRoutineDetails(
                         title = viewModel.uiState.currentRoutine!!.name,
                         difficulty = viewModel.uiState.currentRoutine!!.difficulty!!,
-                        rating = getAverageRating(viewModel.uiState.reviews!!),
+                        rating = if(viewModel.uiState.currentRoutine!!.score == null) 0 else viewModel.uiState.currentRoutine!!.score!!,
                         liked = viewModel.uiState.currentRoutine!!.liked,
                         likeFunc = {
                             viewModel.likeOrUnlike(viewModel.uiState.currentRoutine!!)
@@ -199,15 +208,4 @@ fun loadRoutineDetails(viewModel: MainViewModel, exec: () -> Unit, id: Int, navC
             }
         }
     }
-}
-
-fun getAverageRating(reviews: List<Review>) : Int {
-    var sum = 0
-    if(reviews.isEmpty())
-        return 0
-    for(review in reviews) {
-        sum += review.score
-    }
-
-    return (sum / reviews.size)
 }

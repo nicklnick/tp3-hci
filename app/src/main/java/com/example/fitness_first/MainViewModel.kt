@@ -35,10 +35,17 @@ class MainViewModel(
     var uiState by mutableStateOf(MainUiState(isAuthenticated = sessionManager.loadAuthToken() != null))
         private set
 
-//    init {
-//        getRoutines()
-//        getFavourites()
-//    }
+    init {
+        if(uiState.isAuthenticated){
+            setupViewModel()
+        }
+    }
+
+    fun setupViewModel(){
+        getRoutines()
+        getCurrentUser()
+    }
+
 
     fun login(username: String, password: String, successFunc: () -> Unit, failureFunc: suspend () -> Unit) = viewModelScope.launch {
         uiState = uiState.copy(
@@ -578,7 +585,8 @@ class MainViewModel(
             if( uiState.routines!!.find { it.id == id && it.liked == true} != null){
                 uiState.currentRoutine!!.liked = true
             }
-            getRoutineDetails(id)
+            getRoutineDetails(id).join()
+            getReviews(id)
         }.onFailure { e ->
             uiState = uiState.copy(
                 message = e.message,
