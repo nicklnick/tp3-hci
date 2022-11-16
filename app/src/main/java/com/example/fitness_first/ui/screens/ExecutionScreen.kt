@@ -44,7 +44,7 @@ fun ExecutionScreen(id: Int, prev: () -> Unit, finish: () -> Unit, viewModel: Ma
             showVerticalLayout(viewModel.uiState.currentRoutine!!.name, prev,finish,  viewModel)
         }
         else -> {
-            showLandscapeLayout(viewModel.uiState.currentRoutine!!.name, viewModel)
+            showLandscapeLayout(viewModel.uiState.currentRoutine!!.name,prev,finish, viewModel)
         }
     }
 }
@@ -138,7 +138,9 @@ private fun showVerticalLayout(routineTitle: String, prev: () -> Unit, finish: (
                             verticalAlignment = Alignment.CenterVertically
                         ) {
 
-                            Text(viewModel.uiState.currentExecSeries!!.cycleName, fontSize = 30.sp, fontWeight = FontWeight.Bold)
+                            Text(viewModel.uiState.currentExecSeries!!.cycleName,
+                                fontSize = 30.sp,
+                                fontWeight = FontWeight.Bold)
 
                             Spacer(modifier = Modifier.size(100.dp))
 
@@ -150,7 +152,7 @@ private fun showVerticalLayout(routineTitle: String, prev: () -> Unit, finish: (
                                 elevation = 20.dp
                             ) {
                                 Text(
-                                    "${viewModel.uiState.currentExecSeriesIdx + 1} / ${viewModel.uiState.cycleDataList.size}",
+                                    "${viewModel.uiState.seriesRepCount} / ${viewModel.uiState.currentExecSeries!!.cycleRepetitions}",
                                     fontSize = 20.sp,
                                     fontWeight = FontWeight.Bold,
                                     modifier = Modifier.padding(
@@ -285,7 +287,7 @@ private fun showVerticalLayout(routineTitle: String, prev: () -> Unit, finish: (
                 ) {
                     Card(
                         modifier = Modifier
-                            .height(100.dp)
+                            .height(120.dp)
                             .width(300.dp),
                         border = BorderStroke(2.dp, Primary),
                         backgroundColor = Quaternary,
@@ -317,7 +319,7 @@ private fun showVerticalLayout(routineTitle: String, prev: () -> Unit, finish: (
 }
 
 @Composable
-private fun showLandscapeLayout(routineTitle: String, viewModel: MainViewModel) {
+private fun showLandscapeLayout(routineTitle: String,prev: () -> Unit, finish: () -> Unit, viewModel: MainViewModel) {
     Surface(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -344,7 +346,7 @@ private fun showLandscapeLayout(routineTitle: String, viewModel: MainViewModel) 
             ) {
                 IconFAB(
                     icon = Icons.Filled.KeyboardArrowLeft,
-                    {},
+                    prev,
                     Modifier.size(40.dp),
                     Quaternary,
                     Primary
@@ -367,12 +369,12 @@ private fun showLandscapeLayout(routineTitle: String, viewModel: MainViewModel) 
                         .width(200.dp)
                         .clip(CircleShape),
                     backgroundColor = Color.DarkGray,
-                    progress = .1f
+                    progress = (viewModel.uiState.exerciseCount.toFloat() / viewModel.uiState.routineSize.toFloat())
                 )
                 Row {
-                    Spacer(modifier = Modifier.width(.1f * 165.dp))         // MMM MEDIO DUDOSO
+                    Spacer(modifier = Modifier.width((viewModel.uiState.exerciseCount.toFloat() / viewModel.uiState.routineSize.toFloat()) * 165.dp))            // MMM MEDIO DUDOSO
                     Text(
-                        "21%",
+                        "${((viewModel.uiState.exerciseCount.toFloat() / viewModel.uiState.routineSize.toFloat()) * 100).toInt()}%",
                         fontSize = 20.sp,
                         fontWeight = FontWeight.SemiBold,
                         color = Color.DarkGray
@@ -386,7 +388,7 @@ private fun showLandscapeLayout(routineTitle: String, viewModel: MainViewModel) 
                 /* ------ Exercise and controls -------- */
                 Card(
                     modifier = Modifier
-                        .fillMaxWidth(0.6f)
+                        .fillMaxWidth(0.8f)
                         .fillMaxHeight()
                         .padding(bottom = 20.dp, start = 35.dp, end = 20.dp, top = 5.dp),
                     border = BorderStroke(2.dp, Primary),
@@ -412,7 +414,7 @@ private fun showLandscapeLayout(routineTitle: String, viewModel: MainViewModel) 
                             ) {
 
                                 Text(
-                                    text = "Series 1",
+                                    text = viewModel.uiState.currentExecSeries!!.cycleName,
                                     fontSize = 20.sp,
                                     fontWeight = FontWeight.Bold
                                 )
@@ -427,7 +429,7 @@ private fun showLandscapeLayout(routineTitle: String, viewModel: MainViewModel) 
                                     elevation = 20.dp
                                 ) {
                                     Text(
-                                        "2/3",
+                                        "${viewModel.uiState.seriesRepCount} / ${viewModel.uiState.currentExecSeries!!.cycleRepetitions}",
                                         fontSize = 20.sp,
                                         fontWeight = FontWeight.Bold,
                                         modifier = Modifier.padding(
@@ -447,11 +449,11 @@ private fun showLandscapeLayout(routineTitle: String, viewModel: MainViewModel) 
                             Column(
                                 modifier = Modifier
                                     .fillMaxHeight()
-                                    .fillMaxWidth(0.7f),
+                                    .fillMaxWidth(0.5f),
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
                                 Text(
-                                    "Pull Ups",
+                                    viewModel.uiState.currentExecExercise!!.exercise.name,
                                     fontSize = 35.sp,
                                     fontWeight = FontWeight.Bold,
                                     modifier = Modifier.padding(20.dp)
@@ -461,17 +463,30 @@ private fun showLandscapeLayout(routineTitle: String, viewModel: MainViewModel) 
                                     backgroundColor = Tertiary,
                                     elevation = 20.dp,
                                 ) {
-                                    Text(
-                                        "20 reps",
-                                        fontSize = 35.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        modifier = Modifier.padding(
-                                            start = 20.dp,
-                                            end = 20.dp,
-                                            top = 10.dp,
-                                            bottom = 10.dp
+                                    if(viewModel.uiState.currentExecExercise!!.duration != 0)
+                                        Text(
+                                            "${viewModel.uiState.currentTimeExercise} seconds",
+                                            fontSize = 35.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            modifier = Modifier.padding(
+                                                start = 20.dp,
+                                                end = 20.dp,
+                                                top = 10.dp,
+                                                bottom = 10.dp
+                                            )
                                         )
-                                    )
+                                    else
+                                        Text(
+                                            "${viewModel.uiState.currentExecExercise!!.repetitions} reps",
+                                            fontSize = 35.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            modifier = Modifier.padding(
+                                                start = 20.dp,
+                                                end = 20.dp,
+                                                top = 10.dp,
+                                                bottom = 10.dp
+                                            )
+                                        )
                                 }
                             }
 
@@ -480,27 +495,84 @@ private fun showLandscapeLayout(routineTitle: String, viewModel: MainViewModel) 
                                 verticalArrangement = Arrangement.Center,
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
-                                Row {
-                                    // TODO: condicional si mostrar o no el boton de pausa
-                                    //                        IconFAB(
-                                    //                            icon = Icons.Filled.,
-                                    //                            func = { /*TODO*/ },
-                                    //                            modifier = Modifier
-                                    //                                .size(125.dp)
-                                    //                                .padding(20.dp),
-                                    //                            Tertiary,
-                                    //                            Secondary
-                                    //                        )
-                                    IconFAB(
-                                        icon = Icons.Filled.KeyboardArrowRight,
-                                        func = { /*TODO*/ },
-                                        modifier = Modifier
-                                            .size(125.dp)
-                                            .padding(20.dp),
-                                        Tertiary,
-                                        Secondary
-                                    )
-                                }
+//                                Row {
+
+
+//                                    IconFAB(
+//                                        icon = Icons.Filled.KeyboardArrowLeft,
+//                                        func = { /*TODO*/ },
+//                                        modifier = Modifier
+//                                            .size(125.dp)
+//                                            .padding(20.dp),
+//                                        Tertiary,
+//                                        Secondary
+//                                    )
+//                                    IconFAB(
+//                                        icon = Icons.Filled.KeyboardArrowRight,
+//                                        func = { /*TODO*/ },
+//                                        modifier = Modifier
+//                                            .size(125.dp)
+//                                            .padding(20.dp),
+//                                        Tertiary,
+//                                        Secondary
+//                                    )
+                                    Box(
+                                        modifier = Modifier.fillMaxWidth(),
+                                    ) {
+                                        if(!viewModel.isFirstExercise()){
+                                            IconFAB(
+                                                icon = Icons.Filled.KeyboardArrowLeft,
+                                                func = { viewModel.previousExercise() },
+                                                modifier = Modifier
+                                                    .size(75.dp)
+                                                    .offset(x = 0.dp),
+                                                Tertiary,
+                                                Secondary
+                                            )
+                                        }
+
+
+                                        if(viewModel.canPauseExecution()){
+                                            if(viewModel.uiState.pausedExec){
+                                                IconFAB(
+                                                    icon = Icons.Filled.PlayArrow,
+                                                    func = { viewModel.unpauseExecution() },
+                                                    modifier = Modifier
+                                                        .size(75.dp)
+                                                        .offset(x = 85.dp),
+                                                    Tertiary,
+                                                    Secondary
+                                                )
+                                            }
+                                            else{
+                                                IconFAB(
+                                                    icon = Icons.Filled.Lock,
+                                                    func = { viewModel.pauseExecution() },
+                                                    modifier = Modifier
+                                                        .size(75.dp)
+                                                        .offset(x = 85.dp),
+                                                    Tertiary,
+                                                    Secondary
+                                                )
+                                            }
+                                        }
+
+                                        IconFAB(
+                                            icon = Icons.Filled.KeyboardArrowRight,
+                                            func = {
+                                                viewModel.nextExercise()
+                                                if(viewModel.uiState.execFinished){
+                                                    finish()
+                                                } },
+                                            modifier = Modifier
+                                                .size(75.dp)
+                                                .offset(x = 170.dp),
+                                            Tertiary,
+                                            Secondary
+                                        )
+                                    }
+
+//                                }
                             }
                         }
                     }
@@ -512,7 +584,7 @@ private fun showLandscapeLayout(routineTitle: String, viewModel: MainViewModel) 
                 ) {
                     Card(
                         modifier = Modifier
-                            .fillMaxWidth()
+                            .fillMaxWidth(0.9f)
                             .fillMaxHeight(0.75f)
                             .padding(bottom = 10.dp, end = 20.dp),
                         border = BorderStroke(1.dp, Primary),
@@ -550,44 +622,51 @@ private fun showLandscapeLayout(routineTitle: String, viewModel: MainViewModel) 
                                     .background(Quaternary),
                             ) {
                                 Text(
-                                    text = "Text",
+                                    text = viewModel.uiState.currentExecExercise!!.exercise.detail!!,
                                     fontSize = 18.sp,
                                     modifier = Modifier.padding(20.dp)
                                 )
                             }
                         }
                     }
-
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.End
-                    ) {
-                        Card(
-                            modifier = Modifier
-                                .fillMaxHeight()
-                                .fillMaxWidth(0.7f)
-                                .padding(bottom = 15.dp),
-                            border = BorderStroke(2.dp, Primary),
-                            backgroundColor = Quaternary,
-                            shape = RoundedCornerShape(bottomStart = 20.dp, topStart = 20.dp),
+                    if(viewModel.hasNextExercise()){
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.End
                         ) {
-                            Column(
-                                verticalArrangement = Arrangement.Center,
-                                modifier = Modifier.padding(start = 20.dp, top = 2.dp, bottom = 5.dp)
+                            Card(
+                                modifier = Modifier
+                                    .fillMaxHeight()
+                                    .fillMaxWidth(0.7f)
+                                    .padding(bottom = 15.dp),
+                                border = BorderStroke(2.dp, Primary),
+                                backgroundColor = Quaternary,
+                                shape = RoundedCornerShape(bottomStart = 20.dp, topStart = 20.dp),
                             ) {
+                                Column(
+                                    verticalArrangement = Arrangement.Center,
+                                    modifier = Modifier.padding(
+                                        start = 20.dp,
+                                        top = 2.dp,
+                                        bottom = 5.dp
+                                    )
+                                ) {
 
-                                Text(
-                                    stringResource(id = R.string.exec_next),
-                                )
+                                    Text(
+                                        stringResource(id = R.string.exec_next),
+                                    )
 
-                                Text(
-                                    "Rest 30s",
-                                    fontSize = 20.sp,
-                                    fontWeight = FontWeight.Bold
-                                )
+                                    Text(
+                                        viewModel.uiState.nextExecExercise!!.exercise.name,
+                                        fontSize = 20.sp,
+                                        fontWeight = FontWeight.Bold
+                                    )
+                                }
                             }
                         }
                     }
+                    else
+                        Divider(modifier = Modifier.fillMaxWidth().height(100.dp), color= Color.Transparent)
                 }
             }
         }

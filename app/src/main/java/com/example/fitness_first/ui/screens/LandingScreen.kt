@@ -23,6 +23,7 @@ fun LandingScreen(signupFunc: () -> Unit, loginFunc: () -> Unit, loggedInFunc: (
         viewModel.getRoutines()
         viewModel.getFavourites()
         viewModel.getCurrentUserRoutines()
+        viewModel.getCurrentUser()
         loggedInFunc()
     }
     Surface(

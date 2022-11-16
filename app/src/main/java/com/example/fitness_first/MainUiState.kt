@@ -43,6 +43,7 @@ data class MainUiState(
 
     val routineSize: Int = 1,
     val exerciseCount: Int = 0,
+    val seriesRepCount: Int = 1,
 
     val execFinished: Boolean = false,
 

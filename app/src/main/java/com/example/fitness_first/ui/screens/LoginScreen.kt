@@ -125,6 +125,8 @@ fun LoginScreen(backFunc: () -> Unit, loginFunc: () -> Unit, viewModel: MainView
 //                            }
                             viewModel.getRoutines()
                             viewModel.getFavourites()
+                            viewModel.getCurrentUserRoutines()
+                            viewModel.getCurrentUser()
 
                             loginFunc()
                         },

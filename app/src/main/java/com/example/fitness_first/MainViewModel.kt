@@ -607,10 +607,11 @@ class MainViewModel(
         // Amount of exercise in routines
         uiState = uiState.copy(routineSize = 1)       // Asi nunca es 0
         for(cycle in uiState.cycleDataList){
-            uiState = uiState.copy(routineSize = uiState.routineSize + cycle.cycleExercises.size)
+            uiState = uiState.copy(routineSize = uiState.routineSize + cycle.cycleRepetitions * cycle.cycleExercises.size)
         }
         uiState = uiState.copy(routineSize = uiState.routineSize - 1)       // Asi nunca es 0
         uiState = uiState.copy(exerciseCount = 0)
+        uiState = uiState.copy(seriesRepCount = 1)
 
         if(uiState.currentExecExercise!!.duration!! > 0) {
             uiState = uiState.copy(currentTimeExercise = uiState.currentExecExercise!!.duration!!)
@@ -625,7 +626,9 @@ class MainViewModel(
     }
     fun hasNextExercise() : Boolean{
         return (uiState.currentExecExerciseIdx < uiState.currentExecSeries!!.cycleExercises.size - 1) ||
-                (uiState.currentExecSeriesIdx < uiState.cycleDataList.size - 1) // asumo que si hay otro ciclo => hay mas ejercicios
+                (uiState.currentExecSeriesIdx < uiState.cycleDataList.size - 1) ||
+                (uiState.seriesRepCount < uiState.currentExecSeries!!.cycleRepetitions)
+        // asumo que si hay otro ciclo => hay mas ejercicios
     }
 
     fun peakNextExercise(){
@@ -636,8 +639,13 @@ class MainViewModel(
             uiState = uiState.copy(nextExecExercise = uiState.currentExecSeries!!.cycleExercises[auxiNextExer])
         }
         else{
+            // Aun quedan repeticiones
+            if(uiState.seriesRepCount < uiState.currentExecSeries!!.cycleRepetitions){
+                val auxiNextExer = 0
+                uiState = uiState.copy(nextExecExercise = uiState.currentExecSeries!!.cycleExercises[auxiNextExer])
+            }
             // Aun quedan series y por ende, ejercicios
-            if(uiState.currentExecSeriesIdx < uiState.cycleDataList.size - 1){
+            else if(uiState.currentExecSeriesIdx < uiState.cycleDataList.size - 1){
                 val auxiNextSeries = uiState.currentExecSeriesIdx + 1
                 uiState = uiState.copy(nextExecExercise = uiState.cycleDataList[auxiNextSeries].cycleExercises[0])
             }
@@ -652,8 +660,15 @@ class MainViewModel(
             uiState = uiState.copy(currentExecExercise = uiState.currentExecSeries!!.cycleExercises[uiState.currentExecExerciseIdx])
         }
         else{
+            // Aun tengo que repetir esta serie devuelta
+            if(uiState.seriesRepCount < uiState.currentExecSeries!!.cycleRepetitions){
+                uiState = uiState.copy(currentExecExerciseIdx = 0)
+                uiState = uiState.copy(currentExecExercise = uiState.currentExecSeries!!.cycleExercises[uiState.currentExecExerciseIdx])
+                uiState = uiState.copy(seriesRepCount = uiState.seriesRepCount + 1)
+            }
             // Aun quedan series y por ende, ejercicios
-            if(uiState.currentExecSeriesIdx < uiState.cycleDataList.size - 1){
+            else if(uiState.currentExecSeriesIdx < uiState.cycleDataList.size - 1){
+                uiState = uiState.copy(seriesRepCount =1)
                 uiState = uiState.copy(currentExecSeriesIdx = uiState.currentExecSeriesIdx + 1)
                 uiState = uiState.copy(currentExecSeries = uiState.cycleDataList[uiState.currentExecSeriesIdx])
 
@@ -682,8 +697,15 @@ class MainViewModel(
             uiState = uiState.copy(currentExecExercise = uiState.currentExecSeries!!.cycleExercises[uiState.currentExecExerciseIdx])
         }
         else{
+            // Todavia quedan repeticiones
+            if(uiState.seriesRepCount > 1){
+                uiState = uiState.copy(currentExecExerciseIdx = uiState.currentExecSeries!!.cycleExercises.size - 1)
+                uiState = uiState.copy(currentExecExercise = uiState.currentExecSeries!!.cycleExercises[uiState.currentExecExerciseIdx])
+                uiState = uiState.copy(seriesRepCount = uiState.seriesRepCount - 1)
+            }
             // Tengo que pasar a la serie anterior
-            if(uiState.currentExecSeriesIdx > 0){
+            else if(uiState.currentExecSeriesIdx > 0){
+                uiState = uiState.copy(seriesRepCount = 1)
                 uiState = uiState.copy(currentExecSeriesIdx = uiState.currentExecSeriesIdx - 1)
                 uiState = uiState.copy(currentExecSeries = uiState.cycleDataList[uiState.currentExecSeriesIdx])
 
@@ -704,11 +726,6 @@ class MainViewModel(
 
         timer?.cancel()
         timer = viewModelScope.launch {
-
-            // Usamos el delay para que las otras corutinas pueden cancelarse
-            // TODO: CHECK
-            delay(1.seconds)
-
             while(uiState.currentTimeExercise > 0){
                 delay(1.seconds)
                 if(!uiState.pausedExec)
