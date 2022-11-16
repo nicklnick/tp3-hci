@@ -198,10 +198,12 @@ fun loadRoutineDetails(viewModel: MainViewModel, exec: () -> Unit, id: Int, navC
                                 cycleExerciseList = cycle.cycleExercises
                             )
                         }
-                        GenericSmallOutlinedButton("Start!",{
-                            viewModel.setupExecution()
-                            exec()
-                        })
+                        if(viewModel.uiState.cycleDataList.isNotEmpty() && viewModel.uiState.cycleDataList.all { it.cycleExercises.isNotEmpty() }){
+                            GenericSmallOutlinedButton("Start!",{
+                                viewModel.setupExecution()
+                                exec()
+                            })
+                        }
 
                     }
                 }

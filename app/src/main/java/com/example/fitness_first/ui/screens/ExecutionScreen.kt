@@ -20,21 +20,21 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.times
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.fitness_first.MainViewModel
-import com.example.fitness_first.ui.components.IconFAB
 import com.example.fitness_first.R
+import com.example.fitness_first.ui.components.IconFAB
 import com.example.fitness_first.ui.theme.Primary
 import com.example.fitness_first.ui.theme.Quaternary
 import com.example.fitness_first.ui.theme.Secondary
 import com.example.fitness_first.ui.theme.Tertiary
+
 
 @Composable
 fun ExecutionScreen(id: Int, prev: () -> Unit, finish: () -> Unit, viewModel: MainViewModel) {
@@ -67,12 +67,10 @@ private fun showVerticalLayout(routineTitle: String, prev: () -> Unit, finish: (
             // Text and back button button
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 20.dp, top = 15.dp)
             ) {
-
                 IconFAB(
                     icon = Icons.Filled.KeyboardArrowLeft,
                     prev,
@@ -80,14 +78,22 @@ private fun showVerticalLayout(routineTitle: String, prev: () -> Unit, finish: (
                     Quaternary,
                     Primary
                 )
-                Text(
-                    text = routineTitle,
-                    modifier = Modifier.padding(start = 20.dp),
-                    fontSize = 40.sp,
-                    color = Color.DarkGray,
-                    fontWeight = FontWeight.Bold
-                )
-                Spacer(modifier = Modifier.fillMaxWidth())
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth(0.8f),
+                    horizontalArrangement = Arrangement.Center
+                ){
+                    Text(
+                        text = routineTitle,
+                        modifier = Modifier.padding(start = 20.dp),
+                        fontSize = 30.sp,
+                        color = Color.DarkGray,
+                        fontWeight = FontWeight.SemiBold,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+
+                }
             }
 
             // Progress bar
@@ -104,8 +110,8 @@ private fun showVerticalLayout(routineTitle: String, prev: () -> Unit, finish: (
                     Spacer(modifier = Modifier.width((viewModel.uiState.exerciseCount.toFloat() / viewModel.uiState.routineSize.toFloat()) * 165.dp))         // MMM MEDIO DUDOSO
                     Text(
                         "${((viewModel.uiState.exerciseCount.toFloat() / viewModel.uiState.routineSize.toFloat()) * 100).toInt()}%",
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.SemiBold,
+                        fontSize = 30.sp,
+                        fontWeight = FontWeight.Bold,
                         color = Color.DarkGray
                     )
                 }
@@ -137,13 +143,15 @@ private fun showVerticalLayout(routineTitle: String, prev: () -> Unit, finish: (
                             horizontalArrangement = Arrangement.End,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-
-                            Text(viewModel.uiState.currentExecSeries!!.cycleName,
-                                fontSize = 30.sp,
-                                fontWeight = FontWeight.Bold)
-
-                            Spacer(modifier = Modifier.size(100.dp))
-
+                            Row(
+                                modifier = Modifier.fillMaxWidth(0.8f),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.Center,
+                            ) {
+                                Text(viewModel.uiState.currentExecSeries!!.cycleName,
+                                    fontSize = 30.sp,
+                                    fontWeight = FontWeight.SemiBold)
+                            }
                             Card(
                                 border = BorderStroke(1.dp, Primary),
                                 shape = RoundedCornerShape(30.dp),
@@ -220,7 +228,9 @@ private fun showVerticalLayout(routineTitle: String, prev: () -> Unit, finish: (
                             }
                         }
                         Box(
-                            modifier = Modifier.fillMaxSize().padding(5.dp)
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(5.dp)
                         ) {
                             if(!viewModel.isFirstExercise()){
                                 IconFAB(
@@ -313,7 +323,9 @@ private fun showVerticalLayout(routineTitle: String, prev: () -> Unit, finish: (
                 }
             }
             else
-                Divider(modifier = Modifier.fillMaxWidth().height(100.dp), color= Color.Transparent)
+                Divider(modifier = Modifier
+                    .fillMaxWidth()
+                    .height(100.dp), color= Color.Transparent)
         }
     }
 }
@@ -495,28 +507,7 @@ private fun showLandscapeLayout(routineTitle: String,prev: () -> Unit, finish: (
                                 verticalArrangement = Arrangement.Center,
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
-//                                Row {
-
-
-//                                    IconFAB(
-//                                        icon = Icons.Filled.KeyboardArrowLeft,
-//                                        func = { /*TODO*/ },
-//                                        modifier = Modifier
-//                                            .size(125.dp)
-//                                            .padding(20.dp),
-//                                        Tertiary,
-//                                        Secondary
-//                                    )
-//                                    IconFAB(
-//                                        icon = Icons.Filled.KeyboardArrowRight,
-//                                        func = { /*TODO*/ },
-//                                        modifier = Modifier
-//                                            .size(125.dp)
-//                                            .padding(20.dp),
-//                                        Tertiary,
-//                                        Secondary
-//                                    )
-                                    Box(
+                                 Box(
                                         modifier = Modifier.fillMaxWidth(),
                                     ) {
                                         if(!viewModel.isFirstExercise()){
@@ -666,7 +657,9 @@ private fun showLandscapeLayout(routineTitle: String,prev: () -> Unit, finish: (
                         }
                     }
                     else
-                        Divider(modifier = Modifier.fillMaxWidth().height(100.dp), color= Color.Transparent)
+                        Divider(modifier = Modifier
+                            .fillMaxWidth()
+                            .height(100.dp), color= Color.Transparent)
                 }
             }
         }

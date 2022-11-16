@@ -600,10 +600,8 @@ class MainViewModel(
         uiState = uiState.copy(currentExecSeriesIdx = 0)
         uiState = uiState.copy(currentExecExerciseIdx = 0)
 
-
         uiState = uiState.copy(currentExecSeries = uiState.cycleDataList[uiState.currentExecSeriesIdx])
         uiState = uiState.copy(currentExecExercise = uiState.currentExecSeries!!.cycleExercises[uiState.currentExecExerciseIdx])
-
 
         peakNextExercise()
         uiState = uiState.copy(pausedExec = false)
@@ -627,7 +625,7 @@ class MainViewModel(
     // - - - EXECUTION - - -
 
     fun isFirstExercise(): Boolean{
-        return uiState.currentExecExerciseIdx == 0  && uiState.currentExecSeriesIdx == 0
+        return uiState.currentExecExerciseIdx == 0  && uiState.currentExecSeriesIdx == 0 && uiState.seriesRepCount == 1
     }
     fun hasNextExercise() : Boolean{
         return (uiState.currentExecExerciseIdx < uiState.currentExecSeries!!.cycleExercises.size - 1) ||
