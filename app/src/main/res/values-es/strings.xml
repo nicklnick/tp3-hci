@@ -64,6 +64,9 @@
     <string name="profile_username">Nombre de Usuario</string>
     <string name="profile_email">Email</string>
     <string name="cat_name">Rutinas de %1$s</string>
+    <string name="categories">Categorías</string>
+    <string name="recent">Recientes</string>
+    <string name="home">Inicio</string>
 
     <!-- ReviewRoutine -->
     <string name="review_routine">Califica esta Rutina!</string>
@@ -74,5 +77,9 @@
     <string name="go_home">Ir a Inicio</string>
     <string name="publish_review">Publicar</string>
 
+    <!-- RoutineDetils -->
+    <string name="difficulty">Dificultad:</string>
 
+    <!-- SearchScreen -->
+    <string name="search_results">Resultados de Búsqueda:</string>
 </resources>

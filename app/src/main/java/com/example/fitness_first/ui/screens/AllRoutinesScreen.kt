@@ -92,22 +92,16 @@ fun AllRoutinesScreen(
                             modifier = Modifier.padding(start = 10.dp, top = 5.dp)
                         )
                         if(viewModel.uiState.isFetching){
-                            Column(
-                                modifier = Modifier.fillMaxSize(),
-                                horizontalAlignment = Alignment.CenterHorizontally,
-                                verticalArrangement = Arrangement.Center
-                            ) {
-                                Text(
-                                    text = "Loading...",
-                                    fontSize = 16.sp
-                                )
-                            }
+                            LoadingScreen()
                         }
                         else{
                             val list = viewModel.uiState.routines.orEmpty()
                             val favList = viewModel.uiState.favouriteRoutines.orEmpty()
                             LazyColumn(
-                                modifier = Modifier.fillMaxWidth().fillMaxHeight(0.91f).padding(bottom = 5.dp),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .fillMaxHeight(0.91f)
+                                    .padding(bottom = 5.dp),
                                 horizontalAlignment = Alignment.CenterHorizontally,
                                 verticalArrangement = Arrangement.spacedBy(space = 8.dp)
                             ){

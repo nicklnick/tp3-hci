@@ -20,9 +20,5 @@ fun LoadingScreen(color: Color = Color.Transparent) {
         verticalArrangement = Arrangement.Center
     ) {
         CircularProgressIndicator()
-//        Text(
-//            text = "Loading...",
-//            fontSize = 16.sp
-//        )
     }
 }

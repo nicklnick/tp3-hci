@@ -19,6 +19,7 @@ import androidx.navigation.NavHostController
 import com.example.fitness_first.MainViewModel
 import com.example.fitness_first.R
 import com.example.fitness_first.ui.components.*
+import com.example.fitness_first.ui.screens.LoadingScreen
 import com.example.fitness_first.ui.screens.showFilters
 import com.example.fitness_first.ui.screens.sortSheet
 import com.example.fitness_first.ui.theme.Quaternary
@@ -87,22 +88,16 @@ fun FavouritesScreen(
                             modifier = Modifier.padding(start = 10.dp, top = 5.dp)
                         )
                         if(viewModel.uiState.isFetching){
-                            Column(
-                                modifier = Modifier.fillMaxSize(),
-                                horizontalAlignment = Alignment.CenterHorizontally,
-                                verticalArrangement = Arrangement.Center
-                            ) {
-                                Text(
-                                    text = "Loading...",
-                                    fontSize = 16.sp
-                                )
-                            }
+                            LoadingScreen()
                         }
                         else{
                             val favList = viewModel.uiState.favouriteRoutines.orEmpty()
                             val list = viewModel.uiState.routines.orEmpty()
                             LazyColumn(
-                                modifier = Modifier.fillMaxWidth().fillMaxHeight(0.91f).padding(bottom = 5.dp),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .fillMaxHeight(0.91f)
+                                    .padding(bottom = 5.dp),
                                 horizontalAlignment = Alignment.CenterHorizontally,
                                 verticalArrangement = Arrangement.spacedBy(space = 8.dp)
                             ){
@@ -133,8 +128,6 @@ fun FavouritesScreen(
                     }
                 }
             }
-
         }
-
     }
 }

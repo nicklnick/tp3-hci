@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -60,7 +61,7 @@ fun HomeScreen(
             ) {
                 Column {
                     Text(
-                        text = "Categories",
+                        text = stringResource(R.string.categories),
                         fontSize = MaterialTheme.typography.h5.fontSize,
                         fontWeight = FontWeight.Bold,
                         color = Secondary,
@@ -81,14 +82,14 @@ fun HomeScreen(
                         viewModel
                     )
                     Text(
-                        text = "Recent",
+                        text = stringResource(R.string.recent),
                         fontSize = MaterialTheme.typography.h5.fontSize,
                         fontWeight = FontWeight.Bold,
                         color = Secondary,
                         modifier = Modifier.padding(start = 20.dp)
                     )
                     Text(
-                        text = "Favourites",
+                        text = stringResource(R.string.favourites),
                         fontSize = MaterialTheme.typography.h5.fontSize,
                         fontWeight = FontWeight.Bold,
                         color = Secondary,

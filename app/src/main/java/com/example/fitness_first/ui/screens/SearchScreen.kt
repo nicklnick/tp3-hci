@@ -17,6 +17,7 @@ import androidx.navigation.NavHostController
 import com.example.fitness_first.MainViewModel
 import com.example.fitness_first.R
 import com.example.fitness_first.ui.components.*
+import com.example.fitness_first.ui.screens.LoadingScreen
 import com.example.fitness_first.ui.screens.showFilters
 import com.example.fitness_first.ui.screens.sortSheet
 import com.example.fitness_first.ui.theme.Quaternary
@@ -72,23 +73,14 @@ fun SearchScreen(
                     verticalArrangement = Arrangement.spacedBy(6.dp)
                 ) {
                     Text(
-                        text = "Search Result: $query",
+                        text = stringResource(R.string.search_results) + query,
                         fontSize = MaterialTheme.typography.h4.fontSize,
                         fontWeight = FontWeight.Bold,
                         color = Secondary,
                         modifier = Modifier.padding(start = 10.dp, top = 5.dp)
                     )
-                    if(viewModel.uiState.isFetching){
-                        Column(
-                            modifier = Modifier.fillMaxSize(),
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.Center
-                        ) {
-                            Text(
-                                text = "Loading...",
-                                fontSize = 16.sp
-                            )
-                        }
+                    if(viewModel.uiState.isFetching) {
+                        LoadingScreen()
                     }
                     else{
                         val list = viewModel.uiState.searchRoutines.orEmpty()
@@ -127,7 +119,8 @@ fun SearchScreen(
                     Button(
                         shape = CircleShape,
                         modifier = Modifier
-                            .width(300.dp).padding(top = 20.dp),
+                            .width(300.dp)
+                            .padding(top = 20.dp),
                         onClick = { navController.navigate("allRoutines")},
                     ){
                         Text(text = stringResource(R.string.seeAll), fontSize = 20.sp, color = Color.DarkGray)

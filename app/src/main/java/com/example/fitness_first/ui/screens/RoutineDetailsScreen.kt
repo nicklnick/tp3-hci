@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.fitness_first.MainViewModel
@@ -42,18 +43,7 @@ fun RoutineDetailsScreen(id: Int, exec: () -> Unit, viewModel: MainViewModel) {
         LoadingScreen(Secondary)
     }
     else {
-        if(viewModel.uiState.currentRoutine == null) {
-            Row(
-               modifier = Modifier.fillMaxSize(),
-               verticalAlignment = Alignment.CenterVertically,
-               horizontalArrangement = Arrangement.Center
-            ) {
-                Text(text = "Waiting for current routine...")
-            }
-        }
-        else {
-            loadRoutineDetails(viewModel,exec)
-        }
+        loadRoutineDetails(viewModel,exec)
     }
 }
 
@@ -81,7 +71,7 @@ fun TopBarRoutineDetails(title: String, difficulty: String, rating: Int, liked: 
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            SimpleChip("Difficulty: $difficulty", Tertiary)
+            SimpleChip(stringResource(R.string.difficulty) +  difficulty, Tertiary)
         }
 
         Row(
