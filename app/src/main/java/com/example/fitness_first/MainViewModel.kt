@@ -1,5 +1,6 @@
 package com.example.fitness_first
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -7,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fitness_first.data.model.Category
 import com.example.fitness_first.data.model.Review
+import com.example.fitness_first.data.model.Routine
 import com.example.fitness_first.data.model.Sport
 import com.example.fitness_first.data.repository.*
 import com.example.fitness_first.util.SessionManager
@@ -117,6 +119,12 @@ class MainViewModel(
                 isFetching = false,
                 userRoutines = response
             )
+            uiState.routines.orEmpty().forEach { routine ->
+                if( uiState.userRoutines.orEmpty()
+                        .find { it.id == routine.id } != null){
+                    routine.fromCUser = true
+                }
+            }
         }.onFailure { e ->
             // Handle the error and notify the UI when appropriate.
             uiState = uiState.copy(
@@ -263,6 +271,8 @@ class MainViewModel(
                 isFetching = false,
                 routines = response
             )
+            getFavourites()
+            getCurrentUserRoutines()
         }.onFailure { e ->
             uiState = uiState.copy(
                 message = e.message,
@@ -303,6 +313,8 @@ class MainViewModel(
                 isFetching = false,
                 routines = response,
             )
+            getFavourites()
+            getCurrentUserRoutines()
         }.onFailure { e ->
             uiState = uiState.copy(
                 message = e.message,
@@ -452,6 +464,16 @@ class MainViewModel(
                 isFetching = false,
                 favouriteRoutines = response
             )
+            Log.d("amount of routines", uiState.routines!!.size.toString())
+            Log.d("amount of liked", uiState.favouriteRoutines!!.size.toString())
+            uiState.routines.orEmpty().forEach { routine ->
+                if (uiState.favouriteRoutines.orEmpty()
+                        .find { it.id == routine.id } != null
+                ) {
+                    routine.liked = true
+                    Log.d("Routine liked", routine.liked.toString())
+                }
+            }
         }.onFailure { e ->
             uiState = uiState.copy(
                 message = e.message,
@@ -492,12 +514,22 @@ class MainViewModel(
             uiState = uiState.copy(
                 isFetching = false,
             )
-            getFavourites()
+//            getFavourites()
         }.onFailure { e ->
             uiState = uiState.copy(
                 message = e.message,
                 isFetching = false
             )
+        }
+    }
+
+    fun likeOrUnlike(routine: Routine) = viewModelScope.launch {
+        if( routine.liked){
+            routine.liked = false
+            deleteFavourite(routine.id)
+        }else{
+            routine.liked = true
+            markFavourite(routine.id)
         }
     }
 
@@ -581,6 +613,10 @@ class MainViewModel(
                 isFetching = false,
                 currentRoutine = response
             )
+//            getFavourites()
+            if( uiState.routines!!.find { it.id == id && it.liked == true} != null){
+                uiState.currentRoutine!!.liked = true
+            }
             getRoutineDetails(id)
         }.onFailure { e ->
             uiState = uiState.copy(

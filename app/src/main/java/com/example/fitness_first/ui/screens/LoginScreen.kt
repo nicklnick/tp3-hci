@@ -124,8 +124,18 @@ fun LoginScreen(backFunc: () -> Unit, loginFunc: () -> Unit, viewModel: MainView
 //                                }
 //                            }
                             viewModel.getRoutines()
-                            viewModel.getFavourites()
-                            viewModel.getCurrentUserRoutines()
+//                            viewModel.getFavourites()
+//                            viewModel.getCurrentUserRoutines()
+
+//                            viewModel.uiState.routines.orEmpty().forEach { routine ->
+//                                if( viewModel.uiState.favouriteRoutines.orEmpty().find { it.id == routine.id } != null){
+//                                    routine.liked = true
+//                                }
+//                                if( viewModel.uiState.userRoutines.orEmpty().find { it.id == routine.id } != null){
+//                                    routine.fromCUser = true
+//                                }
+//                            }
+
                             viewModel.getCurrentUser()
 
                             loginFunc()

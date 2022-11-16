@@ -123,10 +123,6 @@ fun TopBarRoutineDetails(title: String, difficulty: String, rating: Int, liked: 
 fun loadRoutineDetails(viewModel: MainViewModel, exec: () -> Unit, id: Int) {
     val scrollState = rememberScrollState()
 
-    // For liking and disliking current routine
-    val favList = viewModel.uiState.favouriteRoutines.orEmpty()
-    val currentRoutine = viewModel.uiState.currentRoutine
-
     Column(
         Modifier
             .fillMaxHeight()
@@ -144,13 +140,10 @@ fun loadRoutineDetails(viewModel: MainViewModel, exec: () -> Unit, id: Int) {
                         title = viewModel.uiState.currentRoutine!!.name,
                         difficulty = viewModel.uiState.currentRoutine!!.difficulty!!,
                         rating = getAverageRating(viewModel.uiState.reviews!!),
-                        liked = favList.find { it.id == currentRoutine!!.id } != null,
+                        liked = viewModel.uiState.currentRoutine!!.liked,
                         likeFunc = {
-                            if (favList.find { it.id == currentRoutine!!.id } == null) {
-                                viewModel.markFavourite(currentRoutine!!.id)
-                            } else {
-                                viewModel.deleteFavourite(currentRoutine!!.id)
-                            }
+                            viewModel.likeOrUnlike(viewModel.uiState.currentRoutine!!)
+                            viewModel.uiState.routines!!.find { viewModel.uiState.currentRoutine!!.id == it.id }!!.liked = viewModel.uiState.currentRoutine!!.liked
                         },
                         id,
                         viewModel

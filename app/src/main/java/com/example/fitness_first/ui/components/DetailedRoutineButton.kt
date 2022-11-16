@@ -30,20 +30,20 @@ import com.example.fitness_first.ui.theme.Tertiary
 // - - - - - - - - - - - - - - -
 
 @Composable
-fun DetailedRoutineButton(name: String, category: String, liked: Boolean, func: ()->Unit, likeFunc: ()->Unit ){
+fun DetailedRoutineButton(name: String, category: String, liked: Boolean, func: ()->Unit, likeFunc: ()->Unit){
     OutlinedButton(
         onClick =  func,
         modifier = Modifier
             .width(350.dp)
             .height(85.dp)
-            .padding(0.dp),
+            .padding(8.dp),
         shape = RoundedCornerShape(16.dp),
         colors = ButtonDefaults.buttonColors(
             contentColor = Color.DarkGray,
             backgroundColor = Tertiary,
         ),
         border = BorderStroke(2.dp, Primary),
-        contentPadding = PaddingValues(0.dp)
+        contentPadding = PaddingValues(0.dp),
     ){
         Row(
             verticalAlignment = Alignment.CenterVertically,

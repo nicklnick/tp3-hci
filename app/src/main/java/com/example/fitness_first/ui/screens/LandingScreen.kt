@@ -21,8 +21,8 @@ import com.example.fitness_first.util.getViewModelFactory
 fun LandingScreen(signupFunc: () -> Unit, loginFunc: () -> Unit, loggedInFunc: () -> Unit, viewModel: MainViewModel){
     if(viewModel.uiState.isAuthenticated) {
         viewModel.getRoutines()
-        viewModel.getFavourites()
-        viewModel.getCurrentUserRoutines()
+//        viewModel.getFavourites()
+//        viewModel.getCurrentUserRoutines()
         viewModel.getCurrentUser()
         loggedInFunc()
     }

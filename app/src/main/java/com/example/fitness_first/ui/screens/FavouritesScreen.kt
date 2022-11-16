@@ -3,7 +3,11 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -24,6 +28,7 @@ import com.example.fitness_first.ui.screens.showFilters
 import com.example.fitness_first.ui.screens.sortSheet
 import com.example.fitness_first.ui.theme.Quaternary
 import com.example.fitness_first.ui.theme.Secondary
+import com.example.fitness_first.ui.theme.Tertiary
 import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -91,37 +96,33 @@ fun FavouritesScreen(
                             LoadingScreen()
                         }
                         else{
-                            val favList = viewModel.uiState.favouriteRoutines.orEmpty()
-                            val list = viewModel.uiState.routines.orEmpty()
                             LazyColumn(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .fillMaxHeight(0.91f)
                                     .padding(bottom = 5.dp),
                                 horizontalAlignment = Alignment.CenterHorizontally,
-                                verticalArrangement = Arrangement.spacedBy(space = 8.dp)
+//                                verticalArrangement = Arrangement.spacedBy(space = 8.dp)
                             ){
                                 items(
-                                    count = list.size,
-                                    key = { index ->
-                                        list[index].id.toString()
-                                    }
-                                ){ index ->
-                                    if(favList.find { it.id == list[index].id } != null){
+                                    viewModel.uiState.routines.orEmpty()
+                                ) { routine ->
+                                    if (routine.liked) {
                                         DetailedRoutineButton(
-                                            name = list[index].name.toString(),
-                                            category = list[index].category.name.toString(),
-                                            liked = favList.find { it.id == list[index].id } != null,
+                                            name = routine.name.toString(),
+                                            category = routine.category.name.toString(),
+                                            liked = routine.liked,
                                             func = {
-                                                viewModel.getRoutine(list[index].id)
-                                                viewModel.getReviews(list[index].id)
+                                                viewModel.getRoutine(routine.id)
+                                                viewModel.getReviews(routine.id)
 
-                                                NavigateToRoutineDetails(list[index].id.toString())
+                                                NavigateToRoutineDetails(routine.id.toString())
                                             },
-                                            likeFunc = {viewModel.deleteFavourite(list[index].id)}
+                                            likeFunc = {
+                                                viewModel.likeOrUnlike(routine)
+                                            }
                                         )
                                     }
-
                                 }
                             }
                         }

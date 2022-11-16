@@ -2,6 +2,7 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -92,39 +93,30 @@ fun CategoryScreen(
                         if(viewModel.uiState.isFetching) {
                             LoadingScreen()
                         }else{
-                            val categoryList = viewModel.uiState.categoryRoutines.orEmpty()
-                            val list = viewModel.uiState.routines.orEmpty()
-                            val favList = viewModel.uiState.favouriteRoutines.orEmpty()
                             LazyColumn(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .fillMaxHeight(0.91f)
                                     .padding(bottom = 5.dp),
                                 horizontalAlignment = Alignment.CenterHorizontally,
-                                verticalArrangement = Arrangement.spacedBy(space = 8.dp)
+//                                verticalArrangement = Arrangement.spacedBy(space = 8.dp)
                             ) {
                                 items(
-                                    count = list.size,
-                                    key = { index ->
-                                        list[index].id.toString()
-                                    }
-                                ){ index ->
-                                    if( categoryList.find { it.id == list[index].id  } != null){
+                                    viewModel.uiState.routines.orEmpty()
+                                ) { routine ->
+                                    if (routine.category.name == muscle) {
                                         DetailedRoutineButton(
-                                            name = list[index].name.toString(),
-                                            category = list[index].category.name.toString(),
-                                            liked = favList.find { it.id == list[index].id } != null,
+                                            name = routine.name.toString(),
+                                            category = routine.category.name.toString(),
+                                            liked = routine.liked,
                                             func = {
-                                                viewModel.getRoutine(list[index].id)
-                                                viewModel.getReviews(list[index].id)
-                                                NavigateToRoutineDetails(list[index].id.toString())
+                                                viewModel.getRoutine(routine.id)
+                                                viewModel.getReviews(routine.id)
+
+                                                NavigateToRoutineDetails(routine.id.toString())
                                             },
                                             likeFunc = {
-                                                if(favList.find { it.id == list[index].id } == null){
-                                                    viewModel.markFavourite(list[index].id)
-                                                }else{
-                                                    viewModel.deleteFavourite(list[index].id)
-                                                }
+                                                viewModel.likeOrUnlike(routine)
                                             }
                                         )
                                     }

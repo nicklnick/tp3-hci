@@ -2,6 +2,7 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -83,36 +84,30 @@ fun SearchScreen(
                         LoadingScreen()
                     }
                     else{
-                        val list = viewModel.uiState.searchRoutines.orEmpty()
-                        val favList = viewModel.uiState.favouriteRoutines.orEmpty()
                         LazyColumn(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.spacedBy(space = 8.dp)
+//                            verticalArrangement = Arrangement.spacedBy(space = 8.dp)
                         ){
                             items(
-                                count = list.size,
-                                key = { index ->
-                                    list[index].id.toString()
+                                viewModel.uiState.routines.orEmpty()
+                            ) { routine ->
+                                if (routine.name.equals(query,true)) {
+                                    DetailedRoutineButton(
+                                        name = routine.name.toString(),
+                                        category = routine.category.name.toString(),
+                                        liked = routine.liked,
+                                        func = {
+                                            viewModel.getRoutine(routine.id)
+                                            viewModel.getReviews(routine.id)
+
+                                            NavigateToRoutineDetails(routine.id.toString())
+                                        },
+                                        likeFunc = {
+                                            viewModel.likeOrUnlike(routine)
+                                        }
+                                    )
                                 }
-                            ){
-                                    index -> DetailedRoutineButton(
-                                name = list[index].name.toString(),
-                                category = list[index].category.name.toString(),
-                                liked = favList.find { list[index].id == it.id  } != null,
-                                func = {
-                                    viewModel.getRoutine(list[index].id)
-                                    viewModel.getReviews(list[index].id)
-                                    NavigateToRoutineDetails(list[index].id.toString())
-                                },
-                                likeFunc = {
-                                    if(favList.find { list[index].id == it.id  } == null){
-                                        viewModel.markFavourite(list[index].id)
-                                    }else{
-                                        viewModel.deleteFavourite(list[index].id)
-                                    }
-                                }
-                            )
                             }
                         }
                     }

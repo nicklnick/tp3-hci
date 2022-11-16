@@ -95,40 +95,30 @@ fun MyRoutinesScreen(
                         LoadingScreen()
                     }
                     else{
-                        val userList = viewModel.uiState.userRoutines.orEmpty()
-                        val list = viewModel.uiState.routines.orEmpty()
-                        val favList = viewModel.uiState.favouriteRoutines.orEmpty()
                         LazyColumn(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .fillMaxHeight(0.91f)
                                 .padding(bottom = 5.dp),
                             horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.spacedBy(space = 8.dp)
+//                            verticalArrangement = Arrangement.spacedBy(space = 8.dp)
                         ) {
                             items(
-                                count = list.size,
-                                key = { index ->
-                                    list[index].id.toString()
-                                }
-                            ){ index ->
-                                if( userList.find { it.id == list[index].id  } != null){
+                                viewModel.uiState.routines.orEmpty()
+                            ) { routine ->
+                                if (routine.fromCUser) {
                                     DetailedRoutineButton(
-                                        name = list[index].name.toString(),
-                                        category = list[index].category.name.toString(),
-                                        liked = favList.find { it.id == list[index].id } != null,
+                                        name = routine.name.toString(),
+                                        category = routine.category.name.toString(),
+                                        liked = routine.liked,
                                         func = {
-                                            viewModel.getRoutine(list[index].id)
-                                            viewModel.getReviews(list[index].id)
+                                            viewModel.getRoutine(routine.id)
+                                            viewModel.getReviews(routine.id)
 
-                                            NavigateToRoutineDetails(list[index].id.toString())
-                                           },
+                                            NavigateToRoutineDetails(routine.id.toString())
+                                        },
                                         likeFunc = {
-                                            if(favList.find { it.id == list[index].id } == null){
-                                                viewModel.markFavourite(list[index].id)
-                                            }else{
-                                                viewModel.deleteFavourite(list[index].id)
-                                            }
+                                            viewModel.likeOrUnlike(routine)
                                         }
                                     )
                                 }

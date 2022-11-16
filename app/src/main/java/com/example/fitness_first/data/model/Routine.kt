@@ -14,6 +14,8 @@ class Routine (
     var difficulty: String? = null,
     var user: NetworkUser? = null,
     var category: NetworkCategory,
+    var liked: Boolean = false,
+    var fromCUser: Boolean = false
 ) {
     fun asNetworkModel(): NetworkRoutine{
         return NetworkRoutine(
