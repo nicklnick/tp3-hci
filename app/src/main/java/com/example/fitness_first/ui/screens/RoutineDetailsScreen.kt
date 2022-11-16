@@ -39,23 +39,23 @@ fun RoutineDetailsScreen(id: Int, exec: () -> Unit, viewModel: MainViewModel) {
     if (viewModel.uiState.message != null)
         Text(text = "Routine not found")
 
-    if (viewModel.uiState.isFetching) {
+    if (viewModel.uiState.isFetching || viewModel.uiState.currentRoutine == null) {
         LoadingScreen(Secondary)
     }
     else {
-        loadRoutineDetails(viewModel,exec)
+        loadRoutineDetails(viewModel,exec, id)
     }
 }
 
 
 @Composable
-fun TopBarRoutineDetails(title: String, difficulty: String, rating: Int, liked: Boolean, likeFunc: () -> Unit, viewModel: MainViewModel) {
+fun TopBarRoutineDetails(title: String, difficulty: String, rating: Int, liked: Boolean, likeFunc: () -> Unit, id:Int,viewModel: MainViewModel) {
 
     // Sharing routine with intent functionality
     val context = LocalContext.current
     val sendIntent: Intent = Intent().apply {
         action = Intent.ACTION_SEND
-        putExtra(Intent.EXTRA_TEXT, "https://fitness-first.com/routine/$title")
+        putExtra(Intent.EXTRA_TEXT, "https://fitness-first.com/routine/$id")
         type = "text/plain"
     }
     val shareIntent = Intent.createChooser(sendIntent, null)
@@ -120,7 +120,7 @@ fun TopBarRoutineDetails(title: String, difficulty: String, rating: Int, liked: 
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun loadRoutineDetails(viewModel: MainViewModel, exec: () -> Unit) {
+fun loadRoutineDetails(viewModel: MainViewModel, exec: () -> Unit, id: Int) {
     val scrollState = rememberScrollState()
 
     // For liking and disliking current routine
@@ -152,6 +152,7 @@ fun loadRoutineDetails(viewModel: MainViewModel, exec: () -> Unit) {
                                 viewModel.deleteFavourite(currentRoutine!!.id)
                             }
                         },
+                        id,
                         viewModel
                     )
                 },
