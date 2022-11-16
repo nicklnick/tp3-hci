@@ -110,7 +110,8 @@ fun AppNavHost(
             NavBackStackEntry -> RoutineDetailsScreen(
             NavBackStackEntry.arguments?.getInt("id")!!,
             {navController.navigate("routine/${NavBackStackEntry.arguments?.getInt("id")}/execution")},
-            viewModel)
+            viewModel,
+            navController)
         }
 
         composable(

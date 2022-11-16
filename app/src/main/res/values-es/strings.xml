@@ -77,7 +77,7 @@
     <string name="publish_review">Publicar</string>
 
     <!-- RoutineDetils -->
-    <string name="difficulty">Dificultad:</string>
+    <string name="difficulty">Dificultad: </string>
 
     <!-- SearchScreen -->
     <string name="search_results">Resultados de Búsqueda:</string>

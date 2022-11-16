@@ -11,6 +11,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -23,6 +24,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.example.fitness_first.MainViewModel
 import com.example.fitness_first.R
 import com.example.fitness_first.data.model.Review
@@ -34,7 +37,7 @@ import com.example.fitness_first.ui.theme.Tertiary
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun RoutineDetailsScreen(id: Int, exec: () -> Unit, viewModel: MainViewModel) {
+fun RoutineDetailsScreen(id: Int, exec: () -> Unit, viewModel: MainViewModel, navController: NavController) {
 
     if (viewModel.uiState.message != null)
         Text(text = "Routine not found")
@@ -43,13 +46,13 @@ fun RoutineDetailsScreen(id: Int, exec: () -> Unit, viewModel: MainViewModel) {
         LoadingScreen(Secondary)
     }
     else {
-        loadRoutineDetails(viewModel,exec, id)
+        loadRoutineDetails(viewModel,exec, id, navController)
     }
 }
 
 
 @Composable
-fun TopBarRoutineDetails(title: String, difficulty: String, rating: Int, liked: Boolean, likeFunc: () -> Unit, id:Int,viewModel: MainViewModel) {
+fun TopBarRoutineDetails(title: String, difficulty: String, rating: Int, liked: Boolean, likeFunc: () -> Unit, id:Int, navController: NavController) {
 
     // Sharing routine with intent functionality
     val context = LocalContext.current
@@ -67,15 +70,27 @@ fun TopBarRoutineDetails(title: String, difficulty: String, rating: Int, liked: 
         Spacer(modifier = Modifier.padding(top = 12.dp))
 
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().padding(bottom = 6.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
+            horizontalArrangement = Arrangement.SpaceEvenly
         ) {
+            IconFAB(
+                icon = Icons.Filled.KeyboardArrowLeft,
+                { navController.navigate(NavItem.Routines.route) },
+                Modifier.size(40.dp),
+                Quaternary,
+                Primary
+            )
+
             SimpleChip(stringResource(R.string.difficulty) +  difficulty, Tertiary)
+
+            Spacer(Modifier.size(40.dp))
         }
 
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 4.dp),
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -120,7 +135,7 @@ fun TopBarRoutineDetails(title: String, difficulty: String, rating: Int, liked: 
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun loadRoutineDetails(viewModel: MainViewModel, exec: () -> Unit, id: Int) {
+fun loadRoutineDetails(viewModel: MainViewModel, exec: () -> Unit, id: Int, navController: NavController) {
     val scrollState = rememberScrollState()
 
     Column(
@@ -146,7 +161,7 @@ fun loadRoutineDetails(viewModel: MainViewModel, exec: () -> Unit, id: Int) {
                             viewModel.uiState.routines!!.find { viewModel.uiState.currentRoutine!!.id == it.id }!!.liked = viewModel.uiState.currentRoutine!!.liked
                         },
                         id,
-                        viewModel
+                        navController
                     )
                 },
                 modifier = Modifier.background(Secondary),
@@ -158,6 +173,8 @@ fun loadRoutineDetails(viewModel: MainViewModel, exec: () -> Unit, id: Int) {
                         .verticalScroll(scrollState)
                         .background(Secondary)
                 ) {
+
+
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.spacedBy(10.dp),
@@ -176,6 +193,7 @@ fun loadRoutineDetails(viewModel: MainViewModel, exec: () -> Unit, id: Int) {
                             viewModel.setupExecution()
                             exec()
                         })
+
                     }
                 }
             }
