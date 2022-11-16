@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -18,6 +19,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.fitness_first.MainViewModel
 import com.example.fitness_first.R
+import com.example.fitness_first.data.model.Routine
 import com.example.fitness_first.ui.components.*
 import com.example.fitness_first.ui.theme.Quaternary
 import com.example.fitness_first.ui.theme.Secondary
@@ -97,15 +99,14 @@ fun MyRoutinesScreen(
                                 .fillMaxHeight(0.91f)
                                 .padding(bottom = 5.dp),
                             horizontalAlignment = Alignment.CenterHorizontally,
-//                            verticalArrangement = Arrangement.spacedBy(space = 8.dp)
                         ) {
                             items(
                                 viewModel.uiState.routines.orEmpty()
-                            ) { routine ->
+                            ) { routine: Routine ->
                                 if (routine.fromCUser) {
                                     DetailedRoutineButton(
-                                        name = routine.name.toString(),
-                                        category = routine.category.name.toString(),
+                                        name = routine.name,
+                                        category = routine.category.name,
                                         liked = routine.liked,
                                         func = {
                                             viewModel.getRoutine(routine.id)

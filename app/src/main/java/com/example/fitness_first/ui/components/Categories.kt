@@ -1,6 +1,9 @@
 package com.example.fitness_first.ui.components
 
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 import com.example.fitness_first.R
+
 
 /**
  * @property    name Strings resource id
@@ -11,7 +14,12 @@ sealed class Categories(
     val name: Int,
     val icon: Int,
     var id: Int
-){
+) {
+    @Composable
+    fun getName() : String {
+        return stringResource(name)
+    }
+
     object Bicep: Categories(
         route = "Bicep",
         name = R.string.bicep,

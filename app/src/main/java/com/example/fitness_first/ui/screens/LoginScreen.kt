@@ -81,14 +81,14 @@ fun LoginScreen(backFunc: () -> Unit, loginFunc: () -> Unit, viewModel: MainView
 
                     GenericInputField(label = stringResource(R.string.login_password), value = password, {password = it }, false)
 
-                    val bicepName = stringResource(Categories.Bicep.name)
-                    val tricepName = stringResource(Categories.Tricep.name)
-                    val chestName = stringResource(Categories.Chest.name)
-                    val shouldersName = stringResource(Categories.Shoulders.name)
-                    val backName = stringResource(Categories.Back.name)
-                    val legsName = stringResource(Categories.Legs.name)
-                    val absName = stringResource(Categories.Abs.name)
-                    val fullBodyName = stringResource(Categories.FullBody.name)
+                    val bicepName = Categories.Bicep.getName()
+                    val tricepName = Categories.Tricep.getName()
+                    val chestName = Categories.Chest.getName()
+                    val shouldersName = Categories.Shoulders.getName()
+                    val backName = Categories.Back.getName()
+                    val legsName = Categories.Legs.getName()
+                    val absName = Categories.Abs.getName()
+                    val fullBodyName = Categories.FullBody.getName()
 
                     GenericLongButton(stringResource(R.string.login_continue)) {
                         viewModel.login(user,password,{
