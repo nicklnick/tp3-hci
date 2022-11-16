@@ -6,9 +6,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,8 +21,10 @@ import com.example.fitness_first.MainViewModel
 import com.example.fitness_first.R
 import com.example.fitness_first.data.model.Routine
 import com.example.fitness_first.ui.components.*
+import com.example.fitness_first.ui.theme.ErrorColor
 import com.example.fitness_first.ui.theme.Quaternary
 import com.example.fitness_first.ui.theme.Secondary
+import com.example.fitness_first.ui.theme.Tertiary
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -134,52 +136,56 @@ fun MyRoutinesScreen(
 public fun sortSheet(
     viewModel: MainViewModel
 ) {
+    var selectedFilter by remember{ mutableStateOf(0)}
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(300.dp)
-            .padding(start = 8.dp, top = 4.dp)
-        ,
+            .height(400.dp),
         contentAlignment = Alignment.TopStart
     ) {
-        Column {
-            Row(
+        Column{
+            Card(
                 modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Start
+                shape = RoundedCornerShape(10.dp),
+                backgroundColor = Secondary,
+                contentColor = Color.DarkGray
             ) {
                 Text(
+                    modifier = Modifier.padding(start = 15.dp),
                     text = stringResource(R.string.sort_by),
                     fontWeight = FontWeight.Bold,
-                    fontSize = 24.sp
+                    fontSize = 24.sp,
                 )
             }
             val filters = listOf(
-                FilterOptions.DateUp,
                 FilterOptions.DateDown,
-                FilterOptions.RatingUp,
+                FilterOptions.DateUp,
                 FilterOptions.RatingDown,
-                FilterOptions.DifficultyUp,
+                FilterOptions.RatingUp,
                 FilterOptions.DifficultyDown,
-
-//                stringResource(R.string.date_up),
-//                stringResource(R.string.date_down),
-//                stringResource(R.string.rating_up),
-//                stringResource(R.string.rating_down),
-//                stringResource(R.string.diff_up),
-//                stringResource(R.string.diff_down),
+                FilterOptions.DifficultyUp,
             )
-            for (filter in filters) {
+
+            filters.forEachIndexed { index, filter ->
                 Row(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth().padding(start = 15.dp,end = 15.dp, top= 7.dp,bottom=7.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Start
                 ) {
-                    Text(
-                        text = stringResource(filter.text),
-                        fontSize = 24.sp,
-                        modifier = Modifier.clickable { viewModel.getRoutinesWFilter(filter.order, filter.dir) }
-                    )
+                    Card(
+                        modifier = Modifier.fillMaxWidth().clickable
+                        {
+                            selectedFilter = index
+                            viewModel.getRoutinesWFilter(filter.order, filter.dir)
+                        },
+                        backgroundColor = if(selectedFilter == index) Secondary else Tertiary
+                    ) {
+                        Text(
+                            text = stringResource(filter.text),
+                            fontSize = 24.sp,
+                            modifier = Modifier.padding(start = 7.dp,  top = 2.dp, bottom = 2.dp)
+                        )
+                    }
                 }
             }
         }
