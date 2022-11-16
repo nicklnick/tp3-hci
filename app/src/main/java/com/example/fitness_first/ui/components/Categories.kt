@@ -12,8 +12,7 @@ import com.example.fitness_first.R
 sealed class Categories(
     val route: String,
     val name: Int,
-    val icon: Int,
-    var id: Int
+    val icon: Int
 ) {
     @Composable
     fun getName() : String {
