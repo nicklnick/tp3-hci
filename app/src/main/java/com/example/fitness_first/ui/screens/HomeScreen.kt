@@ -1,12 +1,16 @@
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -15,6 +19,7 @@ import androidx.navigation.NavHostController
 import com.example.fitness_first.MainViewModel
 import com.example.fitness_first.R
 import com.example.fitness_first.ui.components.*
+import com.example.fitness_first.ui.screens.LoadingScreen
 import com.example.fitness_first.ui.theme.Secondary
 import kotlinx.coroutines.launch
 
@@ -25,7 +30,8 @@ fun HomeScreen(
     NavigateToCategoryScreen: (route: String) -> Unit,
     navController: NavHostController,
     viewModel: MainViewModel,
-    NavigateToAllRoutinesScreen: () -> Unit
+    NavigateToAllRoutinesScreen: () -> Unit,
+    NavigateToRoutineDetails: (route: String) -> Unit
 ) {
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
@@ -60,49 +66,95 @@ fun HomeScreen(
                     .fillMaxSize()
             ) {
                 Column {
-                    Text(
-                        text = stringResource(R.string.categories),
-                        fontSize = MaterialTheme.typography.h5.fontSize,
-                        fontWeight = FontWeight.Bold,
-                        color = Secondary,
-                        modifier = Modifier.padding(start = 20.dp, top = 5.dp)
-                    )
-                    CategoryRow(
-                        categories = listOf(
-                            Categories.Bicep,
-                            Categories.Tricep,
-                            Categories.Abs,
-                            Categories.Chest,
-                            Categories.Back,
-                            Categories.Legs,
-                            Categories.Shoulders,
-                            Categories.FullBody
-                        ),
-                        NavigateToCategoryScreen,
-                        viewModel
-                    )
-                    Text(
-                        text = stringResource(R.string.recent),
-                        fontSize = MaterialTheme.typography.h5.fontSize,
-                        fontWeight = FontWeight.Bold,
-                        color = Secondary,
-                        modifier = Modifier.padding(start = 20.dp)
-                    )
-                    Text(
-                        text = stringResource(R.string.favourites),
-                        fontSize = MaterialTheme.typography.h5.fontSize,
-                        fontWeight = FontWeight.Bold,
-                        color = Secondary,
-                        modifier = Modifier.padding(start = 20.dp)
-                    )
-//                    GenericSmallButton(
-//                        label = "go to review",
-//                        clickEvent = {
-//                            viewModel.getCurrentUser()
-//                            viewModel.getReviews(7)
-//                            navController.navigate("routine/7/review")
-//                        }
-//                    )
+                    if(viewModel.uiState.isFetching){
+                        LoadingScreen()
+                    }else{
+                        Text(
+                            text = stringResource(R.string.categories),
+                            fontSize = MaterialTheme.typography.h5.fontSize,
+                            fontWeight = FontWeight.Bold,
+                            color = Secondary,
+                            modifier = Modifier.padding(start = 20.dp, top = 30.dp)
+                        )
+                        CategoryRow(
+                            categories = listOf(
+                                Categories.Bicep,
+                                Categories.Tricep,
+                                Categories.Abs,
+                                Categories.Chest,
+                                Categories.Back,
+                                Categories.Legs,
+                                Categories.Shoulders,
+                                Categories.FullBody
+                            ),
+                            NavigateToCategoryScreen,
+                            viewModel
+                        )
+                        Text(
+                            text = stringResource(R.string.discover),
+                            fontSize = MaterialTheme.typography.h5.fontSize,
+                            fontWeight = FontWeight.Bold,
+                            color = Secondary,
+                            modifier = Modifier.padding(start = 20.dp, bottom = 10.dp, top = 10.dp)
+                        )
+
+                        LazyRow(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(bottom = 5.dp),
+                            horizontalArrangement = Arrangement.Start,
+                            verticalAlignment = Alignment.CenterVertically
+                        ){
+                            items(
+                                viewModel.uiState.routines.orEmpty()
+                            ){ routine ->
+                                if( !routine.fromCUser ){
+                                    CompactRoutineCard(
+                                        label = routine.name,
+                                        clickEvent ={
+                                            viewModel.getRoutine(routine.id)
+                                            viewModel.getReviews(routine.id)
+                                            NavigateToRoutineDetails(routine.id.toString())
+                                        },
+                                        category = routine.category.name
+                                    )
+                                }
+
+                            }
+                        }
+                        Text(
+                            text = stringResource(R.string.favourites),
+                            fontSize = MaterialTheme.typography.h5.fontSize,
+                            fontWeight = FontWeight.Bold,
+                            color = Secondary,
+                            modifier = Modifier.padding(start = 20.dp, bottom = 10.dp, top = 40.dp)
+                        )
+                        LazyRow(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(bottom = 5.dp),
+                            horizontalArrangement = Arrangement.Start,
+                            verticalAlignment = Alignment.CenterVertically
+                        ){
+                            items(
+                                viewModel.uiState.routines.orEmpty()
+                            ){ routine ->
+                                if( routine.liked ){
+                                    CompactRoutineCard(
+                                        label = routine.name,
+                                        clickEvent ={
+                                            viewModel.getRoutine(routine.id)
+                                            viewModel.getReviews(routine.id)
+                                            NavigateToRoutineDetails(routine.id.toString())
+                                        },
+                                        category = routine.category.name
+                                    )
+                                }
+
+                            }
+                        }
+                    }
+
                 }
             }
         }

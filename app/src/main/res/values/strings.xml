@@ -58,7 +58,7 @@
     <string name="profile_email">Email</string>
     <string name="cat_name">%1$s Routines</string>
     <string name="categories">Categories</string>
-    <string name="recent">Recent</string>
+    <string name="discover">Discover</string>
     <string name="home">Inicio</string>
 
     <!-- ReviewRoutine -->

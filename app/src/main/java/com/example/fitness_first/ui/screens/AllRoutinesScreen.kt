@@ -119,7 +119,8 @@ fun AllRoutinesScreen(
                                         },
                                         likeFunc = {
                                             viewModel.likeOrUnlike(routine)
-                                        }
+                                        },
+                                        difficulty = routine.difficulty.toString()
                                     )
                                 }
                             }

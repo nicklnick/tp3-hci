@@ -105,7 +105,8 @@ fun SearchScreen(
                                         },
                                         likeFunc = {
                                             viewModel.likeOrUnlike(routine)
-                                        }
+                                        },
+                                        difficulty = routine.difficulty.toString()
                                     )
                                 }
                             }

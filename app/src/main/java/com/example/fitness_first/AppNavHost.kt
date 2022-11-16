@@ -58,7 +58,8 @@ fun AppNavHost(
                 NavigateToCategoryScreen = { route -> navController.navigate("category/$route") },
                 navController,
                 viewModel,
-                NavigateToAllRoutinesScreen = { navController.navigate("allRoutines") }
+                NavigateToAllRoutinesScreen = { navController.navigate("allRoutines") },
+                NavigateToRoutineDetails = { route -> navController.navigate("routine/$route")}
             )
         }
         composable(

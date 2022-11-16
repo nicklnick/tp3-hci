@@ -13,25 +13,25 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.fitness_first.ui.theme.LightBlue
 import com.example.fitness_first.ui.theme.Primary
 import com.example.fitness_first.ui.theme.Quaternary
 import com.example.fitness_first.ui.theme.Secondary
 
-/* Event triggered when user clicks the favourite icon */
-private fun markAsFavourite(context: Context) {
-    Toast.makeText(context, "Favourite!", Toast.LENGTH_SHORT).show()
-}
-
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun CompactRoutineCard(label : String, clickEvent: () -> Unit) {
+fun CompactRoutineCard(label : String, clickEvent: () -> Unit, category: String) {
     Row(
-        modifier = Modifier.size(width = 150.dp, height = 110.dp),
+        modifier = Modifier.size(width = 150.dp, height = 110.dp)
+            .padding(start = 5.dp, end = 5.dp),
     ){
         Card(
             onClick =  clickEvent ,
-            modifier = Modifier.size(width = 150.dp, height = 110.dp),
+            modifier = Modifier.fillMaxSize(),
             backgroundColor = Quaternary,
             border = BorderStroke(2.dp, Secondary),
             shape = RoundedCornerShape(5.dp),
@@ -49,44 +49,35 @@ fun CompactRoutineCard(label : String, clickEvent: () -> Unit) {
                         .height(30.dp)
                 ) {
                     Row(
-                        horizontalArrangement = Arrangement.End
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        val context = LocalContext.current
-                        IconButton(
-                            onClick = { markAsFavourite(context) },
+                        Text(
+                            text = label,
+                            fontWeight = FontWeight.Medium,
+                            fontSize = 20.sp
+                        )
+                    }
+                }
+                Surface(
+                    color = Color.Transparent,
+                    modifier = Modifier
+                        .width(200.dp)
+                        .height(30.dp)
+                ) {
+                    Row(
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Card(
+                            backgroundColor = LightBlue,
                         ) {
-                            Icon(
-                                imageVector = Icons.Filled.Favorite,
-                                contentDescription = "Favourite Button",
-                                tint = Primary,
+                            Text(
+                                category,
+                                fontSize = 17.sp,
+                                modifier = Modifier.padding(2.dp)
                             )
                         }
-                    }
-                }
-                Surface(
-                    color = Color.Transparent,
-                    modifier = Modifier
-                        .width(200.dp)
-                        .height(30.dp)
-                ) {
-                    Row(
-                        horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(text = label)
-                    }
-                }
-                Surface(
-                    color = Color.Transparent,
-                    modifier = Modifier
-                        .width(200.dp)
-                        .height(30.dp)
-                ) {
-                    Row(
-                        horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        RatingBar()
                     }
                 }
             }

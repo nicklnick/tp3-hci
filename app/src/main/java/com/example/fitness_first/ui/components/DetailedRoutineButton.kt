@@ -12,11 +12,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.fitness_first.ui.theme.LightBlue
-import com.example.fitness_first.ui.theme.Primary
-import com.example.fitness_first.ui.theme.Tertiary
+import com.example.fitness_first.ui.theme.*
 
 
 // - - - - COMO USARLO - - - -
@@ -30,7 +29,7 @@ import com.example.fitness_first.ui.theme.Tertiary
 // - - - - - - - - - - - - - - -
 
 @Composable
-fun DetailedRoutineButton(name: String, category: String, liked: Boolean, func: ()->Unit, likeFunc: ()->Unit){
+fun DetailedRoutineButton(name: String, category: String, liked: Boolean, func: ()->Unit, likeFunc: ()->Unit, difficulty: String){
     OutlinedButton(
         onClick =  func,
         modifier = Modifier
@@ -60,15 +59,40 @@ fun DetailedRoutineButton(name: String, category: String, liked: Boolean, func: 
                     color = Color.DarkGray,
                     modifier = Modifier.padding(0.dp)
                 )
-                Card(
-                    backgroundColor = LightBlue,
+                Row(
+                    modifier = Modifier.fillMaxWidth(0.5f),
+                    horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
-                    Text(
-                        category,
-                        fontSize = 17.sp,
-                        modifier = Modifier.padding(2.dp)
-                    )
+                    Card(
+                        backgroundColor = LightBlue,
+                    ) {
+                        Text(
+                            category,
+                            fontSize = 17.sp,
+                            modifier = Modifier.padding(2.dp)
+                        )
+                    }
+                    var backColor = rookie
+                    if( difficulty == "beginner"){
+                        backColor = beginner
+                    }else if( difficulty == "intermediate"){
+                        backColor = intermediate
+                    }else if( difficulty == "advanced"){
+                        backColor = advanced
+                    }else if(difficulty == "professional"){
+                        backColor = professional
+                    }
+                    Card(
+                        backgroundColor = backColor,
+                    ) {
+                        Text(
+                            difficulty,
+                            fontSize = 17.sp,
+                            modifier = Modifier.padding(2.dp)
+                        )
+                    }
                 }
+
             }
             val tint by animateColorAsState(
                 targetValue = if(liked) Primary else Color.DarkGray

@@ -8,6 +8,11 @@ val Tertiary = Color(0xFFB8F1B0)
 val Quaternary = Color(0xFFE3FCBF)
 val Sand = Color(0xFFFAF9E9)
 
+val rookie = Color(0xFFBBDEFB)
+val beginner = Color(0xFF42A5F5)
+val intermediate = Color(0xFFFFEB3B)
+val advanced = Color(0xFFFF9800)
+val professional = Color(0xFFF44336)
 
 val ErrorColor = Color(0xFFF37171)
 
