@@ -15,7 +15,6 @@ data class MainUiState(
 
     val message: String? = null,
     val routines: List<Routine>? = null,
-    val searchRoutines: List<Routine>? = null,
     val currentRoutine: Routine? = null,
 
     val reviews: List<Review>? = null,
@@ -23,7 +22,6 @@ data class MainUiState(
 
     val categories: List<Category>? = null,
     val currentCategory: Category? = null,
-    val categoryRoutines: List<Routine>? = null,
 
     val favouriteRoutines: List<Routine>? = null,
     val userRoutines: List<Routine>? = null,

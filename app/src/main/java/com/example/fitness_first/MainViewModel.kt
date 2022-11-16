@@ -281,25 +281,6 @@ class MainViewModel(
         }
     }
 
-    fun getRoutinesWName(query: String) = viewModelScope.launch {
-        uiState = uiState.copy(
-            isFetching = true,
-            message = null
-        )
-        runCatching {
-            routineRepository.getRoutinesWName(query)
-        }.onSuccess { response ->
-            uiState = uiState.copy(
-                isFetching = false,
-                searchRoutines = response
-            )
-        }.onFailure { e ->
-            uiState = uiState.copy(
-                message = e.message,
-                isFetching = false
-            )
-        }
-    }
 
     fun getRoutinesWFilter(order: String = "name", dir: String = "asc") = viewModelScope.launch {
         uiState = uiState.copy(
@@ -315,26 +296,6 @@ class MainViewModel(
             )
             getFavourites()
             getCurrentUserRoutines()
-        }.onFailure { e ->
-            uiState = uiState.copy(
-                message = e.message,
-                isFetching = false
-            )
-        }
-    }
-
-    fun getRoutinesWCategory(categoryId: Int) = viewModelScope.launch {
-        uiState = uiState.copy(
-            isFetching = true,
-            message = null
-        )
-        runCatching {
-            routineRepository.getRoutinesWCategory(categoryId)
-        }.onSuccess { response ->
-            uiState = uiState.copy(
-                isFetching = false,
-                categoryRoutines = response,
-            )
         }.onFailure { e ->
             uiState = uiState.copy(
                 message = e.message,

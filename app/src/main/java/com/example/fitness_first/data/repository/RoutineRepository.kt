@@ -23,14 +23,6 @@ class RoutineRepository (
         return routinesMutex.withLock { this.routines }
     }
 
-    suspend fun getRoutinesWName(query: String): List<Routine> {
-        val allRoutines = remoteDataSource.getRoutines()
-        routinesMutex.withLock {
-            this.routines = allRoutines.content.filter{ it.name.toLowerCase().equals(query.toLowerCase())}.map { it.asModel() }
-        }
-        return routinesMutex.withLock { this.routines }
-    }
-
     suspend fun getRoutinesWFilter(order: String, dir: String): List<Routine> {
         val filteredRoutines = remoteDataSource.getRoutinesWFilter(order, dir)
         routinesMutex.withLock {
@@ -38,15 +30,6 @@ class RoutineRepository (
         }
         return routinesMutex.withLock { this.routines }
     }
-
-    suspend fun getRoutinesWCategory(categoryId: Int): List<Routine> {
-        val categoryRoutines = remoteDataSource.getRoutinesWCategory(categoryId)
-        routinesMutex.withLock {
-            this.routines = categoryRoutines.content.map { it.asModel() }
-        }
-        return routinesMutex.withLock { this.routines }
-    }
-
 
     suspend fun getRoutine(routineId: Int) : Routine {
         return remoteDataSource.getRoutine(routineId).asModel()

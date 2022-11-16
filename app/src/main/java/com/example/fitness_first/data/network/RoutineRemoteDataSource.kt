@@ -20,11 +20,6 @@ class RoutineRemoteDataSource (
         }
     }
 
-    suspend fun getRoutinesWCategory(categoryId: Int) : NetworkPagedContent<NetworkRoutine>{
-        return handleApiResponse {
-            apiRoutineService.getRoutinesWCategory(categoryId)
-        }
-    }
 
     suspend fun getRoutine(routineId: Int) : NetworkRoutine {
         return handleApiResponse {

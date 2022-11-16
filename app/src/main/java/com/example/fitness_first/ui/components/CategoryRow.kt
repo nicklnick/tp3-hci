@@ -34,11 +34,6 @@ fun CategoryRow(
                 text = item.title,
                 icon = painterResource(item.icon),
                 func = {
-                    if( item.id != null){
-                        viewModel.getRoutinesWCategory(item.id!!)
-                    }else{
-                        Log.d("id is null", item.id.toString())
-                    }
                     NavigateToCategoryScreen(item.route)
                 }
             )
