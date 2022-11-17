@@ -103,6 +103,7 @@
     <!-- Help -->
     <string name="faq">Preguntas más Frecuentes</string>
     <string name="create_routine">¿Como creo una Rutina?</string>
+    <string name="routDetails_start">Empezar!</string>
 
 
 </resources>

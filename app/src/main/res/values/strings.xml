@@ -101,6 +101,7 @@
     <!-- Help -->
     <string name="faq">Frequently Asked Questions</string>
     <string name="create_routine">How do I create a Routine?</string>
+    <string name="routDetails_start">Start!</string>
 
 
 </resources>

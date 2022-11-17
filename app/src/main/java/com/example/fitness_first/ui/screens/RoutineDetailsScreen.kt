@@ -40,16 +40,16 @@ import com.example.fitness_first.ui.theme.Tertiary
 fun RoutineDetailsScreen(id: Int, exec: () -> Unit, viewModel: MainViewModel, navController: NavController) {
 
     if(!viewModel.uiState.isAuthenticated){
-        navController.navigate("not-signed-in")
+        NotSignedInScreen {
+            navController.navigate("login")
+        }
     }
-
-    if (viewModel.uiState.message != null)
-        Text(text = "Routine not found")
-
-    if(viewModel.uiState.currentRoutine == null){
+    else if(viewModel.uiState.currentRoutine == null){
         if (viewModel.uiState.isFetching){
             LoadingScreen(Secondary)
         }
+        else if (viewModel.uiState.message != null)
+            RoutineNotFound()
         else{
             viewModel.getRoutine(id)
         }
@@ -79,7 +79,9 @@ fun TopBarRoutineDetails(title: String, difficulty: String, rating: Int, liked: 
         Spacer(modifier = Modifier.padding(top = 12.dp))
 
         Row(
-            modifier = Modifier.fillMaxWidth().padding(bottom = 6.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 6.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
@@ -202,7 +204,7 @@ fun loadRoutineDetails(viewModel: MainViewModel, exec: () -> Unit, id: Int, navC
                             )
                         }
                         if(viewModel.uiState.cycleDataList.isNotEmpty() && viewModel.uiState.cycleDataList.all { it.cycleExercises.isNotEmpty() }){
-                            GenericSmallOutlinedButton("Start!",{
+                            GenericSmallOutlinedButton(stringResource(id = R.string.routDetails_start),{
                                 viewModel.setupExecution()
                                 exec()
                             })
