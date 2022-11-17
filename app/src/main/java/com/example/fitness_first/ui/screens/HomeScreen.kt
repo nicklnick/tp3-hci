@@ -91,43 +91,11 @@ fun HomeScreen(
                             viewModel
                         )
                         Text(
-                            text = stringResource(R.string.discover),
-                            fontSize = MaterialTheme.typography.h5.fontSize,
-                            fontWeight = FontWeight.Bold,
-                            color = Secondary,
-                            modifier = Modifier.padding(start = 20.dp, bottom = 10.dp, top = 10.dp)
-                        )
-
-                        LazyRow(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(bottom = 5.dp),
-                            horizontalArrangement = Arrangement.Start,
-                            verticalAlignment = Alignment.CenterVertically
-                        ){
-                            items(
-                                viewModel.uiState.routines.orEmpty()
-                            ){ routine ->
-                                if( !routine.fromCUser ){
-                                    CompactRoutineCard(
-                                        label = routine.name,
-                                        clickEvent ={
-                                            viewModel.getRoutine(routine.id)
-                                            viewModel.getReviews(routine.id)
-                                            NavigateToRoutineDetails(routine.id.toString())
-                                        },
-                                        category = routine.category.name
-                                    )
-                                }
-
-                            }
-                        }
-                        Text(
                             text = stringResource(R.string.favourites),
                             fontSize = MaterialTheme.typography.h5.fontSize,
                             fontWeight = FontWeight.Bold,
                             color = Secondary,
-                            modifier = Modifier.padding(start = 20.dp, bottom = 10.dp, top = 40.dp)
+                            modifier = Modifier.padding(start = 20.dp, bottom = 10.dp)
                         )
                         LazyRow(
                             modifier = Modifier
@@ -153,6 +121,38 @@ fun HomeScreen(
 
                             }
                         }
+                        Text(
+                            text = stringResource(R.string.discover),
+                            fontSize = MaterialTheme.typography.h5.fontSize,
+                            fontWeight = FontWeight.Bold,
+                            color = Secondary,
+                            modifier = Modifier.padding(start = 20.dp, bottom = 10.dp, top = 10.dp)
+                        )
+                        LazyRow(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(bottom = 5.dp),
+                            horizontalArrangement = Arrangement.Start,
+                            verticalAlignment = Alignment.CenterVertically
+                        ){
+                            items(
+                                viewModel.uiState.routines.orEmpty()
+                            ){ routine ->
+                                if( !routine.fromCUser ){
+                                    CompactRoutineCard(
+                                        label = routine.name,
+                                        clickEvent ={
+                                            viewModel.getRoutine(routine.id)
+                                            viewModel.getReviews(routine.id)
+                                            NavigateToRoutineDetails(routine.id.toString())
+                                        },
+                                        category = routine.category.name
+                                    )
+                                }
+
+                            }
+                        }
+
                     }
 
                 }

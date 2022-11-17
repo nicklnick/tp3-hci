@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.modifier.modifierLocalConsumer
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.fitness_first.ui.theme.*
@@ -46,53 +47,63 @@ fun DetailedRoutineButton(name: String, category: String, liked: Boolean, func: 
     ){
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceEvenly,
-            modifier = Modifier.fillMaxHeight()
+            horizontalArrangement = Arrangement.End,
+            modifier = Modifier.fillMaxSize()
         ){
-            Column(
-                modifier = Modifier.absolutePadding(left = 15.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center,
+                modifier = Modifier.fillMaxWidth(0.8f)
             ) {
-                Text(
-                    name,
-                    fontSize = 24.sp,
-                    color = Color.DarkGray,
-                    modifier = Modifier.padding(0.dp)
-                )
-                Row(
-                    modifier = Modifier.fillMaxWidth(0.5f),
-                    horizontalArrangement = Arrangement.SpaceEvenly
+                Column(
+                    modifier = Modifier.absolutePadding(left = 15.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Card(
-                        backgroundColor = LightBlue,
+                    Text(
+                        name,
+                        fontSize = 24.sp,
+                        color = Color.DarkGray,
+                        modifier = Modifier.padding(0.dp),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center
                     ) {
-                        Text(
-                            category,
-                            fontSize = 17.sp,
-                            modifier = Modifier.padding(2.dp)
-                        )
+                        Card(
+                            backgroundColor = LightBlue,
+                            modifier = Modifier.padding(end = 5.dp)
+                        ) {
+                            Text(
+                                category,
+                                fontSize = 17.sp,
+                                modifier = Modifier.padding(2.dp)
+                            )
+                        }
+                        var backColor = rookie
+                        if( difficulty == "beginner"){
+                            backColor = beginner
+                        }else if( difficulty == "intermediate"){
+                            backColor = intermediate
+                        }else if( difficulty == "advanced"){
+                            backColor = advanced
+                        }else if(difficulty == "professional"){
+                            backColor = professional
+                        }
+                        Card(
+                            backgroundColor = backColor,
+                            modifier = Modifier.padding(start = 5.dp)
+                        ) {
+                            Text(
+                                difficulty,
+                                fontSize = 17.sp,
+                                modifier = Modifier.padding(2.dp)
+                            )
+                        }
                     }
-                    var backColor = rookie
-                    if( difficulty == "beginner"){
-                        backColor = beginner
-                    }else if( difficulty == "intermediate"){
-                        backColor = intermediate
-                    }else if( difficulty == "advanced"){
-                        backColor = advanced
-                    }else if(difficulty == "professional"){
-                        backColor = professional
-                    }
-                    Card(
-                        backgroundColor = backColor,
-                    ) {
-                        Text(
-                            difficulty,
-                            fontSize = 17.sp,
-                            modifier = Modifier.padding(2.dp)
-                        )
-                    }
-                }
 
+                }
             }
             val tint by animateColorAsState(
                 targetValue = if(liked) Primary else Color.DarkGray
@@ -100,7 +111,7 @@ fun DetailedRoutineButton(name: String, category: String, liked: Boolean, func: 
             IconToggleButton(
                 checked = liked,
                 onCheckedChange = { likeFunc();},
-                modifier = Modifier.absolutePadding(left = 60.dp),
+                modifier = Modifier.padding(end = 10.dp),
             ) {
                 Icon(
                     imageVector = Icons.Filled.Favorite,

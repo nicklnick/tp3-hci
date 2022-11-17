@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.fitness_first.ui.theme.LightBlue
@@ -55,7 +56,10 @@ fun CompactRoutineCard(label : String, clickEvent: () -> Unit, category: String)
                         Text(
                             text = label,
                             fontWeight = FontWeight.Medium,
-                            fontSize = 20.sp
+                            fontSize = 20.sp,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            modifier = Modifier.padding(start = 10.dp, end = 5.dp )
                         )
                     }
                 }
