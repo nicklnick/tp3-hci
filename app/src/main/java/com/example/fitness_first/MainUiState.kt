@@ -2,11 +2,20 @@ package com.example.fitness_first
 
 import com.example.fitness_first.data.model.*
 import com.example.fitness_first.ui.components.FilterOptions
+import com.example.fitness_first.ui.components.NavItem
 
 data class MainUiState(
     val isAuthenticated: Boolean = false,
     val isFetching: Boolean = false,
     val message: String? = null,
+
+    // SETTINGS
+    val bottomBarItems: List<NavItem> =listOf(
+        NavItem.Home,
+        NavItem.Favourites,
+        NavItem.Routines
+    ),
+    val bottomBarSelected: Int = 1,
 
     // USER
     val currentUser: User? = null,

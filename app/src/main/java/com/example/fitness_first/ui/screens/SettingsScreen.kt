@@ -18,6 +18,7 @@ import com.example.fitness_first.MainViewModel
 import com.example.fitness_first.R
 import com.example.fitness_first.data.model.Review
 import com.example.fitness_first.ui.theme.Tertiary
+import java.util.stream.IntStream.range
 
 @Composable
 fun SettingsScreen(viewModel: MainViewModel) {
@@ -25,6 +26,19 @@ fun SettingsScreen(viewModel: MainViewModel) {
     Surface(
         modifier = Modifier.fillMaxSize(),
     ) {
-
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ){
+            for(i in range(1,4)){
+                Row() {
+                    Text("Option :${i}")
+                    RadioButton(
+                        selected = viewModel.uiState.bottomBarSelected == i,
+                        onClick = { viewModel.reorderBottomNav(i) }
+                    )
+                }
+            }
+        }
     }
 }

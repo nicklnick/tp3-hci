@@ -52,7 +52,7 @@ fun SearchScreen(
             viewModel
         )
         },
-        bottomBar = { BottomBar(navController = navController) },
+        bottomBar = { BottomBar(navController = navController, viewModel) },
         drawerContent = { NavigationDrawer(navController, viewModel)}
     ){
         BottomSheetScaffold(

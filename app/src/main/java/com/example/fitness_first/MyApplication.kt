@@ -5,6 +5,7 @@ import com.example.fitness_first.data.network.*
 import com.example.fitness_first.data.network.api.RetrofitClient
 import com.example.fitness_first.data.repository.*
 import com.example.fitness_first.util.SessionManager
+import com.example.fitness_first.util.SettingsManager
 
 class MyApplication : Application() {
 
@@ -37,6 +38,9 @@ class MyApplication : Application() {
 
     val sessionManager: SessionManager
         get() = SessionManager(this)
+
+    val settingsManager: SettingsManager
+        get() = SettingsManager(this)
 
     val userRepository: UserRepository
         get() = UserRepository(userRemoteDataSource)

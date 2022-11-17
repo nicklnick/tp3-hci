@@ -56,7 +56,7 @@ fun HomeScreen(
                 //NavigateToAllRoutinesScreen
             )
             },
-            bottomBar = { BottomBar(navController = navController) },
+            bottomBar = { BottomBar(navController = navController, viewModel) },
             scaffoldState = scaffoldState,
             drawerContent = { NavigationDrawer(navController, viewModel)},
             backgroundColor = Color.Transparent

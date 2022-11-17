@@ -58,7 +58,7 @@ fun CategoryScreen(
                 viewModel
             )
             },
-            bottomBar = { BottomBar(navController = navController) },
+            bottomBar = { BottomBar(navController = navController, viewModel) },
             drawerContent = { NavigationDrawer(navController, viewModel) },
             backgroundColor = Color.Transparent
             ){

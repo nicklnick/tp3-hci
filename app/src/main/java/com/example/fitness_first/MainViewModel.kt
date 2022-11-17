@@ -11,14 +11,18 @@ import com.example.fitness_first.data.model.Review
 import com.example.fitness_first.data.model.Routine
 import com.example.fitness_first.data.model.Sport
 import com.example.fitness_first.data.repository.*
+import com.example.fitness_first.ui.components.NavItem
 import com.example.fitness_first.util.SessionManager
+import com.example.fitness_first.util.SettingsManager
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.util.*
 import kotlin.time.Duration.Companion.seconds
 
 class MainViewModel(
     private val sessionManager: SessionManager,
+    private val settingsManager: SettingsManager,
     private val userRepository: UserRepository,
     private val sportRepository: SportRepository,
     private val exerciseRepository: ExerciseRepository,
@@ -44,6 +48,25 @@ class MainViewModel(
     fun setupViewModel(){
         getRoutines()
         getCurrentUser()
+        reorderBottomNav(settingsManager.bottomBarSetting())
+    }
+    fun reorderBottomNav(option: Int){
+        when(option) {
+            1 ->{
+                uiState = uiState.copy(bottomBarItems = listOf( NavItem.Home, NavItem.Favourites, NavItem.Routines))
+            }
+            2 -> {
+                uiState = uiState.copy(bottomBarItems = listOf(NavItem.Favourites, NavItem.Home, NavItem.Routines))
+            }
+            3 -> {
+                uiState = uiState.copy(bottomBarItems = listOf(NavItem.Favourites, NavItem.Routines, NavItem.Home))
+            }
+        }
+        if(option == 1 || option == 2 || option == 3){
+            settingsManager.changeBottomBarSetting(option)
+            uiState = uiState.copy(bottomBarSelected = option)
+        }
+
     }
 
 

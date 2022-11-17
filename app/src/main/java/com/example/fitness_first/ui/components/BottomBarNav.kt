@@ -16,16 +16,13 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.fitness_first.MainViewModel
 import com.example.fitness_first.ui.theme.Quaternary
 import com.example.fitness_first.ui.theme.Secondary
 
 @Composable
-fun BottomBar(navController: NavHostController){
-    val screens = listOf(
-        NavItem.Home,
-        NavItem.Favourites,
-        NavItem.Routines
-    )
+fun BottomBar(navController: NavHostController, viewModel: MainViewModel){
+
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
 
@@ -33,7 +30,7 @@ fun BottomBar(navController: NavHostController){
         backgroundColor = Quaternary,
         modifier = Modifier.height(60.dp)
     ) {
-        screens.forEach{ screen ->
+        viewModel.uiState.bottomBarItems.forEach{ screen ->
             addItem(
                 screen = screen,
                 currentDestination = currentDestination,

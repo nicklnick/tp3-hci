@@ -10,6 +10,7 @@ import com.example.fitness_first.MyApplication
 fun getViewModelFactory(defaultArgs: Bundle? = null): ViewModelFactory {
     val application = (LocalContext.current.applicationContext as MyApplication)
     val sessionManager = application.sessionManager
+    val settingsManager = application.settingsManager
     val userRepository = application.userRepository
     val sportRepository = application.sportRepository
     val routineRepository = application.routineRepository
@@ -20,7 +21,7 @@ fun getViewModelFactory(defaultArgs: Bundle? = null): ViewModelFactory {
     val routinesCyclesRepository = application.routinesCyclesRepository
     val cyclesExercisesRepository = application.cyclesExercisesRepository
 
-    return ViewModelFactory(sessionManager, userRepository, sportRepository, exerciseRepository,
+    return ViewModelFactory(sessionManager,settingsManager, userRepository, sportRepository, exerciseRepository,
         routineRepository, reviewRepository, categoryRepository, favouriteRepository,
         routinesCyclesRepository, cyclesExercisesRepository,
         LocalSavedStateRegistryOwner.current, defaultArgs)

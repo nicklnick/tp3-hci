@@ -19,7 +19,6 @@ class MainActivity : ComponentActivity() {
                     "landing",
                     viewModel(factory = getViewModelFactory())
                 )
-//                RoutineReviewScreen(id = 1, func = { /*TODO*/ }, viewModel = null)
             }
         }
     }
