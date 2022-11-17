@@ -97,4 +97,10 @@
     <string name="nav_settings">Settings</string>
     <string name="nav_help">Help</string>
     <string name="nav_signout">Sign Out</string>
+
+    <!-- Help -->
+    <string name="faq">Frequently Asked Questions</string>
+    <string name="create_routine">How do I create a Routine?</string>
+
+
 </resources>

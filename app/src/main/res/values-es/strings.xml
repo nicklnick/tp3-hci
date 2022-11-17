@@ -99,4 +99,10 @@
     <string name="nav_home">Inicio</string>
     <string name="nav_favourites">Favoritos</string>
     <string name="nav_routines">Rutinas</string>
+
+    <!-- Help -->
+    <string name="faq">Preguntas más Frecuentes</string>
+    <string name="create_routine">¿Como creo una Rutina?</string>
+
+
 </resources>
