@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Gray
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -35,7 +36,7 @@ fun GenericSmallOutlinedButton(label: String, clickEvent: () -> Unit, enabled: B
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = White,
             ),
-            border = BorderStroke(5.dp, Primary)
+            border = BorderStroke(5.dp, if (enabled) Primary else Gray)
 
         ) {
             Text(

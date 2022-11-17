@@ -19,8 +19,6 @@ import com.example.fitness_first.MainViewModel
 import com.example.fitness_first.R
 import com.example.fitness_first.ui.components.*
 import com.example.fitness_first.ui.screens.LoadingScreen
-import com.example.fitness_first.ui.screens.showFilters
-import com.example.fitness_first.ui.screens.sortSheet
 import com.example.fitness_first.ui.theme.Quaternary
 import com.example.fitness_first.ui.theme.Secondary
 import kotlinx.coroutines.launch

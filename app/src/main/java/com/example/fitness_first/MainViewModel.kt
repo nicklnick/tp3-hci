@@ -59,7 +59,7 @@ class MainViewModel(
                 isFetching = false,
                 isAuthenticated = true
             )
-            successFunc()          // TODO: check!?
+            successFunc()
         }.onFailure { e ->
             // Handle the error and notify the UI when appropriate.
             uiState = uiState.copy(
@@ -289,7 +289,7 @@ class MainViewModel(
     }
 
 
-    fun getRoutinesWFilter(order: String = "name", dir: String = "asc") = viewModelScope.launch {
+    fun getRoutinesWFilter(order: String = "name", dir: String = "asc", index: Int) = viewModelScope.launch {
         uiState = uiState.copy(
             isFetching = true,
             message = null
@@ -303,6 +303,7 @@ class MainViewModel(
             )
             getFavourites()
             getCurrentUserRoutines()
+            uiState = uiState.copy(orderBy = index)
         }.onFailure { e ->
             uiState = uiState.copy(
                 message = e.message,

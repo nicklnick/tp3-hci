@@ -1,36 +1,48 @@
 package com.example.fitness_first
 
 import com.example.fitness_first.data.model.*
+import com.example.fitness_first.ui.components.FilterOptions
 
 data class MainUiState(
     val isAuthenticated: Boolean = false,
     val isFetching: Boolean = false,
+    val message: String? = null,
+
+    // USER
     val currentUser: User? = null,
 
     val sports: List<Sport>? = null,
     val currentSport: Sport? = null,
 
+    // EXERCISES
     val exercises: List<Exercise>? = null,
     val currentExercise: Exercise? = null,
 
-    val message: String? = null,
-    val routines: List<Routine>? = null,
-    val currentRoutine: Routine? = null,
-
-    val reviews: List<Review>? = null,
-    val currentReview: Review? = null,
-
+    // CATEGORIES
     val categories: List<Category>? = null,
     val currentCategory: Category? = null,
 
-    val favouriteRoutines: List<Routine>? = null,
+    // ROUTINES
+    val routines: List<Routine>? = null,
+    val currentRoutine: Routine? = null,
+    val orderBy: Int = 0,
+    val filters: List<FilterOptions> = listOf(
+        FilterOptions.DateUp,
+        FilterOptions.DateDown,
+        FilterOptions.RatingUp,
+        FilterOptions.RatingDown,
+        FilterOptions.DifficultyUp,
+        FilterOptions.DifficultyDown,
+    ),
     val userRoutines: List<Routine>? = null,
-
     val routinesCycles: List<FullCycle> = emptyList(),
     val cycleExercises: List<FullCycleExercise> = emptyList(),
     var cycleDataList: List<CycleData> = emptyList(),
+    val favouriteRoutines: List<Routine>? = null,
 
-
+    // REVIEWS
+    val reviews: List<Review>? = null,
+    val currentReview: Review? = null,
 
     //  - - - EXECUTION - - -
     val currentExecExercise: FullCycleExercise? = null,

@@ -24,8 +24,6 @@ import com.example.fitness_first.MainViewModel
 import com.example.fitness_first.R
 import com.example.fitness_first.ui.components.*
 import com.example.fitness_first.ui.screens.LoadingScreen
-import com.example.fitness_first.ui.screens.showFilters
-import com.example.fitness_first.ui.screens.sortSheet
 import com.example.fitness_first.ui.theme.Quaternary
 import com.example.fitness_first.ui.theme.Secondary
 import com.example.fitness_first.ui.theme.Tertiary
@@ -48,12 +46,6 @@ fun FavouritesScreen(
     )
     val scaffoldState = rememberScaffoldState()
     Box{
-//        Image(
-//            painter = painterResource(id = R.drawable.bkg5),
-//            contentDescription = null,
-//            contentScale = ContentScale.FillBounds,
-//            modifier = Modifier.fillMaxSize()
-//        )
         Scaffold(
             scaffoldState = scaffoldState,
             topBar = { TopBarWFilter(

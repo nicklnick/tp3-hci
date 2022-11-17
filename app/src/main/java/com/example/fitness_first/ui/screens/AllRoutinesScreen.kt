@@ -23,10 +23,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.fitness_first.MainViewModel
 import com.example.fitness_first.R
-import com.example.fitness_first.ui.components.BottomBar
-import com.example.fitness_first.ui.components.DetailedRoutineButton
-import com.example.fitness_first.ui.components.NavigationDrawer
-import com.example.fitness_first.ui.components.TopBarWFilter
+import com.example.fitness_first.ui.components.*
 import com.example.fitness_first.ui.theme.Quaternary
 import com.example.fitness_first.ui.theme.Secondary
 import kotlinx.coroutines.launch
@@ -48,12 +45,6 @@ fun AllRoutinesScreen(
     )
     val scaffoldState = rememberScaffoldState()
     Box{
-//        Image(
-//            painter = painterResource(id = R.drawable.bkg5),
-//            contentDescription = null,
-//            contentScale = ContentScale.FillBounds,
-//            modifier = Modifier.fillMaxSize()
-//        )
         Scaffold(
             scaffoldState = scaffoldState,
             topBar = { TopBarWFilter(
