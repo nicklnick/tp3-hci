@@ -78,13 +78,72 @@ fun CategoryScreen(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.spacedBy(6.dp)
                     ) {
-                        Text(
-                            text = stringResource(R.string.cat_name,muscle),
-                            fontSize = MaterialTheme.typography.h4.fontSize,
-                            fontWeight = FontWeight.Bold,
-                            color = Secondary,
-                            modifier = Modifier.padding(start = 10.dp, top = 5.dp)
-                        )
+                        if( muscle == Categories.Bicep.route){
+                            Text(
+                                text = stringResource(R.string.cat_name, stringResource(id = R.string.bicep)),
+                                fontSize = MaterialTheme.typography.h4.fontSize,
+                                fontWeight = FontWeight.Bold,
+                                color = Secondary,
+                                modifier = Modifier.padding(start = 10.dp, top = 5.dp)
+                            )
+                        }else if( muscle == Categories.Tricep.route){
+                            Text(
+                                text = stringResource(R.string.cat_name, stringResource(id = R.string.tricep)),
+                                fontSize = MaterialTheme.typography.h4.fontSize,
+                                fontWeight = FontWeight.Bold,
+                                color = Secondary,
+                                modifier = Modifier.padding(start = 10.dp, top = 5.dp)
+                            )
+                        }else if( muscle == Categories.Chest.route){
+                            Text(
+                                text = stringResource(R.string.cat_name, stringResource(id = R.string.chest)),
+                                fontSize = MaterialTheme.typography.h4.fontSize,
+                                fontWeight = FontWeight.Bold,
+                                color = Secondary,
+                                modifier = Modifier.padding(start = 10.dp, top = 5.dp)
+                            )
+                        }else if( muscle == Categories.Shoulders.route){
+                            Text(
+                                text = stringResource(R.string.cat_name, stringResource(id = R.string.shoulders)),
+                                fontSize = MaterialTheme.typography.h4.fontSize,
+                                fontWeight = FontWeight.Bold,
+                                color = Secondary,
+                                modifier = Modifier.padding(start = 10.dp, top = 5.dp)
+                            )
+                        }else if( muscle == Categories.Back.route){
+                            Text(
+                                text = stringResource(R.string.cat_name, stringResource(id = R.string.back)),
+                                fontSize = MaterialTheme.typography.h4.fontSize,
+                                fontWeight = FontWeight.Bold,
+                                color = Secondary,
+                                modifier = Modifier.padding(start = 10.dp, top = 5.dp)
+                            )
+                        }else if( muscle == Categories.Abs.route){
+                            Text(
+                                text = stringResource(R.string.cat_name, stringResource(id = R.string.abs)),
+                                fontSize = MaterialTheme.typography.h4.fontSize,
+                                fontWeight = FontWeight.Bold,
+                                color = Secondary,
+                                modifier = Modifier.padding(start = 10.dp, top = 5.dp)
+                            )
+                        }else if( muscle == Categories.Legs.route){
+                            Text(
+                                text = stringResource(R.string.cat_name, stringResource(id = R.string.legs)),
+                                fontSize = MaterialTheme.typography.h4.fontSize,
+                                fontWeight = FontWeight.Bold,
+                                color = Secondary,
+                                modifier = Modifier.padding(start = 10.dp, top = 5.dp)
+                            )
+                        }else{
+                            Text(
+                                text = stringResource(R.string.cat_name, stringResource(id = R.string.full_body)),
+                                fontSize = MaterialTheme.typography.h4.fontSize,
+                                fontWeight = FontWeight.Bold,
+                                color = Secondary,
+                                modifier = Modifier.padding(start = 10.dp, top = 5.dp)
+                            )
+
+                        }
                         if(viewModel.uiState.isFetching) {
                             LoadingScreen()
                         }else{
