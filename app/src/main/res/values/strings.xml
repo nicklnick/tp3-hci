@@ -28,6 +28,8 @@
     <string name="abs">Abs</string>
     <string name="full_body">Full Body</string>
     <string name="back">Back</string>
+    <string name="no_routines_with_category">No Routines found with Category</string>
+
 
     <!-- Execution Screen -->
     <string name="exec_next">Next:</string>
@@ -43,8 +45,12 @@
     <string name="date_up">Date Up</string>
     <string name="date_down">Date Down</string>
 
+    <string name="no_user_routines">Looks like you haven\'t made any Routines. Use our web version to make some!</string>
+
+
     <!-- Favourites -->
     <string name="favourites">Favourites</string>
+    <string name="no_favourites">No Liked Routines where found, go do some Liking!</string>
 
     <!-- Components -->
     <string name="search">Search</string>
@@ -61,6 +67,9 @@
     <string name="discover">Discover</string>
     <string name="home">Inicio</string>
 
+    <string name="no_other_user_routines">Here there will be other user\'s routines for you to discover!</string>
+
+
     <!-- ReviewRoutine -->
     <string name="review_routine">Review this Routine!</string>
     <string name="review_ask">Want to leave a Review?</string>
@@ -75,6 +84,10 @@
 
     <!-- SearchScreen -->
     <string name="search_results">Search Results:</string>
+    <string name="no_results">No Routines found with name </string>
+    <string name="no_routines">No Routines found in entire app (._.) ( l: ) ( .-. ) ( :l ) (._.)</string>
+
+
 
     <!-- Navigation -->
     <string name="nav_home">Home</string>

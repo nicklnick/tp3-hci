@@ -34,6 +34,8 @@
     <string name="abs">Abs</string>
     <string name="full_body">C. Entero</string>
     <string name="back">Espalda</string>
+    <string name="no_routines_with_category">Ninguna Rutina encontrada con Categoría</string>
+
 
     <!-- Execution Screen -->
     <string name="exec_next">Próximo:</string>
@@ -49,8 +51,13 @@
     <string name="date_up">Fecha Ascendente</string>
     <string name="date_down">Fecha Descendente</string>
 
+    <string name="no_user_routines">Parece que no creaste ninguna Rutina. Usá nuestra versión web para crear alguna!</string>
+
+
     <!-- Favourites -->
     <string name="favourites">Favoritos</string>
+    <string name="no_favourites">No se encontro ninguna Rutina likeada, anda a Likear!</string>
+
 
     <!-- Components -->
     <string name="search">Buscar</string>
@@ -67,6 +74,9 @@
     <string name="discover">Descubre</string>
     <string name="home">Inicio</string>
 
+    <string name="no_other_user_routines">Acá apareceran Rutias de otros usarios para que puedas descubrirlas!</string>
+
+
     <!-- ReviewRoutine -->
     <string name="review_routine">Califica esta Rutina!</string>
     <string name="review_ask">Querés dejar una Calificación?</string>
@@ -81,6 +91,9 @@
 
     <!-- SearchScreen -->
     <string name="search_results">Resultados de Búsqueda:</string>
+    <string name="no_results">Ninguna Rutina con nombre </string>
+    <string name="no_routines">Ninguna Rutina encontrada en toda la app (._.) ( l: ) ( .-. ) ( :l ) (._.)</string>
+
 
     <!-- NavigationItems -->
     <string name="nav_home">Inicio</string>

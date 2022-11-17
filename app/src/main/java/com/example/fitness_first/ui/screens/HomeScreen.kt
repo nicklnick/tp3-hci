@@ -14,6 +14,7 @@ import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.fitness_first.MainViewModel
@@ -60,7 +61,7 @@ fun HomeScreen(
             scaffoldState = scaffoldState,
             drawerContent = { NavigationDrawer(navController, viewModel)},
             backgroundColor = Color.Transparent
-            ){
+        ){
             Box(
                 modifier = Modifier
                     .fillMaxSize()
@@ -97,62 +98,89 @@ fun HomeScreen(
                             color = Secondary,
                             modifier = Modifier.padding(start = 20.dp, bottom = 10.dp)
                         )
-                        LazyRow(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(bottom = 5.dp),
-                            horizontalArrangement = Arrangement.Start,
-                            verticalAlignment = Alignment.CenterVertically
-                        ){
-                            items(
-                                viewModel.uiState.routines.orEmpty()
-                            ){ routine ->
-                                if( routine.liked ){
-                                    CompactRoutineCard(
-                                        label = routine.name,
-                                        clickEvent ={
-                                            viewModel.getRoutine(routine.id)
-                                            viewModel.getReviews(routine.id)
-                                            NavigateToRoutineDetails(routine.id.toString())
-                                        },
-                                        category = routine.category.name
-                                    )
-                                }
 
+                        if( viewModel.uiState.routines.orEmpty().any { it.liked} ){
+                            LazyRow(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(bottom = 5.dp),
+                                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                contentPadding = PaddingValues(start = 16.dp, bottom = 32.dp)
+                            ){
+                                items(
+                                    viewModel.uiState.routines.orEmpty()
+                                ){ routine ->
+                                    if( routine.liked ){
+                                        CompactRoutineCard(
+                                            label = routine.name,
+                                            clickEvent ={
+                                                viewModel.getRoutine(routine.id)
+                                                viewModel.getReviews(routine.id)
+                                                NavigateToRoutineDetails(routine.id.toString())
+                                            },
+                                            category = routine.category.name
+                                        )
+                                    }
+
+                                }
                             }
+                        }
+                        else{
+                            Text(
+                                text = stringResource(R.string.no_favourites),
+                                fontSize = MaterialTheme.typography.h5.fontSize,
+                                fontWeight = FontWeight.Medium,
+                                color = Secondary,
+                                modifier = Modifier.padding(start = 10.dp, top = 5.dp),
+                                textAlign = TextAlign.Center
+                            )
                         }
                         Text(
                             text = stringResource(R.string.discover),
                             fontSize = MaterialTheme.typography.h5.fontSize,
                             fontWeight = FontWeight.Bold,
                             color = Secondary,
-                            modifier = Modifier.padding(start = 20.dp, bottom = 10.dp, top = 10.dp)
+                            modifier = Modifier.padding(start = 20.dp, bottom = 10.dp)
                         )
-                        LazyRow(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(bottom = 5.dp),
-                            horizontalArrangement = Arrangement.Start,
-                            verticalAlignment = Alignment.CenterVertically
-                        ){
-                            items(
-                                viewModel.uiState.routines.orEmpty()
-                            ){ routine ->
-                                if( !routine.fromCUser ){
-                                    CompactRoutineCard(
-                                        label = routine.name,
-                                        clickEvent ={
-                                            viewModel.getRoutine(routine.id)
-                                            viewModel.getReviews(routine.id)
-                                            NavigateToRoutineDetails(routine.id.toString())
-                                        },
-                                        category = routine.category.name
-                                    )
-                                }
+                        if( viewModel.uiState.routines.orEmpty().any { !it.fromCUser }){
+                            LazyRow(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(bottom = 5.dp),
+                                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                contentPadding = PaddingValues(start = 16.dp, bottom = 32.dp )
 
+                            ){
+                                items(
+                                    viewModel.uiState.routines.orEmpty()
+                                ){ routine ->
+                                    if( !routine.fromCUser ){
+                                        CompactRoutineCard(
+                                            label = routine.name,
+                                            clickEvent ={
+                                                viewModel.getRoutine(routine.id)
+                                                viewModel.getReviews(routine.id)
+                                                NavigateToRoutineDetails(routine.id.toString())
+                                            },
+                                            category = routine.category.name
+                                        )
+                                    }
+
+                                }
                             }
                         }
-
+                        else{
+                            Text(
+                                text = stringResource(R.string.no_other_user_routines),
+                                fontSize = MaterialTheme.typography.h5.fontSize,
+                                fontWeight = FontWeight.Medium,
+                                color = Secondary,
+                                modifier = Modifier.padding(start = 10.dp),
+                                textAlign = TextAlign.Center
+                            )
+                        }
                     }
 
                 }

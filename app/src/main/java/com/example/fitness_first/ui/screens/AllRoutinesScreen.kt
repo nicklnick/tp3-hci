@@ -87,33 +87,44 @@ fun AllRoutinesScreen(
                             LoadingScreen()
                         }
                         else{
-                            LazyColumn(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .fillMaxHeight(0.91f)
-                                    .padding(bottom = 5.dp),
-                                horizontalAlignment = Alignment.CenterHorizontally,
-                                verticalArrangement = Arrangement.spacedBy(space = 8.dp)
-                            ){
-                                items(
-                                    viewModel.uiState.routines.orEmpty()
-                                ) { routine ->
-                                    DetailedRoutineButton(
-                                        name = routine.name.toString(),
-                                        category = routine.category.name.toString(),
-                                        liked = routine.liked,
-                                        func = {
-                                            viewModel.getRoutine(routine.id)
-                                            viewModel.getReviews(routine.id)
+                            if( viewModel.uiState.routines.orEmpty().isNotEmpty()){
+                                LazyColumn(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .fillMaxHeight(0.91f)
+                                        .padding(bottom = 5.dp),
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                    verticalArrangement = Arrangement.spacedBy(space = 8.dp)
+                                ){
+                                    items(
+                                        viewModel.uiState.routines.orEmpty()
+                                    ) { routine ->
+                                        DetailedRoutineButton(
+                                            name = routine.name.toString(),
+                                            category = routine.category.name.toString(),
+                                            liked = routine.liked,
+                                            func = {
+                                                viewModel.getRoutine(routine.id)
+                                                viewModel.getReviews(routine.id)
 
-                                            NavigateToRoutineDetails(routine.id.toString())
-                                        },
-                                        likeFunc = {
-                                            viewModel.likeOrUnlike(routine)
-                                        },
-                                        difficulty = routine.difficulty.toString()
-                                    )
+                                                NavigateToRoutineDetails(routine.id.toString())
+                                            },
+                                            likeFunc = {
+                                                viewModel.likeOrUnlike(routine)
+                                            },
+                                            difficulty = routine.difficulty.toString()
+                                        )
+                                    }
                                 }
+                            }
+                            else{
+                                Text(
+                                    text = stringResource(R.string.no_routines) ,
+                                    fontSize = MaterialTheme.typography.h5.fontSize,
+                                    fontWeight = FontWeight.Medium,
+                                    color = Secondary,
+                                    modifier = Modifier.padding(start = 10.dp, top = 5.dp)
+                                )
                             }
                         }
                     }

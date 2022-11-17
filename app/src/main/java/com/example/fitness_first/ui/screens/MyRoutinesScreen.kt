@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -95,34 +96,46 @@ fun MyRoutinesScreen(
                         LoadingScreen()
                     }
                     else{
-                        LazyColumn(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .fillMaxHeight(0.91f)
-                                .padding(bottom = 5.dp),
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                        ) {
-                            items(
-                                viewModel.uiState.routines.orEmpty()
-                            ) { routine: Routine ->
-                                if (routine.fromCUser) {
-                                    DetailedRoutineButton(
-                                        name = routine.name,
-                                        category = routine.category.name,
-                                        liked = routine.liked,
-                                        func = {
-                                            viewModel.getRoutine(routine.id)
-                                            viewModel.getReviews(routine.id)
+                        if( viewModel.uiState.routines.orEmpty().any { it.fromCUser }){
+                            LazyColumn(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .fillMaxHeight(0.91f)
+                                    .padding(bottom = 5.dp),
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                            ) {
+                                items(
+                                    viewModel.uiState.routines.orEmpty()
+                                ) { routine: Routine ->
+                                    if (routine.fromCUser) {
+                                        DetailedRoutineButton(
+                                            name = routine.name,
+                                            category = routine.category.name,
+                                            liked = routine.liked,
+                                            func = {
+                                                viewModel.getRoutine(routine.id)
+                                                viewModel.getReviews(routine.id)
 
-                                            NavigateToRoutineDetails(routine.id.toString())
-                                        },
-                                        likeFunc = {
-                                            viewModel.likeOrUnlike(routine)
-                                        },
-                                        difficulty = routine.difficulty.toString()
-                                    )
+                                                NavigateToRoutineDetails(routine.id.toString())
+                                            },
+                                            likeFunc = {
+                                                viewModel.likeOrUnlike(routine)
+                                            },
+                                            difficulty = routine.difficulty.toString()
+                                        )
+                                    }
                                 }
                             }
+                        }
+                        else{
+                            Text(
+                                text = stringResource(R.string.no_user_routines),
+                                fontSize = MaterialTheme.typography.h5.fontSize,
+                                fontWeight = FontWeight.Medium,
+                                color = Secondary,
+                                modifier = Modifier.padding(start = 10.dp, top = 5.dp),
+                                textAlign = TextAlign.Center
+                            )
                         }
                     }
                 }

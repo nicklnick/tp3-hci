@@ -28,6 +28,8 @@ import com.example.fitness_first.ui.theme.Quaternary
 import com.example.fitness_first.ui.theme.Secondary
 import com.example.fitness_first.ui.theme.Tertiary
 import kotlinx.coroutines.launch
+import androidx.compose.material.Text
+import androidx.compose.ui.text.style.TextAlign
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterialApi::class)
@@ -88,35 +90,47 @@ fun FavouritesScreen(
                             LoadingScreen()
                         }
                         else{
-                            LazyColumn(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .fillMaxHeight(0.91f)
-                                    .padding(bottom = 5.dp),
-                                horizontalAlignment = Alignment.CenterHorizontally,
+                            if( viewModel.uiState.routines.orEmpty().any {it.liked}){
+                                LazyColumn(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .fillMaxHeight(0.91f)
+                                        .padding(bottom = 5.dp),
+                                    horizontalAlignment = Alignment.CenterHorizontally,
 //                                verticalArrangement = Arrangement.spacedBy(space = 8.dp)
-                            ){
-                                items(
-                                    viewModel.uiState.routines.orEmpty()
-                                ) { routine ->
-                                    if (routine.liked) {
-                                        DetailedRoutineButton(
-                                            name = routine.name.toString(),
-                                            category = routine.category.name.toString(),
-                                            liked = routine.liked,
-                                            func = {
-                                                viewModel.getRoutine(routine.id)
-                                                viewModel.getReviews(routine.id)
+                                ){
+                                    items(
+                                        viewModel.uiState.routines.orEmpty()
+                                    ) { routine ->
+                                        if (routine.liked) {
+                                            DetailedRoutineButton(
+                                                name = routine.name.toString(),
+                                                category = routine.category.name.toString(),
+                                                liked = routine.liked,
+                                                func = {
+                                                    viewModel.getRoutine(routine.id)
+                                                    viewModel.getReviews(routine.id)
 
-                                                NavigateToRoutineDetails(routine.id.toString())
-                                            },
-                                            likeFunc = {
-                                                viewModel.likeOrUnlike(routine)
-                                            },
-                                            difficulty = routine.difficulty.toString()
-                                        )
+                                                    NavigateToRoutineDetails(routine.id.toString())
+                                                },
+                                                likeFunc = {
+                                                    viewModel.likeOrUnlike(routine)
+                                                },
+                                                difficulty = routine.difficulty.toString()
+                                            )
+                                        }
                                     }
                                 }
+                            }
+                            else{
+                                Text(
+                                    text = stringResource(R.string.no_favourites),
+                                    fontSize = MaterialTheme.typography.h5.fontSize,
+                                    fontWeight = FontWeight.Medium,
+                                    color = Secondary,
+                                    modifier = Modifier.padding(start = 10.dp, top = 5.dp),
+                                    textAlign = TextAlign.Center
+                                )
                             }
                         }
                     }

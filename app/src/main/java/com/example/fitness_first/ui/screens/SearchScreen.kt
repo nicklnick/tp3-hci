@@ -72,7 +72,7 @@ fun SearchScreen(
                     verticalArrangement = Arrangement.spacedBy(6.dp)
                 ) {
                     Text(
-                        text = stringResource(R.string.search_results) + query,
+                        text = stringResource(R.string.search_results) + " " + query,
                         fontSize = MaterialTheme.typography.h4.fontSize,
                         fontWeight = FontWeight.Bold,
                         color = Secondary,
@@ -82,33 +82,43 @@ fun SearchScreen(
                         LoadingScreen()
                     }
                     else{
-                        LazyColumn(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalAlignment = Alignment.CenterHorizontally,
-//                            verticalArrangement = Arrangement.spacedBy(space = 8.dp)
-                        ){
-                            items(
-                                viewModel.uiState.routines.orEmpty()
-                            ) { routine ->
-                                if (routine.name.equals(query,true)) {
-                                    DetailedRoutineButton(
-                                        name = routine.name.toString(),
-                                        category = routine.category.name.toString(),
-                                        liked = routine.liked,
-                                        func = {
-                                            viewModel.getRoutine(routine.id)
-                                            viewModel.getReviews(routine.id)
+                        if( viewModel.uiState.routines.orEmpty().any { it.name.equals(query,true) }){
+                            LazyColumn(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                            ){
+                                items(
+                                    viewModel.uiState.routines.orEmpty()
+                                ) { routine ->
+                                    if (routine.name.equals(query,true)) {
+                                        DetailedRoutineButton(
+                                            name = routine.name.toString(),
+                                            category = routine.category.name.toString(),
+                                            liked = routine.liked,
+                                            func = {
+                                                viewModel.getRoutine(routine.id)
+                                                viewModel.getReviews(routine.id)
 
-                                            NavigateToRoutineDetails(routine.id.toString())
-                                        },
-                                        likeFunc = {
-                                            viewModel.likeOrUnlike(routine)
-                                        },
-                                        difficulty = routine.difficulty.toString()
-                                    )
+                                                NavigateToRoutineDetails(routine.id.toString())
+                                            },
+                                            likeFunc = {
+                                                viewModel.likeOrUnlike(routine)
+                                            },
+                                            difficulty = routine.difficulty.toString()
+                                        )
+                                    }
                                 }
                             }
                         }
+                    else{
+                        Text(
+                            text = stringResource(R.string.no_results) + " " + query,
+                            fontSize = MaterialTheme.typography.h5.fontSize,
+                            fontWeight = FontWeight.Medium,
+                            color = Secondary,
+                            modifier = Modifier.padding(start = 10.dp, top = 5.dp)
+                        )
+                    }
                     }
                     Button(
                         shape = CircleShape,
