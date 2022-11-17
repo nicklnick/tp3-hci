@@ -112,7 +112,7 @@ fun SearchScreen(
                         }
                     else{
                         Text(
-                            text = stringResource(R.string.no_results) + " " + query,
+                            text = stringResource(R.string.no_results),
                             fontSize = MaterialTheme.typography.h5.fontSize,
                             fontWeight = FontWeight.Medium,
                             color = Secondary,

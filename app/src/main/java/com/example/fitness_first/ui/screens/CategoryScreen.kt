@@ -121,7 +121,7 @@ fun CategoryScreen(
                             }
                             else{
                                 Text(
-                                    text = stringResource(R.string.no_results) + " " + muscle,
+                                    text = stringResource(R.string.no_routines_with_category),
                                     fontSize = MaterialTheme.typography.h5.fontSize,
                                     fontWeight = FontWeight.Medium,
                                     color = Secondary,

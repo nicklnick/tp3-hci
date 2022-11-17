@@ -28,7 +28,7 @@
     <string name="abs">Abs</string>
     <string name="full_body">Full Body</string>
     <string name="back">Back</string>
-    <string name="no_routines_with_category">No Routines found with Category</string>
+    <string name="no_routines_with_category">No Routines found with this Category</string>
 
 
     <!-- Execution Screen -->
@@ -84,7 +84,7 @@
 
     <!-- SearchScreen -->
     <string name="search_results">Search Results:</string>
-    <string name="no_results">No Routines found with name </string>
+    <string name="no_results">No Routines found with this name </string>
     <string name="no_routines">No Routines found in entire app (._.) ( l: ) ( .-. ) ( :l ) (._.)</string>
 
 

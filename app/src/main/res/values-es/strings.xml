@@ -34,7 +34,7 @@
     <string name="abs">Abs</string>
     <string name="full_body">C. Entero</string>
     <string name="back">Espalda</string>
-    <string name="no_routines_with_category">Ninguna Rutina encontrada con Categoría</string>
+    <string name="no_routines_with_category">Ninguna Rutina encontrada con esta Categoría</string>
 
 
     <!-- Execution Screen -->
@@ -91,7 +91,7 @@
 
     <!-- SearchScreen -->
     <string name="search_results">Resultados de Búsqueda:</string>
-    <string name="no_results">Ninguna Rutina con nombre </string>
+    <string name="no_results">Ninguna Rutina con este nombre </string>
     <string name="no_routines">Ninguna Rutina encontrada en toda la app (._.) ( l: ) ( .-. ) ( :l ) (._.)</string>
 
 
