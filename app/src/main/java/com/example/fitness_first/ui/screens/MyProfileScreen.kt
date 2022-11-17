@@ -21,6 +21,8 @@ import com.example.fitness_first.MainViewModel
 import com.example.fitness_first.R
 import com.example.fitness_first.ui.components.UserInfoCard
 import com.example.fitness_first.ui.theme.Primary
+import com.example.fitness_first.ui.theme.Quaternary
+import com.example.fitness_first.ui.theme.Secondary
 
 
 @Composable
@@ -38,15 +40,14 @@ fun MyProfileScreen(viewModel: MainViewModel) {
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxSize()
         ){
-
             Card(
-                backgroundColor = Color.White,
+                backgroundColor = Quaternary,
                 modifier = Modifier
                     .size(100.dp)
                     .padding(6.dp),
                 contentColor = Color.DarkGray,
                 shape = CircleShape,
-                border = BorderStroke(3.dp, Primary)
+
             ){
                 Icon(
                     imageVector = Icons.Filled.AccountCircle,
@@ -54,7 +55,6 @@ fun MyProfileScreen(viewModel: MainViewModel) {
                     modifier = Modifier.size(50.dp)
                 )
             }
-
             if(viewModel.uiState.currentUser != null){
                 UserInfoCard(stringResource(id = R.string.profile_name)+ ": " + viewModel.uiState.currentUser!!.firstName)
                 UserInfoCard(stringResource(id = R.string.profile_surname)+ ": " + viewModel.uiState.currentUser!!.lastName)
@@ -67,8 +67,6 @@ fun MyProfileScreen(viewModel: MainViewModel) {
                 UserInfoCard(stringResource(id = R.string.profile_username)+ ": ")
                 UserInfoCard(stringResource(id = R.string.profile_email)+ ": ")
             }
-
         }
     }
-
 }

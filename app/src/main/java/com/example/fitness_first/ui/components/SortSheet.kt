@@ -37,7 +37,7 @@ fun sortSheet(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(10.dp),
                 backgroundColor = Secondary,
-                contentColor = Color.DarkGray
+                contentColor = Color.Black
             ) {
                 Text(
                     modifier = Modifier.padding(start = 15.dp),

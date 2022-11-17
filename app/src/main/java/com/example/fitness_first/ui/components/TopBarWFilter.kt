@@ -21,6 +21,7 @@ import androidx.navigation.NavHostController
 import com.example.fitness_first.MainViewModel
 import com.example.fitness_first.R
 import com.example.fitness_first.ui.theme.Secondary
+import com.example.fitness_first.ui.theme.Tertiary
 
 @Composable
 fun TopBarWFilter(
@@ -52,7 +53,7 @@ fun TopBarWFilter(
                     icon = Icons.Filled.List,
                     func = onClickFilter,
                     modifier = Modifier.size(50.dp),
-                    backgroundColor = Secondary,
+                    backgroundColor = Tertiary,
                     contentColor = Color.Black
                 )
             }

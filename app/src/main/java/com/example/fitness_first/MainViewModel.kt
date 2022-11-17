@@ -53,10 +53,10 @@ class MainViewModel(
     fun reorderBottomNav(option: Int){
         when(option) {
             1 ->{
-                uiState = uiState.copy(bottomBarItems = listOf( NavItem.Home, NavItem.Favourites, NavItem.Routines))
+                uiState = uiState.copy(bottomBarItems = listOf(NavItem.Favourites, NavItem.Home, NavItem.Routines))
             }
             2 -> {
-                uiState = uiState.copy(bottomBarItems = listOf(NavItem.Favourites, NavItem.Home, NavItem.Routines))
+                uiState = uiState.copy(bottomBarItems = listOf( NavItem.Home, NavItem.Favourites, NavItem.Routines))
             }
             3 -> {
                 uiState = uiState.copy(bottomBarItems = listOf(NavItem.Favourites, NavItem.Routines, NavItem.Home))

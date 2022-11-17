@@ -22,7 +22,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.fitness_first.MainViewModel
 import com.example.fitness_first.R
+import com.example.fitness_first.ui.theme.Quaternary
 import com.example.fitness_first.ui.theme.Secondary
+import com.example.fitness_first.ui.theme.Tertiary
 
 
 @Composable
@@ -47,8 +49,8 @@ fun UpperBar(
                 modifier = Modifier.size(50.dp),
                 onClick = menuFunc,
                 shape = RoundedCornerShape(10.dp),
-                colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.White),
-                contentPadding = PaddingValues(0.dp)
+                colors = ButtonDefaults.outlinedButtonColors(backgroundColor = Quaternary),
+                contentPadding = PaddingValues(0.dp),
             ) {
                 Icon(
                     Icons.Filled.Menu,
@@ -64,7 +66,7 @@ fun UpperBar(
                     navController.navigate("profile")
                 },
                 shape = CircleShape,
-                colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.White),
+                colors = ButtonDefaults.outlinedButtonColors(backgroundColor = Quaternary),
                 contentPadding = PaddingValues(0.dp)
             ) {
                 Icon(

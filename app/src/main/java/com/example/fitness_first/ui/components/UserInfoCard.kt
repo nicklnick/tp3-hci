@@ -14,20 +14,21 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.fitness_first.R
 import com.example.fitness_first.ui.theme.Primary
+import com.example.fitness_first.ui.theme.Quaternary
 import com.example.fitness_first.ui.theme.Tertiary
 
 
 @Composable
 fun UserInfoCard(text: String){
     Card(
-        backgroundColor = Color.White,
+        backgroundColor = Quaternary,
         modifier = Modifier
             .height(70.dp)
             .width(350.dp)
             .padding(6.dp),
         contentColor = Color.DarkGray,
         shape = RoundedCornerShape(30.dp),
-        border = BorderStroke(3.dp, Primary)
+//        border = BorderStroke(3.dp, Primary)
     ){
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
