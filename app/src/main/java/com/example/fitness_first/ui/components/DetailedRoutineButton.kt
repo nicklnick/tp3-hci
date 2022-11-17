@@ -88,8 +88,8 @@ fun DetailedRoutineButton(name: String, category: String, liked: Boolean, func: 
                             backColor = intermediate
                         }else if( difficulty == "advanced"){
                             backColor = advanced
-                        }else if(difficulty == "professional"){
-                            backColor = professional
+                        }else if(difficulty == "expert"){
+                            backColor = expert
                         }
                         Card(
                             backgroundColor = backColor,
