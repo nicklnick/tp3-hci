@@ -103,7 +103,7 @@ fun LoginScreenTablet(backFunc: () -> Unit, loginFunc: () -> Unit) {
                                 false
                             )
                     }
-                    GenericLongButton(stringResource(R.string.login_continue)){}
+                    GenericLongButton(stringResource(R.string.login_continue), {},true)
                     }
                 }
         }

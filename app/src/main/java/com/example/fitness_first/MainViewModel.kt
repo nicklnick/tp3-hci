@@ -70,7 +70,7 @@ class MainViewModel(
     }
 
 
-    fun login(username: String, password: String, successFunc: () -> Unit, failureFunc: suspend () -> Unit) = viewModelScope.launch {
+    fun login(username: String, password: String, successFunc: () -> Unit, failureFunc: suspend (String) -> Unit) = viewModelScope.launch {
         uiState = uiState.copy(
             isFetching = true,
             message = null
@@ -89,7 +89,7 @@ class MainViewModel(
                 message = e.message,
                 isFetching = false
             )
-            failureFunc()
+            failureFunc(e.message!!)
         }
     }
 

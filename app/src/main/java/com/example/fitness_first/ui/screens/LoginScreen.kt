@@ -90,18 +90,30 @@ fun LoginScreen(backFunc: () -> Unit, loginFunc: () -> Unit, viewModel: MainView
                     val absName = Categories.Abs.getName()
                     val fullBodyName = Categories.FullBody.getName()
 
-                    GenericLongButton(stringResource(R.string.login_continue)) {
-                        viewModel.login(
-                            user,
-                            password,
+                    GenericLongButton(stringResource(R.string.login_continue), {
+                        viewModel.login(user, password,
                             {
-                            viewModel.setupViewModel()
-                            loginFunc()
-                        },
+                                viewModel.setupViewModel()
+                                loginFunc()
+                            },
                             {
-                                scaffoldState.snackbarHostState.showSnackbar("Invalid username or password.")
+                                if(it == "Connection error")
+                                    scaffoldState.snackbarHostState.showSnackbar("   Error connecting to API   ")
+
+                                if(it == "Invalid username or password")
+                                    scaffoldState.snackbarHostState.showSnackbar("Invalid username or password.")
                             }
-                        )
+                        )},
+                        !viewModel.uiState.isFetching
+                    )
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center
+                    ){
+
+                        if(viewModel.uiState.isFetching){
+                            CircularProgressIndicator()
+                        }
                     }
                 }
 

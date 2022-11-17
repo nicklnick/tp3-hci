@@ -73,7 +73,7 @@ fun RegisterScreen(backFunc: () -> Unit, registerFunc: () -> Unit) {
 
                     GenericInputField(label = stringResource(R.string.reg_password), value = "", {}, false)
 
-                    GenericLongButton(stringResource(R.string.reg_continue),  { registerFunc() } )
+                    GenericLongButton(stringResource(R.string.reg_continue),  { registerFunc() } ,true )
                 }
             }
         }
