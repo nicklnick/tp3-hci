@@ -311,6 +311,9 @@ class MainViewModel(
         }
     }
 
+    fun getRoutinesWFilter(){
+        getRoutinesWFilter(uiState.filters[uiState.orderBy].order, uiState.filters[uiState.orderBy].dir, uiState.orderBy)
+    }
 
     fun getRoutinesWFilter(order: String = "name", dir: String = "asc", index: Int) = viewModelScope.launch {
         uiState = uiState.copy(

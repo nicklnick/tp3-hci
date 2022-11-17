@@ -1,6 +1,7 @@
 package com.example.fitness_first.ui.screens
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -26,6 +27,8 @@ import com.example.fitness_first.ui.theme.ErrorColor
 import com.example.fitness_first.ui.theme.Quaternary
 import com.example.fitness_first.ui.theme.Secondary
 import com.example.fitness_first.ui.theme.Tertiary
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -48,13 +51,6 @@ fun MyRoutinesScreen(
     val scaffoldState = rememberScaffoldState()
 
     Box(){
-//        Image(
-//            painter = painterResource(id = R.drawable.bkg5),
-//            contentDescription = null,
-//            contentScale = ContentScale.FillBounds,
-//            modifier = Modifier.fillMaxSize()
-//        )
-
         Scaffold(
             scaffoldState = scaffoldState,
             topBar = { TopBarWFilter(
@@ -97,32 +93,37 @@ fun MyRoutinesScreen(
                     }
                     else{
                         if( viewModel.uiState.routines.orEmpty().any { it.fromCUser }){
-                            LazyColumn(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .fillMaxHeight(0.91f)
-                                    .padding(bottom = 5.dp),
-                                horizontalAlignment = Alignment.CenterHorizontally,
+                            SwipeRefresh(
+                                state = rememberSwipeRefreshState(isRefreshing = viewModel.uiState.isFetching),
+                                onRefresh = { viewModel.getRoutinesWFilter() },
                             ) {
-                                items(
-                                    viewModel.uiState.routines.orEmpty()
-                                ) { routine: Routine ->
-                                    if (routine.fromCUser) {
-                                        DetailedRoutineButton(
-                                            name = routine.name,
-                                            category = routine.category.name,
-                                            liked = routine.liked,
-                                            func = {
-                                                viewModel.getRoutine(routine.id)
-                                                viewModel.getReviews(routine.id)
+                                LazyColumn(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .fillMaxHeight(0.91f)
+                                        .padding(bottom = 5.dp),
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                ) {
+                                    items(
+                                        viewModel.uiState.routines.orEmpty()
+                                    ) { routine: Routine ->
+                                        if (routine.fromCUser) {
+                                            DetailedRoutineButton(
+                                                name = routine.name,
+                                                category = routine.category.name,
+                                                liked = routine.liked,
+                                                func = {
+                                                    viewModel.getRoutine(routine.id)
+                                                    viewModel.getReviews(routine.id)
 
-                                                NavigateToRoutineDetails(routine.id.toString())
-                                            },
-                                            likeFunc = {
-                                                viewModel.likeOrUnlike(routine)
-                                            },
-                                            difficulty = routine.difficulty.toString()
-                                        )
+                                                    NavigateToRoutineDetails(routine.id.toString())
+                                                },
+                                                likeFunc = {
+                                                    viewModel.likeOrUnlike(routine)
+                                                },
+                                                difficulty = routine.difficulty.toString()
+                                            )
+                                        }
                                     }
                                 }
                             }

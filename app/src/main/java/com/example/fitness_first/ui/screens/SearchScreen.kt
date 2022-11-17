@@ -21,6 +21,8 @@ import com.example.fitness_first.ui.components.*
 import com.example.fitness_first.ui.screens.LoadingScreen
 import com.example.fitness_first.ui.theme.Quaternary
 import com.example.fitness_first.ui.theme.Secondary
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -83,29 +85,34 @@ fun SearchScreen(
                     }
                     else{
                         if( viewModel.uiState.routines.orEmpty().any { it.name.equals(query,true) }){
-                            LazyColumn(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalAlignment = Alignment.CenterHorizontally,
-                            ){
-                                items(
-                                    viewModel.uiState.routines.orEmpty()
-                                ) { routine ->
-                                    if (routine.name.equals(query,true)) {
-                                        DetailedRoutineButton(
-                                            name = routine.name.toString(),
-                                            category = routine.category.name.toString(),
-                                            liked = routine.liked,
-                                            func = {
-                                                viewModel.getRoutine(routine.id)
-                                                viewModel.getReviews(routine.id)
+                            SwipeRefresh(
+                                state = rememberSwipeRefreshState(isRefreshing = viewModel.uiState.isFetching),
+                                onRefresh = { viewModel.getRoutinesWFilter() },
+                            ) {
+                                LazyColumn(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                ){
+                                    items(
+                                        viewModel.uiState.routines.orEmpty()
+                                    ) { routine ->
+                                        if (routine.name.equals(query,true)) {
+                                            DetailedRoutineButton(
+                                                name = routine.name.toString(),
+                                                category = routine.category.name.toString(),
+                                                liked = routine.liked,
+                                                func = {
+                                                    viewModel.getRoutine(routine.id)
+                                                    viewModel.getReviews(routine.id)
 
-                                                NavigateToRoutineDetails(routine.id.toString())
-                                            },
-                                            likeFunc = {
-                                                viewModel.likeOrUnlike(routine)
-                                            },
-                                            difficulty = routine.difficulty.toString()
-                                        )
+                                                    NavigateToRoutineDetails(routine.id.toString())
+                                                },
+                                                likeFunc = {
+                                                    viewModel.likeOrUnlike(routine)
+                                                },
+                                                difficulty = routine.difficulty.toString()
+                                            )
+                                        }
                                     }
                                 }
                             }

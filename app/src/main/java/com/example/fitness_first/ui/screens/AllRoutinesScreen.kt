@@ -26,6 +26,8 @@ import com.example.fitness_first.R
 import com.example.fitness_first.ui.components.*
 import com.example.fitness_first.ui.theme.Quaternary
 import com.example.fitness_first.ui.theme.Secondary
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -88,32 +90,37 @@ fun AllRoutinesScreen(
                         }
                         else{
                             if( viewModel.uiState.routines.orEmpty().isNotEmpty()){
-                                LazyColumn(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .fillMaxHeight(0.91f)
-                                        .padding(bottom = 5.dp),
-                                    horizontalAlignment = Alignment.CenterHorizontally,
-                                    verticalArrangement = Arrangement.spacedBy(space = 8.dp)
-                                ){
-                                    items(
-                                        viewModel.uiState.routines.orEmpty()
-                                    ) { routine ->
-                                        DetailedRoutineButton(
-                                            name = routine.name.toString(),
-                                            category = routine.category.name.toString(),
-                                            liked = routine.liked,
-                                            func = {
-                                                viewModel.getRoutine(routine.id)
-                                                viewModel.getReviews(routine.id)
+                                SwipeRefresh(
+                                    state = rememberSwipeRefreshState(isRefreshing = viewModel.uiState.isFetching),
+                                    onRefresh = { viewModel.getRoutinesWFilter() },
+                                ) {
+                                    LazyColumn(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .fillMaxHeight(0.91f)
+                                            .padding(bottom = 5.dp),
+                                        horizontalAlignment = Alignment.CenterHorizontally,
+                                        verticalArrangement = Arrangement.spacedBy(space = 8.dp)
+                                    ){
+                                        items(
+                                            viewModel.uiState.routines.orEmpty()
+                                        ) { routine ->
+                                            DetailedRoutineButton(
+                                                name = routine.name.toString(),
+                                                category = routine.category.name.toString(),
+                                                liked = routine.liked,
+                                                func = {
+                                                    viewModel.getRoutine(routine.id)
+                                                    viewModel.getReviews(routine.id)
 
-                                                NavigateToRoutineDetails(routine.id.toString())
-                                            },
-                                            likeFunc = {
-                                                viewModel.likeOrUnlike(routine)
-                                            },
-                                            difficulty = routine.difficulty.toString()
-                                        )
+                                                    NavigateToRoutineDetails(routine.id.toString())
+                                                },
+                                                likeFunc = {
+                                                    viewModel.likeOrUnlike(routine)
+                                                },
+                                                difficulty = routine.difficulty.toString()
+                                            )
+                                        }
                                     }
                                 }
                             }

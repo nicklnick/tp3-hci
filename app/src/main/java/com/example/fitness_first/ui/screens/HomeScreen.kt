@@ -37,16 +37,8 @@ fun HomeScreen(
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
     val uiState = viewModel.uiState
-//    viewModel.getRoutines()
-
 
     Box(){
-//        Image(
-//            painter = painterResource(id = R.drawable.bkg5),
-//            contentDescription = null,
-//            contentScale = ContentScale.FillBounds,
-//            modifier = Modifier.fillMaxSize()
-//        )
         Scaffold(
             topBar = {topBar(
                 {scope.launch {
@@ -54,7 +46,6 @@ fun HomeScreen(
                 }},
                 navController,
                 viewModel,
-                //NavigateToAllRoutinesScreen
             )
             },
             bottomBar = { BottomBar(navController = navController, viewModel) },
