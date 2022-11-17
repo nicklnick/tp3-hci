@@ -85,10 +85,13 @@ fun TopBarRoutineDetails(title: String, difficulty: String, rating: Int, liked: 
         ) {
             IconFAB(
                 icon = Icons.Filled.KeyboardArrowLeft,
-                { navController.navigate(NavItem.Routines.route) },
-                Modifier.size(40.dp),
-                Quaternary,
-                Primary
+                func = {
+                    if(!navController.popBackStack())
+                        navController.navigate(NavItem.Routines.route)
+                },
+                modifier = Modifier.size(40.dp),
+                backgroundColor = Quaternary,
+                contentColor = Primary
             )
 
             SimpleChip(stringResource(R.string.difficulty) +  difficulty, Tertiary)
