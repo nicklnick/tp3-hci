@@ -102,7 +102,15 @@
 
     <!-- Help -->
     <string name="faq">Preguntas más Frecuentes</string>
-    <string name="create_routine">¿Como creo una Rutina?</string>
+    <string name="change_navbar">No me gusta el orden de los botones de la barra inferior. ¿Puedo cambiarlos?</string>
+    <string name="change_navbar_ans">
+        ¡Sí! Para hacerlo lo único que tenés que hacer es: tocar el ícono de la barra superior, ir a Ajustes, y elegir el que
+        más te gusta. ¡Así de simple!
+    </string>
+    <string name="create_routines">Está bueno esto de ver rutinas pero… ¿Cómo las creo?</string>
+    <string name="create_routines_ans">
+        Tenés que ir a nuestra página Web y crearlas desde ahí. ¡Prometemos que va a ser muy fácil!
+    </string>
     <string name="routDetails_start">Empezar!</string>
 
 

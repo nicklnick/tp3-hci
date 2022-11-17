@@ -5,7 +5,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
-import com.example.fitness_first.ui.screens.RoutineReviewScreen
 import com.example.fitness_first.ui.theme.FitnessfirstTheme
 import com.example.fitness_first.util.getViewModelFactory
 

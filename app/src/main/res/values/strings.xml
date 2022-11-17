@@ -100,8 +100,16 @@
 
     <!-- Help -->
     <string name="faq">Frequently Asked Questions</string>
-    <string name="create_routine">How do I create a Routine?</string>
     <string name="routDetails_start">Start!</string>
+    <string name="change_navbar">I don\'t like the order of the buttons in the bottom bar. Can I change it?</string>
+    <string name="change_navbar_ans">
+        Yes! The only thing you have to do is: touch the icon on the upper-left side of the screen, go to Settings, and choose
+        the one you like the most. That\'s it!
+    </string>
+    <string name="create_routines">I like this thing of executing routines but… how do I create them?</string>
+    <string name="create_routines_ans">
+        You have to go to our webpage and create them there. We promise it will be really easy to do so!
+    </string>
 
 
 </resources>
