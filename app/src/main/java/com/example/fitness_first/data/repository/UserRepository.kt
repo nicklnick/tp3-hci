@@ -12,6 +12,7 @@ class UserRepository(
 
     // Mutex to make writes to cached values thread-safe.
     private val currentUserMutex = Mutex()
+
     // Cache of the current user got from the network.
     private var currentUser: User? = null
     private var routines: List<Routine> = emptyList()
@@ -24,7 +25,7 @@ class UserRepository(
         remoteDataSource.logout()
     }
 
-    suspend fun getCurrentUser(refresh: Boolean) : User? {
+    suspend fun getCurrentUser(refresh: Boolean): User? {
         if (refresh || currentUser == null) {
             val result = remoteDataSource.getCurrentUser()
             // Thread-safe write to latestNews
@@ -36,11 +37,17 @@ class UserRepository(
         return currentUserMutex.withLock { this.currentUser }
     }
 
-    suspend fun getCurrentUserRoutines(): List<Routine>{
-        val userRoutines = remoteDataSource.getCurrentUserRoutines()
-        currentUserMutex.withLock {
-            this.routines = userRoutines.content.map { it.asModel() }
-        }
+    suspend fun getCurrentUserRoutines(): List<Routine> {
+        var page = 0
+        this.routines = emptyList()
+
+        do {
+            val userRoutines = remoteDataSource.getCurrentUserRoutines(page)
+            currentUserMutex.withLock {
+                this.routines = this.routines.plus(userRoutines.content.map { it.asModel() })
+            }
+            page++
+        } while (!userRoutines.isLastPage)
         return currentUserMutex.withLock { this.routines }
     }
 }

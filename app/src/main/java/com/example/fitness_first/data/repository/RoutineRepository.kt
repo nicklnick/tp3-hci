@@ -1,9 +1,7 @@
 package com.example.fitness_first.data.repository
 
-import androidx.compose.ui.text.toLowerCase
 import com.example.fitness_first.data.model.Routine
 import com.example.fitness_first.data.network.RoutineRemoteDataSource
-import com.example.fitness_first.ui.components.FilterOptions
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
@@ -29,10 +27,17 @@ class RoutineRepository (
     }
 
     suspend fun getRoutinesWFilter(order: String, dir: String): List<Routine> {
-        val filteredRoutines = remoteDataSource.getRoutinesWFilter(order, dir)
-        routinesMutex.withLock {
-            this.routines = filteredRoutines.content.map { it.asModel() }
-        }
+        var page = 0
+        this.routines = emptyList()
+
+        do {
+            val filteredRoutines = remoteDataSource.getRoutinesWFilter(page, order, dir)
+            routinesMutex.withLock {
+                this.routines = this.routines.plus(filteredRoutines.content.map { it.asModel() })
+            }
+            page++
+        } while(!filteredRoutines.isLastPage)
+
         return routinesMutex.withLock { this.routines }
     }
 

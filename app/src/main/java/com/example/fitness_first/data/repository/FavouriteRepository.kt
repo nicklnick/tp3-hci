@@ -13,10 +13,16 @@ class FavouriteRepository (
     private var favouriteRoutines: List<Routine> = emptyList()
 
     suspend fun getFavourites(): List<Routine>{
-        val result = remoteDataSource.getFavourites()
-        favouriteMutex.withLock {
-            this.favouriteRoutines = result.content.map { it.asModel() }
-        }
+        var page = 0
+        this.favouriteRoutines = emptyList()
+
+        do {
+            val result = remoteDataSource.getFavourites(page)
+            favouriteMutex.withLock {
+                this.favouriteRoutines = this.favouriteRoutines.plus(result.content.map { it.asModel() })
+            }
+            page++
+        } while(!result.isLastPage)
         return favouriteMutex.withLock { this.favouriteRoutines }
     }
 

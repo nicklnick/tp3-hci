@@ -14,9 +14,9 @@ class RoutineRemoteDataSource (
         }
     }
 
-    suspend fun getRoutinesWFilter(order: String, dir: String) : NetworkPagedContent<NetworkRoutine>{
+    suspend fun getRoutinesWFilter(page: Int, order: String, dir: String) : NetworkPagedContent<NetworkRoutine>{
         return handleApiResponse {
-            apiRoutineService.getRoutinesWFilter(order,dir)
+            apiRoutineService.getRoutinesWFilter(page, order,dir)
         }
     }
 

@@ -8,9 +8,9 @@ class FavouriteRemoteDataSource (
     private val apiFavouriteService : ApiFavouriteService
 ) : RemoteDataSource(){
 
-    suspend fun getFavourites() : NetworkPagedContent<NetworkRoutine>{
+    suspend fun getFavourites(page: Int) : NetworkPagedContent<NetworkRoutine>{
         return handleApiResponse {
-            apiFavouriteService.getFavourites()
+            apiFavouriteService.getFavourites(page)
         }
     }
 

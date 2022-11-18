@@ -14,12 +14,19 @@ class ExerciseRepository(
     private var exercises: List<Exercise> = emptyList()
 
     suspend fun getExercises(refresh: Boolean = false): List<Exercise> {
+        var page = 0
+
         if (refresh || exercises.isEmpty()) {
-            val result = remoteDataSource.getExercises()
-            // Thread-safe write to latestNews
-            exerciseMutex.withLock {
-                this.exercises = result.content.map { it.asModel() }
-            }
+            this.exercises = emptyList()
+
+            do {
+                val result = remoteDataSource.getExercises(page)
+                // Thread-safe write to latestNews
+                exerciseMutex.withLock {
+                    this.exercises = this.exercises.plus(result.content.map { it.asModel() })
+                }
+                page++
+            } while(!result.isLastPage)
         }
 
         return exerciseMutex.withLock { this.exercises }

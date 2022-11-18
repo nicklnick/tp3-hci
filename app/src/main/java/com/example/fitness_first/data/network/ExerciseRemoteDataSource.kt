@@ -9,9 +9,9 @@ class ExerciseRemoteDataSource(
     private val apiExerciseService: ApiExerciseService
 ): RemoteDataSource() {
 
-    suspend fun getExercises(): NetworkPagedContent<NetworkExercise>{
+    suspend fun getExercises(page: Int): NetworkPagedContent<NetworkExercise>{
         return handleApiResponse {
-            apiExerciseService.getExercises()
+            apiExerciseService.getExercises(page)
         }
     }
     suspend fun getExercise(exerciseId: Int) : NetworkExercise {

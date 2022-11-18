@@ -5,6 +5,7 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 interface ApiUserService {
     @POST("users/login")
@@ -17,5 +18,5 @@ interface ApiUserService {
     suspend fun getCurrentUser(): Response<NetworkUser>
 
     @GET("users/current/routines")
-    suspend fun getCurrentUserRoutines(): Response<NetworkPagedContent<NetworkRoutine>>
+    suspend fun getCurrentUserRoutines(@Query("page") page: Int): Response<NetworkPagedContent<NetworkRoutine>>
 }
