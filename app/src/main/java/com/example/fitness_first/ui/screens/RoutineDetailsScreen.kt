@@ -24,7 +24,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.fitness_first.MainViewModel
 import com.example.fitness_first.R
 import com.example.fitness_first.ui.components.*
@@ -86,8 +88,10 @@ fun TopBarRoutineDetails(title: String, difficulty: String, rating: Int, liked: 
             IconFAB(
                 icon = Icons.Filled.KeyboardArrowLeft,
                 func = {
-                    if (!navController.popBackStack())
-                        navController.navigate(NavItem.Routines.route)
+                    if(navController.currentBackStackEntry != null)
+                       navController.popBackStack().and(navController.popBackStack().and(navController.popBackStack()))
+                    else
+                        navController.navigate(NavItem.Home.route)
                 },
                 modifier = Modifier.size(40.dp),
                 backgroundColor = Quaternary,

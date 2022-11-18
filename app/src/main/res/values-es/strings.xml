@@ -26,7 +26,6 @@
     <string name="nav_signout">Cerrar Sessión</string>
 
     <!--    Category Names-->
-    <string name="bicep">Bíceps</string>
     <string name="tricep">Tríceps</string>
     <string name="chest">Pecho</string>
     <string name="shoulders">Hombros</string>
@@ -78,11 +77,11 @@
 
 
     <!-- ReviewRoutine -->
-    <string name="review_routine">Califica esta Rutina!</string>
+    <string name="review_routine">¡Califica esta Rutina!</string>
     <string name="review_ask">Querés dejar una Calificación?</string>
     <string name="review_thank">Gracias por tu Calificación!</string>
-    <string name="good_job">Buen Trabajo!</string>
-    <string name="killed_it">Lo hiciste muy bien!</string>
+    <string name="good_job">¡Buen Trabajo!</string>
+    <string name="killed_it">¡Lo hiciste muy bien!</string>
     <string name="go_home">Ir a Inicio</string>
     <string name="publish_review">Publicar</string>
 
@@ -107,11 +106,12 @@
         ¡Sí! Para hacerlo lo único que tenés que hacer es: tocar el ícono de la barra superior, ir a Ajustes, y elegir el que
         más te gusta. ¡Así de simple!
     </string>
-    <string name="create_routines">Está bueno esto de ver rutinas pero… ¿Cómo las creo?</string>
+    <string name="create_routines">
+        Está bueno esto de ver rutinas pero… ¿Cómo las creo?</string>
     <string name="create_routines_ans">
         Tenés que ir a nuestra página Web y crearlas desde ahí. ¡Prometemos que va a ser muy fácil!
     </string>
-    <string name="routDetails_start">Empezar!</string>
+    <string name="routDetails_start">¡Empezar!</string>
 
 
 </resources>
