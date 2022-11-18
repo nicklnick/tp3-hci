@@ -15,7 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.fitness_first.data.model.FullCycleExercise
+import com.example.fitness_first.data.model.CompleteCycleExercise
 import com.example.fitness_first.ui.theme.Quaternary
 import com.example.fitness_first.ui.theme.Secondary
 import com.example.fitness_first.ui.theme.Tertiary
@@ -23,7 +23,7 @@ import com.example.fitness_first.ui.theme.Tertiary
 val rowHeight = 30.dp
 
 @Composable
-fun SeriesCard(title: String, repetitions: Int, cycleExerciseList: List<FullCycleExercise>) {
+fun SeriesCard(title: String, repetitions: Int, cycleExerciseList: List<CompleteCycleExercise>) {
     Card(
         modifier = Modifier
             .fillMaxWidth(0.9f)
@@ -88,7 +88,7 @@ fun SeriesCard(title: String, repetitions: Int, cycleExerciseList: List<FullCycl
                     modifier = Modifier.fillMaxSize()
                 ) {
                     for (fullCycleExercise in cycleExerciseList)
-                        ExerciseDetailRow(fullCycleExercise = fullCycleExercise)
+                        ExerciseDetailRow(completeCycleExercise = fullCycleExercise)
                 }
             }
         }
@@ -96,7 +96,7 @@ fun SeriesCard(title: String, repetitions: Int, cycleExerciseList: List<FullCycl
 }
 
 @Composable
-private fun ExerciseDetailRow(fullCycleExercise: FullCycleExercise) {
+private fun ExerciseDetailRow(completeCycleExercise: CompleteCycleExercise) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -110,7 +110,7 @@ private fun ExerciseDetailRow(fullCycleExercise: FullCycleExercise) {
             color = Secondary.copy(alpha = 0.2f),
             border = BorderStroke(1.dp, Secondary)
         ) {
-            Text(fullCycleExercise.exercise.name, textAlign = TextAlign.Center)
+            Text(completeCycleExercise.exercise.name, textAlign = TextAlign.Center)
         }
         Surface(
             color = Quaternary,
@@ -119,9 +119,9 @@ private fun ExerciseDetailRow(fullCycleExercise: FullCycleExercise) {
                 .height(rowHeight),
             border = BorderStroke(1.dp, Secondary)
         ) {
-            var detail = fullCycleExercise.repetitions
+            var detail = completeCycleExercise.repetitions
             if (detail == 0) {
-                detail = fullCycleExercise.duration
+                detail = completeCycleExercise.duration
                 Text(
                     text = detail.toString() + "s",
                     textAlign = TextAlign.Center,

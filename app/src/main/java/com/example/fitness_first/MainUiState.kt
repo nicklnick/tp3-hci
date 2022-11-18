@@ -9,7 +9,7 @@ data class MainUiState(
     val isFetching: Boolean = false,
     val message: String? = null,
 
-    // SETTINGS
+    //  - - - SETTINGS - - -
     val bottomBarItems: List<NavItem> =listOf(
         NavItem.Home,
         NavItem.Favourites,
@@ -17,21 +17,21 @@ data class MainUiState(
     ),
     val bottomBarSelected: Int = 1,
 
-    // USER
+    //  - - - USER - - -
     val currentUser: User? = null,
 
     val sports: List<Sport>? = null,
     val currentSport: Sport? = null,
 
-    // EXERCISES
+    //  - - - EXERCISES - - -
     val exercises: List<Exercise>? = null,
     val currentExercise: Exercise? = null,
 
-    // CATEGORIES
+    //  - - - CATEGORIES - - -
     val categories: List<Category>? = null,
     val currentCategory: Category? = null,
 
-    // ROUTINES
+    //  - - - ROUTINES - - -
     val routines: List<Routine>? = null,
     val currentRoutine: Routine? = null,
     val orderBy: Int = 0,
@@ -44,21 +44,21 @@ data class MainUiState(
         FilterOptions.DifficultyDown,
     ),
     val userRoutines: List<Routine>? = null,
-    val routinesCycles: List<FullCycle> = emptyList(),
-    val cycleExercises: List<FullCycleExercise> = emptyList(),
+    val routinesCycles: List<CompleteCycle> = emptyList(),
+    val cycleExercises: List<CompleteCycleExercise> = emptyList(),
     var cycleDataList: List<CycleData> = emptyList(),
     val favouriteRoutines: List<Routine>? = null,
 
-    // REVIEWS
+    //   - - - REVIEWS - - -
     val reviews: List<Review>? = null,
     val currentReview: Review? = null,
 
     //  - - - EXECUTION - - -
-    val currentExecExercise: FullCycleExercise? = null,
+    val currentExecExercise: CompleteCycleExercise? = null,
     val currentExecSeries: CycleData? = null,
     val currentExecSeriesIdx: Int= 0,
     val currentExecExerciseIdx: Int = 0,
-    val nextExecExercise: FullCycleExercise? = null,
+    val nextExecExercise: CompleteCycleExercise? = null,
 
     val routineSize: Int = 1,
     val exerciseCount: Int = 0,
@@ -71,18 +71,3 @@ data class MainUiState(
 )
 
 
-val MainUiState.canGetCurrentUser: Boolean get() = isAuthenticated
-val MainUiState.canGetAllSports: Boolean get() = isAuthenticated
-val MainUiState.canGetCurrentSport: Boolean get() = isAuthenticated && currentSport != null
-val MainUiState.canAddSport: Boolean get() = isAuthenticated && currentSport == null
-val MainUiState.canModifySport: Boolean get() = isAuthenticated && currentSport != null
-val MainUiState.canDeleteSport: Boolean get() = canModifySport
-val MainUiState.canGetRoutineCycles: Boolean get() = isAuthenticated
-
-
-
-data class CycleData(
-    val cycleName: String,
-    val cycleRepetitions: Int,
-    val cycleExercises: List<FullCycleExercise>
-)

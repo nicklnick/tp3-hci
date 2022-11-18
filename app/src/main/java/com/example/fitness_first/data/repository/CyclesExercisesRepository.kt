@@ -1,6 +1,6 @@
 package com.example.fitness_first.data.repository
 
-import com.example.fitness_first.data.model.FullCycleExercise
+import com.example.fitness_first.data.model.CompleteCycleExercise
 import com.example.fitness_first.data.network.CyclesExercisesRemoteDataSource
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -9,9 +9,9 @@ class CyclesExercisesRepository (
     private val remoteDataSource: CyclesExercisesRemoteDataSource
 ) {
     private var cyclesExerciseMutex = Mutex()
-    private var cycleExercises: List<FullCycleExercise> = emptyList()
+    private var cycleExercises: List<CompleteCycleExercise> = emptyList()
 
-    suspend fun getCycleExercises(cycleId: Int, refresh: Boolean = false) : List<FullCycleExercise> {
+    suspend fun getCycleExercises(cycleId: Int, refresh: Boolean = false) : List<CompleteCycleExercise> {
         if(refresh || cycleExercises.isEmpty()) {
             val result = remoteDataSource.getCycleExercises(cycleId)
 
