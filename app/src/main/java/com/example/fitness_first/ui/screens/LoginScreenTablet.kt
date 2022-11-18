@@ -1,12 +1,11 @@
 package com.example.fitness_first.ui.screens
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.runtime.*
@@ -36,20 +35,25 @@ import com.example.fitness_first.ui.theme.Primary
 import com.example.fitness_first.ui.theme.Quaternary
 import com.example.fitness_first.util.getViewModelFactory
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun LoginScreenTablet(backFunc: () -> Unit, loginFunc: () -> Unit) {
-
-    loginFunc()
+fun LoginScreenTablet(backFunc: () -> Unit, loginFunc: () -> Unit, viewModel: MainViewModel) {
 
     var user by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
 
-    Surface(
+    val scaffoldState = rememberScaffoldState()
+
+    Scaffold(
         modifier = Modifier.fillMaxSize(),
-    ) {
+        scaffoldState = scaffoldState,
+        snackbarHost = { SnackbarHost(it){ data -> ErrorSnackBar(data = data) } },
+    ){
         Image(
             painter = painterResource(id = R.drawable.bk7),
+            contentScale = ContentScale.FillBounds,
             contentDescription = null,
+            modifier = Modifier.fillMaxSize()
         )
         Column(
             verticalArrangement = Arrangement.SpaceBetween,
@@ -65,28 +69,28 @@ fun LoginScreenTablet(backFunc: () -> Unit, loginFunc: () -> Unit) {
             )
             Card(
                 modifier = Modifier
-                    .padding(bottom= 50.dp)
-                    .height(550.dp).width(700.dp),
+                    .padding(bottom = 50.dp)
+                    .height(600.dp)
+                    .width(700.dp),
                 shape = RoundedCornerShape(40.dp),
                 backgroundColor = Quaternary,
-                border = BorderStroke(4.dp, Primary)
             )  {
                 Column(
                     verticalArrangement = Arrangement.SpaceBetween,
-                    modifier = Modifier
-                        .padding(horizontal = 40.dp)
-
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.padding(start = 40.dp,end = 40.dp ,top = 10.dp)
                 ) {
-                    Text(
-                        text = stringResource(R.string.login_title),
-                        fontSize = 30.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.DarkGray
-                    )
+                    Row(modifier = Modifier.fillMaxWidth()) {
+                        Text(
+                            text = stringResource(R.string.login_title),
+                            fontSize = 30.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.DarkGray
+                        )
+                    }
                     Column(
                         verticalArrangement = Arrangement.SpaceBetween,
-                        modifier = Modifier
-
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
 
                             GenericInputField(
@@ -103,15 +107,31 @@ fun LoginScreenTablet(backFunc: () -> Unit, loginFunc: () -> Unit) {
                                 false
                             )
                     }
-                    GenericLongButton(stringResource(R.string.login_continue), {},true)
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth(0.6f)
+                            .fillMaxHeight()
+                    ){
+                        GenericLongButton(stringResource(R.string.login_continue), {
+                            viewModel.login(user, password,
+                                {
+                                    viewModel.setupViewModel()
+                                    loginFunc()
+                                },
+                                {
+                                    if(it == "Connection error")
+                                        scaffoldState.snackbarHostState.showSnackbar("   Error connecting to API   ")
+
+                                    if(it == "Invalid username or password")
+                                        scaffoldState.snackbarHostState.showSnackbar("Invalid username or password.")
+                                }
+                            )},
+                            !viewModel.uiState.isFetching
+                        )
+
+                    }
                     }
                 }
         }
     }
-}
-
-@Preview(device= Devices.NEXUS_10)
-@Composable
-fun PreviewLoginScreenTablet() {
-    LoginScreenTablet(backFunc = { /*TODO*/ }, loginFunc = { /*TODO*/ })
 }
