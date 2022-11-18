@@ -125,7 +125,7 @@ fun AppNavHost(
         ) { NavBackStackEntry ->
             ExecutionScreen(
                 NavBackStackEntry.arguments?.getInt("id")!!,
-                { navController.navigate("routine/${NavBackStackEntry.arguments?.getInt("id")}") },
+                { navController.popBackStack() },
                 { navController.navigate("routine/${NavBackStackEntry.arguments?.getInt("id")}/review") },
                 viewModel
             )

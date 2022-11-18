@@ -15,6 +15,7 @@ import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.invalidateGroupsWithKey
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,6 +27,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.fitness_first.MainViewModel
 import com.example.fitness_first.R
@@ -88,9 +90,7 @@ fun TopBarRoutineDetails(title: String, difficulty: String, rating: Int, liked: 
             IconFAB(
                 icon = Icons.Filled.KeyboardArrowLeft,
                 func = {
-                    if(navController.currentBackStackEntry != null)
-                       navController.popBackStack().and(navController.popBackStack().and(navController.popBackStack()))
-                    else
+                    if(!navController.popBackStack())
                         navController.navigate(NavItem.Home.route)
                 },
                 modifier = Modifier.size(40.dp),
