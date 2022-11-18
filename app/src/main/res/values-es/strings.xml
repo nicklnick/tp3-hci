@@ -26,6 +26,7 @@
     <string name="nav_signout">Cerrar Sessión</string>
 
     <!--    Category Names-->
+    <string name="bicep">Bíceps</string>
     <string name="tricep">Tríceps</string>
     <string name="chest">Pecho</string>
     <string name="shoulders">Hombros</string>
@@ -50,12 +51,12 @@
     <string name="date_up">Fecha Ascendente</string>
     <string name="date_down">Fecha Descendente</string>
 
-    <string name="no_user_routines">Parece que no creaste ninguna Rutina. Usá nuestra versión web para crear alguna!</string>
+    <string name="no_user_routines">Parece que no creaste ninguna Rutina. ¡Usá nuestra versión Web para crear alguna!</string>
 
 
     <!-- Favourites -->
     <string name="favourites">Favoritos</string>
-    <string name="no_favourites">No se encontro ninguna Rutina likeada, anda a Likear!</string>
+    <string name="no_favourites">No se encontró ninguna Rutina likeada, ¡andá a likear alguna!</string>
 
 
     <!-- Components -->
@@ -73,13 +74,15 @@
     <string name="discover">Descubre</string>
     <string name="home">Inicio</string>
 
-    <string name="no_other_user_routines">Acá apareceran Rutias de otros usarios para que puedas descubrirlas!</string>
+    <string name="no_other_user_routines">
+        ¡Acá van a aparecer Rutinas de otros usuarios para que puedas descubrirlas!
+    </string>
 
 
     <!-- ReviewRoutine -->
-    <string name="review_routine">¡Califica esta Rutina!</string>
-    <string name="review_ask">Querés dejar una Calificación?</string>
-    <string name="review_thank">Gracias por tu Calificación!</string>
+    <string name="review_routine">¡Calificá esta Rutina!</string>
+    <string name="review_ask">¿Querés dejar una Calificación?</string>
+    <string name="review_thank">¡Gracias por tu Calificación!</string>
     <string name="good_job">¡Buen Trabajo!</string>
     <string name="killed_it">¡Lo hiciste muy bien!</string>
     <string name="go_home">Ir a Inicio</string>
@@ -90,8 +93,8 @@
 
     <!-- SearchScreen -->
     <string name="search_results">Resultados de Búsqueda:</string>
-    <string name="no_results">Ninguna Rutina con este nombre </string>
-    <string name="no_routines">Ninguna Rutina encontrada en toda la app (._.) ( l: ) ( .-. ) ( :l ) (._.)</string>
+    <string name="no_results">Ninguna Rutina con este Nombre </string>
+    <string name="no_routines">Ninguna Rutina encontrada en toda la App (._.) ( l: ) ( .-. ) ( :l ) (._.)</string>
 
 
     <!-- NavigationItems -->
@@ -113,5 +116,9 @@
     </string>
     <string name="routDetails_start">¡Empezar!</string>
 
+    <!-- Settings -->
+    <string name="settings_bottombar">Barra Inferior: </string>
 
+    <!-- Mensajes de Error -->
+    <string name="err_airplanemode">Modo Avión encendido. Por favor apagálo.</string>
 </resources>

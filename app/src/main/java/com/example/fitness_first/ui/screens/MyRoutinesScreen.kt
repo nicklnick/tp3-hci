@@ -48,9 +48,10 @@ fun MyRoutinesScreen(
 
     var checked by remember { mutableStateOf(false) }
     if (!checked) {
+        val errorMsg = stringResource(R.string.err_airplanemode)
         if (checkAirplaneMode()) {
             scope.launch {
-                scaffoldState.snackbarHostState.showSnackbar("Airplane mode ON. Please turn it off.")
+                scaffoldState.snackbarHostState.showSnackbar(errorMsg)
             }
         }
         checked = true

@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -53,7 +54,7 @@ fun SettingsScreen(viewModel: MainViewModel) {
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
-                            Text("Bottom Bar:", fontWeight = FontWeight.Bold, fontSize = 30.sp)
+                            Text(stringResource(R.string.settings_bottombar), fontWeight = FontWeight.Bold, fontSize = 30.sp)
                         }
                     }
                     for (i in range(1, 4)) {

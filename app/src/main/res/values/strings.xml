@@ -14,7 +14,7 @@
     <string name="reg_continue">Continue</string>
 
     <!--  Login screen -->
-    <string name="login_title">Log in</string>
+    <string name="login_title">Log In</string>
     <string name="login_user">Username</string>
     <string name="login_password">Password</string>
     <string name="login_continue">Continue</string>
@@ -45,12 +45,12 @@
     <string name="date_up">Date Up</string>
     <string name="date_down">Date Down</string>
 
-    <string name="no_user_routines">Looks like you haven\'t made any Routines. Use our web version to make some!</string>
+    <string name="no_user_routines">Looks like you haven\'t made any Routines. Use our Web version to make some!</string>
 
 
     <!-- Favourites -->
     <string name="favourites">Favourites</string>
-    <string name="no_favourites">No Liked Routines where found, go do some Liking!</string>
+    <string name="no_favourites">No liked Routines where found, go do some liking!</string>
 
     <!-- Components -->
     <string name="search">Search</string>
@@ -65,7 +65,7 @@
     <string name="cat_name">%1$s Routines</string>
     <string name="categories">Categories</string>
     <string name="discover">Discover</string>
-    <string name="home">Inicio</string>
+    <string name="home">Home</string>
 
     <string name="no_other_user_routines">Here there will be other user\'s routines for you to discover!</string>
 
@@ -73,7 +73,7 @@
     <!-- ReviewRoutine -->
     <string name="review_routine">Review this Routine!</string>
     <string name="review_ask">Want to leave a Review?</string>
-    <string name="review_thank">Thank You for your Review</string>
+    <string name="review_thank">Thank You for your Review!</string>
     <string name="good_job">Good Job!</string>
     <string name="killed_it">You Killed It!</string>
     <string name="go_home">Go Home</string>
@@ -85,7 +85,7 @@
     <!-- SearchScreen -->
     <string name="search_results">Search Results:</string>
     <string name="no_results">No Routines found with this name </string>
-    <string name="no_routines">No Routines found in entire app (._.) ( l: ) ( .-. ) ( :l ) (._.)</string>
+    <string name="no_routines">No Routines found in the entire app (._.) ( l: ) ( .-. ) ( :l ) (._.)</string>
 
 
 
@@ -106,10 +106,16 @@
         Yes! The only thing you have to do is: touch the icon on the upper-left side of the screen, go to Settings, and choose
         the one you like the most. That\'s it!
     </string>
-    <string name="create_routines">I like this thing of executing routines but… how do I create them?</string>
+    <string name="create_routines">
+        I like this thing of executing routines but… how do I create them?</string>
     <string name="create_routines_ans">
         You have to go to our webpage and create them there. We promise it will be really easy to do so!
     </string>
 
+    <!-- Settings -->
+    <string name="settings_bottombar">Bottom Bar: </string>
+
+    <!-- Mensajes de Error -->
+    <string name="err_airplanemode">Airplane mode On. Please turn it Off.</string>
 
 </resources>
