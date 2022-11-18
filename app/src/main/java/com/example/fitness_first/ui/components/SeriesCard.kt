@@ -120,13 +120,19 @@ private fun ExerciseDetailRow(fullCycleExercise: FullCycleExercise) {
             border = BorderStroke(1.dp, Secondary)
         ) {
             var detail = fullCycleExercise.repetitions
-            if(detail == 0)
+            if(detail == 0) {
                 detail = fullCycleExercise.duration
+                Text(
+                    text = detail.toString() + "s",
+                    textAlign = TextAlign.Center,
+                )
+            } else {
+                Text(
+                    text = detail.toString() + " reps",
+                    textAlign = TextAlign.Center,
+                )
+            }
 
-            Text(
-                detail.toString(),
-                textAlign = TextAlign.Center,
-            )
         }
     }
 }
