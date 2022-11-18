@@ -152,7 +152,8 @@ private fun showVerticalLayout(routineTitle: String, prev: () -> Unit, finish: (
                                 Text(
                                     viewModel.uiState.currentExecSeries!!.cycleName,
                                     fontSize = 30.sp,
-                                    fontWeight = FontWeight.SemiBold
+                                    fontWeight = FontWeight.SemiBold,
+                                    overflow = TextOverflow.Ellipsis
                                 )
                             }
                             Card(
@@ -196,7 +197,8 @@ private fun showVerticalLayout(routineTitle: String, prev: () -> Unit, finish: (
                                     viewModel.uiState.currentExecExercise!!.exercise.name,
                                     fontSize = 35.sp,
                                     fontWeight = FontWeight.Bold,
-                                    modifier = Modifier.padding(20.dp)
+                                    modifier = Modifier.padding(20.dp),
+                                    overflow = TextOverflow.Ellipsis
                                 )
 
                                 Card(
@@ -319,7 +321,8 @@ private fun showVerticalLayout(routineTitle: String, prev: () -> Unit, finish: (
                             Text(
                                 viewModel.uiState.nextExecExercise!!.exercise.name,
                                 fontSize = 35.sp,
-                                fontWeight = FontWeight.Bold
+                                fontWeight = FontWeight.Bold,
+                                overflow = TextOverflow.Ellipsis
                             )
                         }
                     }
@@ -472,7 +475,8 @@ private fun showLandscapeLayout(routineTitle: String,prev: () -> Unit, finish: (
                                     viewModel.uiState.currentExecExercise!!.exercise.name,
                                     fontSize = 35.sp,
                                     fontWeight = FontWeight.Bold,
-                                    modifier = Modifier.padding(20.dp)
+                                    modifier = Modifier.padding(20.dp),
+                                    overflow = TextOverflow.Ellipsis
                                 )
 
                                 Card(
@@ -606,7 +610,8 @@ private fun showLandscapeLayout(routineTitle: String,prev: () -> Unit, finish: (
                                     Text(
                                         text = stringResource(R.string.exec_description),
                                         fontSize = 20.sp,
-                                        fontWeight = FontWeight.Bold
+                                        fontWeight = FontWeight.Bold,
+                                        overflow = TextOverflow.Ellipsis
                                     )
                                 }
                             }
@@ -653,8 +658,9 @@ private fun showLandscapeLayout(routineTitle: String,prev: () -> Unit, finish: (
 
                                     Text(
                                         viewModel.uiState.nextExecExercise!!.exercise.name,
-                                        fontSize = 20.sp,
-                                        fontWeight = FontWeight.Bold
+                                        fontSize = 16.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        overflow = TextOverflow.Ellipsis
                                     )
                                 }
                             }

@@ -81,14 +81,19 @@ fun DetailedRoutineButton(name: String, category: String, liked: Boolean, func: 
                             )
                         }
                         var backColor = rookie
-                        if (difficulty == "beginner") {
-                            backColor = beginner
-                        } else if (difficulty == "intermediate") {
-                            backColor = intermediate
-                        } else if (difficulty == "advanced") {
-                            backColor = advanced
-                        } else if (difficulty == "expert") {
-                            backColor = expert
+                        when (difficulty) {
+                            "beginner" -> {
+                                backColor = beginner
+                            }
+                            "intermediate" -> {
+                                backColor = intermediate
+                            }
+                            "advanced" -> {
+                                backColor = advanced
+                            }
+                            "expert" -> {
+                                backColor = expert
+                            }
                         }
                         Card(
                             backgroundColor = backColor,

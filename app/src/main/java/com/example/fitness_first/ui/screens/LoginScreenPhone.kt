@@ -106,7 +106,7 @@ fun LoginScreenPhone(backFunc: () -> Unit, loginFunc: () -> Unit, viewModel: Mai
                                     if (it == "Connection error")
                                         scaffoldState.snackbarHostState.showSnackbar("   Error connecting to API   ")
 
-                                    if (it == "Invalid username or password")
+                                    if (it == "Invalid username or password" || it == "")
                                         scaffoldState.snackbarHostState.showSnackbar("Invalid username or password.")
                                 }
                             )
