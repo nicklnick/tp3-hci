@@ -34,7 +34,8 @@ fun BottomBar(navController: NavHostController, viewModel: MainViewModel){
             addItem(
                 screen = screen,
                 currentDestination = currentDestination,
-                navController = navController
+                navController = navController,
+                viewModel
             )
         }
     }
@@ -44,7 +45,8 @@ fun BottomBar(navController: NavHostController, viewModel: MainViewModel){
 fun RowScope.addItem(
     screen: NavItem,
     currentDestination: NavDestination?,
-    navController: NavHostController
+    navController: NavHostController,
+    viewModel: MainViewModel
 ){
     BottomNavigationItem(
         label = {
@@ -67,6 +69,9 @@ fun RowScope.addItem(
                 if (screen.route == NavItem.Home.route)
                     popUpTo(navController.graph.findStartDestination().id)
                 launchSingleTop = true
+            }
+            if(viewModel.uiState.routines == null){
+                viewModel.setupViewModel()
             }
         }
     )

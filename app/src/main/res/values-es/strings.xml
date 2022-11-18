@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">fitness-first</string>
+    <string name="app_name">Fitness First</string>
 
     <!--  Landing screen   -->
     <string name="land_signup">Registrarse</string>
@@ -121,4 +121,6 @@
 
     <!-- Mensajes de Error -->
     <string name="err_airplanemode">Modo Avión encendido. Por favor apagálo.</string>
+    <string name="exec_seconds">segundos</string>
+    <string name="exec_reps">repeticiones</string>
 </resources>

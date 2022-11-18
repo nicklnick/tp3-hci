@@ -207,7 +207,7 @@ private fun showVerticalLayout(routineTitle: String, prev: () -> Unit, finish: (
                                 ) {
                                     if (viewModel.uiState.currentExecExercise!!.duration != 0)
                                         Text(
-                                            "${viewModel.uiState.currentTimeExercise} seconds",
+                                            "${viewModel.uiState.currentTimeExercise} ${stringResource(R.string.exec_seconds)}",
                                             fontSize = 35.sp,
                                             fontWeight = FontWeight.Bold,
                                             modifier = Modifier.padding(
@@ -219,7 +219,7 @@ private fun showVerticalLayout(routineTitle: String, prev: () -> Unit, finish: (
                                         )
                                     else
                                         Text(
-                                            "${viewModel.uiState.currentExecExercise!!.repetitions} reps",
+                                            "${viewModel.uiState.currentExecExercise!!.repetitions} ${stringResource(R.string.exec_reps)}",
                                             fontSize = 35.sp,
                                             fontWeight = FontWeight.Bold,
                                             modifier = Modifier.padding(
@@ -485,7 +485,7 @@ private fun showLandscapeLayout(routineTitle: String,prev: () -> Unit, finish: (
                                 ) {
                                     if (viewModel.uiState.currentExecExercise!!.duration != 0)
                                         Text(
-                                            "${viewModel.uiState.currentTimeExercise} seconds",
+                                            "${viewModel.uiState.currentTimeExercise} ${stringResource(R.string.exec_seconds)}" ,
                                             fontSize = 35.sp,
                                             fontWeight = FontWeight.Bold,
                                             modifier = Modifier.padding(
@@ -497,7 +497,7 @@ private fun showLandscapeLayout(routineTitle: String,prev: () -> Unit, finish: (
                                         )
                                     else
                                         Text(
-                                            "${viewModel.uiState.currentExecExercise!!.repetitions} reps",
+                                            "${viewModel.uiState.currentExecExercise!!.repetitions} ${stringResource(R.string.exec_reps)}",
                                             fontSize = 35.sp,
                                             fontWeight = FontWeight.Bold,
                                             modifier = Modifier.padding(
