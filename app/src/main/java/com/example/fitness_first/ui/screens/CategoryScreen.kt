@@ -12,7 +12,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.fitness_first.MainViewModel
 import com.example.fitness_first.R
@@ -40,28 +39,25 @@ fun CategoryScreen(
     )
     val scaffoldState = rememberScaffoldState()
 
-    Box{
-//        Image(
-//            painter = painterResource(id = R.drawable.bkg5),
-//            contentDescription = null,
-//            contentScale = ContentScale.FillBounds,
-//            modifier = Modifier.fillMaxSize()
-//        )
+    Box {
         Scaffold(
             scaffoldState = scaffoldState,
-            topBar = { TopBarWFilter(
-                {scope.launch {
-                    scaffoldState.drawerState.open()
-                }},
-                onClickFilter = { showFilters(scope = scope, sheetState = sheetState) },
-                navController,
-                viewModel
-            )
+            topBar = {
+                TopBarWFilter(
+                    {
+                        scope.launch {
+                            scaffoldState.drawerState.open()
+                        }
+                    },
+                    onClickFilter = { showFilters(scope = scope, sheetState = sheetState) },
+                    navController,
+                    viewModel
+                )
             },
             bottomBar = { BottomBar(navController = navController, viewModel) },
             drawerContent = { NavigationDrawer(navController, viewModel) },
             backgroundColor = Color.Transparent
-            ){
+        ) {
             BottomSheetScaffold(
                 scaffoldState = bottomScaffoldState,
                 sheetContent = { sortSheet(viewModel) },
@@ -78,65 +74,89 @@ fun CategoryScreen(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.spacedBy(6.dp)
                     ) {
-                        if( muscle == Categories.Bicep.route){
+                        if (muscle == Categories.Bicep.route) {
                             Text(
-                                text = stringResource(R.string.cat_name, stringResource(id = R.string.bicep)),
+                                text = stringResource(
+                                    R.string.cat_name,
+                                    stringResource(id = R.string.bicep)
+                                ),
                                 fontSize = MaterialTheme.typography.h4.fontSize,
                                 fontWeight = FontWeight.Bold,
                                 color = Secondary,
                                 modifier = Modifier.padding(start = 10.dp, top = 5.dp)
                             )
-                        }else if( muscle == Categories.Tricep.route){
+                        } else if (muscle == Categories.Tricep.route) {
                             Text(
-                                text = stringResource(R.string.cat_name, stringResource(id = R.string.tricep)),
+                                text = stringResource(
+                                    R.string.cat_name,
+                                    stringResource(id = R.string.tricep)
+                                ),
                                 fontSize = MaterialTheme.typography.h4.fontSize,
                                 fontWeight = FontWeight.Bold,
                                 color = Secondary,
                                 modifier = Modifier.padding(start = 10.dp, top = 5.dp)
                             )
-                        }else if( muscle == Categories.Chest.route){
+                        } else if (muscle == Categories.Chest.route) {
                             Text(
-                                text = stringResource(R.string.cat_name, stringResource(id = R.string.chest)),
+                                text = stringResource(
+                                    R.string.cat_name,
+                                    stringResource(id = R.string.chest)
+                                ),
                                 fontSize = MaterialTheme.typography.h4.fontSize,
                                 fontWeight = FontWeight.Bold,
                                 color = Secondary,
                                 modifier = Modifier.padding(start = 10.dp, top = 5.dp)
                             )
-                        }else if( muscle == Categories.Shoulders.route){
+                        } else if (muscle == Categories.Shoulders.route) {
                             Text(
-                                text = stringResource(R.string.cat_name, stringResource(id = R.string.shoulders)),
+                                text = stringResource(
+                                    R.string.cat_name,
+                                    stringResource(id = R.string.shoulders)
+                                ),
                                 fontSize = MaterialTheme.typography.h4.fontSize,
                                 fontWeight = FontWeight.Bold,
                                 color = Secondary,
                                 modifier = Modifier.padding(start = 10.dp, top = 5.dp)
                             )
-                        }else if( muscle == Categories.Back.route){
+                        } else if (muscle == Categories.Back.route) {
                             Text(
-                                text = stringResource(R.string.cat_name, stringResource(id = R.string.back)),
+                                text = stringResource(
+                                    R.string.cat_name,
+                                    stringResource(id = R.string.back)
+                                ),
                                 fontSize = MaterialTheme.typography.h4.fontSize,
                                 fontWeight = FontWeight.Bold,
                                 color = Secondary,
                                 modifier = Modifier.padding(start = 10.dp, top = 5.dp)
                             )
-                        }else if( muscle == Categories.Abs.route){
+                        } else if (muscle == Categories.Abs.route) {
                             Text(
-                                text = stringResource(R.string.cat_name, stringResource(id = R.string.abs)),
+                                text = stringResource(
+                                    R.string.cat_name,
+                                    stringResource(id = R.string.abs)
+                                ),
                                 fontSize = MaterialTheme.typography.h4.fontSize,
                                 fontWeight = FontWeight.Bold,
                                 color = Secondary,
                                 modifier = Modifier.padding(start = 10.dp, top = 5.dp)
                             )
-                        }else if( muscle == Categories.Legs.route){
+                        } else if (muscle == Categories.Legs.route) {
                             Text(
-                                text = stringResource(R.string.cat_name, stringResource(id = R.string.legs)),
+                                text = stringResource(
+                                    R.string.cat_name,
+                                    stringResource(id = R.string.legs)
+                                ),
                                 fontSize = MaterialTheme.typography.h4.fontSize,
                                 fontWeight = FontWeight.Bold,
                                 color = Secondary,
                                 modifier = Modifier.padding(start = 10.dp, top = 5.dp)
                             )
-                        }else{
+                        } else {
                             Text(
-                                text = stringResource(R.string.cat_name, stringResource(id = R.string.full_body)),
+                                text = stringResource(
+                                    R.string.cat_name,
+                                    stringResource(id = R.string.full_body)
+                                ),
                                 fontSize = MaterialTheme.typography.h4.fontSize,
                                 fontWeight = FontWeight.Bold,
                                 color = Secondary,
@@ -144,10 +164,12 @@ fun CategoryScreen(
                             )
 
                         }
-                        if(viewModel.uiState.isFetching) {
+                        if (viewModel.uiState.isFetching) {
                             LoadingScreen()
-                        }else{
-                            if( viewModel.uiState.routines.orEmpty().any { it.category.name == muscle }){
+                        } else {
+                            if (viewModel.uiState.routines.orEmpty()
+                                    .any { it.category.name == muscle }
+                            ) {
                                 LazyColumn(
                                     modifier = Modifier
                                         .fillMaxWidth()
@@ -177,8 +199,7 @@ fun CategoryScreen(
                                         }
                                     }
                                 }
-                            }
-                            else{
+                            } else {
                                 Text(
                                     text = stringResource(R.string.no_routines_with_category),
                                     fontSize = MaterialTheme.typography.h5.fontSize,
@@ -189,11 +210,8 @@ fun CategoryScreen(
                             }
                         }
                     }
-
                 }
             }
-
         }
     }
-
 }

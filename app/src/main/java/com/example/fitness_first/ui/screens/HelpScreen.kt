@@ -17,10 +17,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.fitness_first.R
-import com.example.fitness_first.ui.theme.FitnessfirstTheme
 import com.example.fitness_first.ui.theme.Quaternary
 import com.example.fitness_first.ui.theme.Secondary
 
@@ -28,30 +26,35 @@ import com.example.fitness_first.ui.theme.Secondary
 fun HelpScreen() {
     Surface(
         modifier = Modifier.fillMaxSize(),
-    ){
+    ) {
         Image(
-            painter = painterResource(id = R.drawable.bkg4), 
+            painter = painterResource(id = R.drawable.bkg4),
             contentDescription = null,
             contentScale = ContentScale.FillWidth
         )
-        Column (
+        Column(
             verticalArrangement = Arrangement.SpaceEvenly,
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxSize()
-        ){
+        ) {
             Card(
                 backgroundColor = Quaternary
             ) {
                 Column(
                     verticalArrangement = Arrangement.SpaceEvenly,
                     horizontalAlignment = Alignment.CenterHorizontally
-                ){
+                ) {
                     Text(
                         text = stringResource(R.string.faq),
                         fontSize = MaterialTheme.typography.h5.fontSize,
                         fontWeight = FontWeight.Bold,
                         color = Secondary,
-                        modifier = Modifier.padding(start = 20.dp, end = 20.dp, bottom = 10.dp, top = 10.dp)
+                        modifier = Modifier.padding(
+                            start = 20.dp,
+                            end = 20.dp,
+                            bottom = 10.dp,
+                            top = 10.dp
+                        )
                     )
                 }
             }
@@ -61,19 +64,29 @@ fun HelpScreen() {
                 Column(
                     verticalArrangement = Arrangement.SpaceEvenly,
                     horizontalAlignment = Alignment.CenterHorizontally
-                ){
+                ) {
                     Text(
                         text = stringResource(R.string.change_navbar),
                         fontSize = MaterialTheme.typography.h5.fontSize,
                         fontWeight = FontWeight.Bold,
                         color = Color.Black,
-                        modifier = Modifier.padding(start = 20.dp, end = 20.dp, bottom = 10.dp, top = 10.dp)
+                        modifier = Modifier.padding(
+                            start = 20.dp,
+                            end = 20.dp,
+                            bottom = 10.dp,
+                            top = 10.dp
+                        )
                     )
                     Text(
                         text = stringResource(R.string.change_navbar_ans),
                         fontSize = MaterialTheme.typography.h5.fontSize,
                         color = Color.Black,
-                        modifier = Modifier.padding(start = 20.dp, end = 20.dp, bottom = 10.dp, top = 10.dp)
+                        modifier = Modifier.padding(
+                            start = 20.dp,
+                            end = 20.dp,
+                            bottom = 10.dp,
+                            top = 10.dp
+                        )
                     )
                 }
             }
@@ -83,30 +96,32 @@ fun HelpScreen() {
                 Column(
                     verticalArrangement = Arrangement.SpaceEvenly,
                     horizontalAlignment = Alignment.CenterHorizontally
-                ){
+                ) {
                     Text(
                         text = stringResource(R.string.create_routines),
                         fontSize = MaterialTheme.typography.h5.fontSize,
                         fontWeight = FontWeight.Bold,
                         color = Color.Black,
-                        modifier = Modifier.padding(start = 20.dp, end = 20.dp, bottom = 10.dp, top = 10.dp)
+                        modifier = Modifier.padding(
+                            start = 20.dp,
+                            end = 20.dp,
+                            bottom = 10.dp,
+                            top = 10.dp
+                        )
                     )
                     Text(
                         text = stringResource(R.string.create_routines_ans),
                         fontSize = MaterialTheme.typography.h5.fontSize,
                         color = Color.Black,
-                        modifier = Modifier.padding(start = 20.dp, end = 20.dp, bottom = 10.dp, top = 10.dp)
+                        modifier = Modifier.padding(
+                            start = 20.dp,
+                            end = 20.dp,
+                            bottom = 10.dp,
+                            top = 10.dp
+                        )
                     )
                 }
             }
         }
-    }
-}
-
-@Preview
-@Composable
-fun preview() {
-    FitnessfirstTheme {
-        HelpScreen()
     }
 }

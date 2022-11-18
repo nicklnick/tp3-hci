@@ -35,7 +35,7 @@ fun SearchScreen(
     navController: NavHostController,
     viewModel: MainViewModel,
     NavigateToRoutineDetails: (route: String) -> Unit
-){
+) {
     val scope = rememberCoroutineScope()
     val sheetState = rememberBottomSheetState(
         initialValue = BottomSheetValue.Collapsed
@@ -47,33 +47,36 @@ fun SearchScreen(
     val scaffoldState = rememberScaffoldState()
     Scaffold(
         scaffoldState = scaffoldState,
-        topBar = { TopBarWFilter(
-            { scaffoldScope.launch {
-                scaffoldState.drawerState.open()
-            }},
-            onClickFilter = { showFilters(scope = scope, sheetState = sheetState) },
-            navController,
-            viewModel
-        )
+        topBar = {
+            TopBarWFilter(
+                {
+                    scaffoldScope.launch {
+                        scaffoldState.drawerState.open()
+                    }
+                },
+                onClickFilter = { showFilters(scope = scope, sheetState = sheetState) },
+                navController,
+                viewModel
+            )
         },
         bottomBar = { BottomBar(navController = navController, viewModel) },
-        drawerContent = { NavigationDrawer(navController, viewModel)},
-        modifier = Modifier.pointerInput(Unit){
+        drawerContent = { NavigationDrawer(navController, viewModel) },
+        modifier = Modifier.pointerInput(Unit) {
             detectTapGestures(onTap = {
                 scope.launch {
-                    if(sheetState.isExpanded){
+                    if (sheetState.isExpanded) {
                         sheetState.collapse()
                     }
                 }
             })
         }
-    ){
+    ) {
         BottomSheetScaffold(
             scaffoldState = bottomScaffoldState,
             sheetContent = { sortSheet(viewModel) },
             sheetBackgroundColor = Quaternary,
             sheetPeekHeight = 0.dp
-        ){
+        ) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
@@ -91,11 +94,12 @@ fun SearchScreen(
                         color = Secondary,
                         modifier = Modifier.padding(start = 10.dp, top = 5.dp)
                     )
-                    if(viewModel.uiState.isFetching) {
+                    if (viewModel.uiState.isFetching) {
                         LoadingScreen()
-                    }
-                    else{
-                        if( viewModel.uiState.routines.orEmpty().any { it.name.equals(query,true) }){
+                    } else {
+                        if (viewModel.uiState.routines.orEmpty()
+                                .any { it.name.equals(query, true) }
+                        ) {
                             SwipeRefresh(
                                 state = rememberSwipeRefreshState(isRefreshing = viewModel.uiState.isFetching),
                                 onRefresh = { viewModel.getRoutinesWFilter() },
@@ -103,11 +107,11 @@ fun SearchScreen(
                                 LazyColumn(
                                     modifier = Modifier.fillMaxWidth(),
                                     horizontalAlignment = Alignment.CenterHorizontally,
-                                ){
+                                ) {
                                     items(
                                         viewModel.uiState.routines.orEmpty()
                                     ) { routine ->
-                                        if (routine.name.equals(query,true)) {
+                                        if (routine.name.equals(query, true)) {
                                             DetailedRoutineButton(
                                                 name = routine.name.toString(),
                                                 category = routine.category.name.toString(),
@@ -127,31 +131,32 @@ fun SearchScreen(
                                     }
                                 }
                             }
+                        } else {
+                            Text(
+                                text = stringResource(R.string.no_results),
+                                fontSize = MaterialTheme.typography.h5.fontSize,
+                                fontWeight = FontWeight.Medium,
+                                color = Secondary,
+                                modifier = Modifier.padding(start = 10.dp, top = 5.dp)
+                            )
                         }
-                    else{
-                        Text(
-                            text = stringResource(R.string.no_results),
-                            fontSize = MaterialTheme.typography.h5.fontSize,
-                            fontWeight = FontWeight.Medium,
-                            color = Secondary,
-                            modifier = Modifier.padding(start = 10.dp, top = 5.dp)
-                        )
-                    }
                     }
                     Button(
                         shape = CircleShape,
                         modifier = Modifier
                             .width(300.dp)
                             .padding(top = 20.dp),
-                        onClick = { navController.navigate("allRoutines")},
-                    ){
-                        Text(text = stringResource(R.string.seeAll), fontSize = 20.sp, color = Color.DarkGray)
+                        onClick = { navController.navigate("allRoutines") },
+                    ) {
+                        Text(
+                            text = stringResource(R.string.seeAll),
+                            fontSize = 20.sp,
+                            color = Color.DarkGray
+                        )
                     }
 
                 }
             }
         }
-
-
     }
 }

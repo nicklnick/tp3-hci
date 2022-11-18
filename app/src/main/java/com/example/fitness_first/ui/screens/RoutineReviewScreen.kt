@@ -23,12 +23,13 @@ import com.example.fitness_first.R
 import com.example.fitness_first.data.model.Review
 import com.example.fitness_first.ui.components.GenericSmallButton
 import com.example.fitness_first.ui.components.GenericSmallOutlinedButton
+import com.example.fitness_first.ui.theme.Primary
 import com.example.fitness_first.ui.theme.Secondary
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun RoutineReviewScreen(id: Int, func: () -> Unit, viewModel: MainViewModel ) {
-    Box(){
+    Box() {
         Image(
             painter = painterResource(id = R.drawable.bkg5),
             contentDescription = null,
@@ -42,7 +43,7 @@ fun RoutineReviewScreen(id: Int, func: () -> Unit, viewModel: MainViewModel ) {
         ) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
-            ){
+            ) {
                 Text(
                     text = stringResource(R.string.good_job),
                     fontSize = MaterialTheme.typography.h4.fontSize,
@@ -58,12 +59,13 @@ fun RoutineReviewScreen(id: Int, func: () -> Unit, viewModel: MainViewModel ) {
             }
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
-            ){
-                if(viewModel.uiState.isFetching){
+            ) {
+                if (viewModel.uiState.isFetching) {
                     LoadingScreen()
-                }else{
-                    val userRev = viewModel.uiState.reviews!!.find { it.userId!! == viewModel.uiState.currentUser!!.id && it.routineId == viewModel.uiState.currentRoutine!!.id}
-                    if( userRev != null){
+                } else {
+                    val userRev =
+                        viewModel.uiState.reviews!!.find { it.userId!! == viewModel.uiState.currentUser!!.id && it.routineId == viewModel.uiState.currentRoutine!!.id }
+                    if (userRev != null) {
                         Text(
                             text = stringResource(R.string.review_thank),
                             fontSize = MaterialTheme.typography.h5.fontSize,
@@ -71,7 +73,7 @@ fun RoutineReviewScreen(id: Int, func: () -> Unit, viewModel: MainViewModel ) {
                             color = Secondary
                         )
                         RatingBar2(rating = userRev.score, viewModel = viewModel)
-                    }else{
+                    } else {
                         Text(
                             text = stringResource(R.string.review_ask),
                             fontSize = MaterialTheme.typography.h5.fontSize,
@@ -133,7 +135,7 @@ fun RatingBar2(
                             }
                             true
                         },
-                    tint = if (i <= ratingState) Color(0xFFFFD700) else Color(0xFFA2ADB1)
+                    tint = if (i <= ratingState) Primary else Color(0xFFA2ADB1)
                 )
             }
         }else{
@@ -144,7 +146,7 @@ fun RatingBar2(
                     modifier = modifier
                         .width(size)
                         .height(size),
-                    tint = if (i <= ratingState) Color(0xFFFFD700) else Color(0xFFA2ADB1)
+                    tint = if (i <= ratingState) Primary else Color(0xFFA2ADB1)
                 )
             }
         }
@@ -157,17 +159,5 @@ fun RatingBar2(
             viewModel.uiState.currentRoutine!!.id,
             Review(ratingState, viewModel.uiState.currentUser!!.id,viewModel.uiState.currentRoutine!!.id, "")
         )}
-//        clickEvent = {
-//            viewModel.addReview(
-//                7,
-//                Review(
-//                    ratingState,
-//                    1,
-//                    7,
-//                    ""
-//                )
-//            )
-//        }
     )
-
 }

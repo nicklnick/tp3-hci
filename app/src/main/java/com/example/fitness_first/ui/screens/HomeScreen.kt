@@ -1,6 +1,4 @@
 import android.annotation.SuppressLint
-import android.util.Log
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -9,23 +7,17 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.modifier.modifierLocalConsumer
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
 import com.example.fitness_first.MainViewModel
 import com.example.fitness_first.R
 import com.example.fitness_first.ui.components.*
 import com.example.fitness_first.ui.screens.LoadingScreen
 import com.example.fitness_first.ui.theme.Secondary
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter", "CoroutineCreationDuringComposition")
@@ -43,8 +35,8 @@ fun HomeScreen(
 
 
     var checked by remember { mutableStateOf(false) }
-    if(!checked){
-        if(checkAirplaneMode()){
+    if (!checked) {
+        if (checkAirplaneMode()) {
             scope.launch {
                 scaffoldState.snackbarHostState.showSnackbar("Airplane mode ON. Please turn it off.")
             }
@@ -52,30 +44,33 @@ fun HomeScreen(
         checked = true
     }
 
-    Box(){
+    Box {
         Scaffold(
-            topBar = {topBar(
-                {scope.launch {
-                    scaffoldState.drawerState.open()
-                }},
-                navController,
-                viewModel,
-            )
+            topBar = {
+                topBar(
+                    {
+                        scope.launch {
+                            scaffoldState.drawerState.open()
+                        }
+                    },
+                    navController,
+                    viewModel,
+                )
             },
             bottomBar = { BottomBar(navController = navController, viewModel) },
             scaffoldState = scaffoldState,
-            drawerContent = { NavigationDrawer(navController, viewModel)},
+            drawerContent = { NavigationDrawer(navController, viewModel) },
             backgroundColor = Color.Transparent,
-            snackbarHost = { SnackbarHost(it){ data -> ErrorSnackBar(data = data) } },
-        ){
+            snackbarHost = { SnackbarHost(it) { data -> ErrorSnackBar(data = data) } },
+        ) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
             ) {
                 Column {
-                    if(viewModel.uiState.isFetching){
+                    if (viewModel.uiState.isFetching) {
                         LoadingScreen()
-                    }else{
+                    } else {
                         Text(
                             text = stringResource(R.string.categories),
                             fontSize = MaterialTheme.typography.h5.fontSize,
@@ -105,7 +100,7 @@ fun HomeScreen(
                             modifier = Modifier.padding(start = 20.dp, bottom = 10.dp)
                         )
 
-                        if( viewModel.uiState.routines.orEmpty().any { it.liked} ){
+                        if (viewModel.uiState.routines.orEmpty().any { it.liked }) {
                             LazyRow(
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -113,14 +108,14 @@ fun HomeScreen(
 //                                horizontalArrangement = Arrangement.spacedBy(16.dp),
                                 verticalAlignment = Alignment.CenterVertically,
                                 contentPadding = PaddingValues(start = 16.dp, bottom = 32.dp)
-                            ){
+                            ) {
                                 items(
                                     viewModel.uiState.routines.orEmpty()
-                                ){ routine ->
-                                    if( routine.liked ){
+                                ) { routine ->
+                                    if (routine.liked) {
                                         CompactRoutineCard(
                                             label = routine.name,
-                                            clickEvent ={
+                                            clickEvent = {
                                                 viewModel.getRoutine(routine.id)
                                                 viewModel.getReviews(routine.id)
                                                 NavigateToRoutineDetails(routine.id.toString())
@@ -131,8 +126,7 @@ fun HomeScreen(
 
                                 }
                             }
-                        }
-                        else{
+                        } else {
                             Text(
                                 text = stringResource(R.string.no_favourites),
                                 fontSize = MaterialTheme.typography.h5.fontSize,
@@ -149,23 +143,23 @@ fun HomeScreen(
                             color = Secondary,
                             modifier = Modifier.padding(start = 20.dp, bottom = 10.dp)
                         )
-                        if( viewModel.uiState.routines.orEmpty().any { !it.fromCUser }){
+                        if (viewModel.uiState.routines.orEmpty().any { !it.fromCUser }) {
                             LazyRow(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(bottom = 5.dp),
 //                                horizontalArrangement = Arrangement.spacedBy(16.dp),
                                 verticalAlignment = Alignment.CenterVertically,
-                                contentPadding = PaddingValues(start = 16.dp, bottom = 32.dp )
+                                contentPadding = PaddingValues(start = 16.dp, bottom = 32.dp)
 
-                            ){
+                            ) {
                                 items(
                                     viewModel.uiState.routines.orEmpty()
-                                ){ routine ->
-                                    if( !routine.fromCUser ){
+                                ) { routine ->
+                                    if (!routine.fromCUser) {
                                         CompactRoutineCard(
                                             label = routine.name,
-                                            clickEvent ={
+                                            clickEvent = {
                                                 viewModel.getRoutine(routine.id)
                                                 viewModel.getReviews(routine.id)
                                                 NavigateToRoutineDetails(routine.id.toString())
@@ -176,8 +170,7 @@ fun HomeScreen(
 
                                 }
                             }
-                        }
-                        else{
+                        } else {
                             Text(
                                 text = stringResource(R.string.no_other_user_routines),
                                 fontSize = MaterialTheme.typography.h5.fontSize,
@@ -188,7 +181,6 @@ fun HomeScreen(
                             )
                         }
                     }
-
                 }
             }
         }

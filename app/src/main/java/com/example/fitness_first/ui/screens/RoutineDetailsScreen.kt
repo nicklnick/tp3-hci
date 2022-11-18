@@ -25,10 +25,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import com.example.fitness_first.MainViewModel
 import com.example.fitness_first.R
-import com.example.fitness_first.data.model.Review
 import com.example.fitness_first.ui.components.*
 import com.example.fitness_first.ui.theme.Primary
 import com.example.fitness_first.ui.theme.Quaternary
@@ -88,7 +86,7 @@ fun TopBarRoutineDetails(title: String, difficulty: String, rating: Int, liked: 
             IconFAB(
                 icon = Icons.Filled.KeyboardArrowLeft,
                 func = {
-                    if(!navController.popBackStack())
+                    if (!navController.popBackStack())
                         navController.navigate(NavItem.Routines.route)
                 },
                 modifier = Modifier.size(40.dp),
@@ -96,7 +94,7 @@ fun TopBarRoutineDetails(title: String, difficulty: String, rating: Int, liked: 
                 contentColor = Primary
             )
 
-            SimpleChip(stringResource(R.string.difficulty) +  difficulty, Tertiary)
+            SimpleChip(stringResource(R.string.difficulty) + difficulty, Tertiary)
 
             Spacer(Modifier.size(40.dp))
         }
@@ -124,7 +122,7 @@ fun TopBarRoutineDetails(title: String, difficulty: String, rating: Int, liked: 
             )
 
             val tint by animateColorAsState(
-                targetValue = if(liked) Primary else Color.DarkGray
+                targetValue = if (liked) Primary else Color.DarkGray
             )
             IconFAB(
                 icon = Icons.Default.Favorite,
@@ -168,11 +166,12 @@ fun loadRoutineDetails(viewModel: MainViewModel, exec: () -> Unit, id: Int, navC
                     TopBarRoutineDetails(
                         title = viewModel.uiState.currentRoutine!!.name,
                         difficulty = viewModel.uiState.currentRoutine!!.difficulty!!,
-                        rating = if(viewModel.uiState.currentRoutine!!.score == null) 0 else viewModel.uiState.currentRoutine!!.score!!,
+                        rating = if (viewModel.uiState.currentRoutine!!.score == null) 0 else viewModel.uiState.currentRoutine!!.score!!,
                         liked = viewModel.uiState.currentRoutine!!.liked,
                         likeFunc = {
                             viewModel.likeOrUnlike(viewModel.uiState.currentRoutine!!)
-                            viewModel.uiState.routines!!.find { viewModel.uiState.currentRoutine!!.id == it.id }!!.liked = viewModel.uiState.currentRoutine!!.liked
+                            viewModel.uiState.routines!!.find { viewModel.uiState.currentRoutine!!.id == it.id }!!.liked =
+                                viewModel.uiState.currentRoutine!!.liked
                         },
                         id,
                         navController
@@ -203,13 +202,13 @@ fun loadRoutineDetails(viewModel: MainViewModel, exec: () -> Unit, id: Int, navC
                                 cycleExerciseList = cycle.cycleExercises
                             )
                         }
-                        if(viewModel.uiState.cycleDataList.isNotEmpty() && viewModel.uiState.cycleDataList.all { it.cycleExercises.isNotEmpty() }){
-                            GenericSmallOutlinedButton(stringResource(id = R.string.routDetails_start),{
-                                viewModel.setupExecution()
-                                exec()
-                            })
+                        if (viewModel.uiState.cycleDataList.isNotEmpty() && viewModel.uiState.cycleDataList.all { it.cycleExercises.isNotEmpty() }) {
+                            GenericSmallOutlinedButton(stringResource(id = R.string.routDetails_start),
+                                {
+                                    viewModel.setupExecution()
+                                    exec()
+                                })
                         }
-
                     }
                 }
             }

@@ -1,6 +1,5 @@
 package com.example.fitness_first.ui.screens
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -20,16 +19,14 @@ import androidx.compose.ui.unit.dp
 import com.example.fitness_first.MainViewModel
 import com.example.fitness_first.R
 import com.example.fitness_first.ui.components.UserInfoCard
-import com.example.fitness_first.ui.theme.Primary
 import com.example.fitness_first.ui.theme.Quaternary
-import com.example.fitness_first.ui.theme.Secondary
 
 
 @Composable
 fun MyProfileScreen(viewModel: MainViewModel) {
     Surface(
         modifier = Modifier.fillMaxSize(),
-    ){
+    ) {
         Image(
             painter = painterResource(id = R.drawable.bkg4),
             contentDescription = null,
@@ -39,7 +36,7 @@ fun MyProfileScreen(viewModel: MainViewModel) {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxSize()
-        ){
+        ) {
             Card(
                 backgroundColor = Quaternary,
                 modifier = Modifier
@@ -48,24 +45,23 @@ fun MyProfileScreen(viewModel: MainViewModel) {
                 contentColor = Color.DarkGray,
                 shape = CircleShape,
 
-            ){
+                ) {
                 Icon(
                     imageVector = Icons.Filled.AccountCircle,
                     contentDescription = "Account",
                     modifier = Modifier.size(50.dp)
                 )
             }
-            if(viewModel.uiState.currentUser != null){
-                UserInfoCard(stringResource(id = R.string.profile_name)+ ": " + viewModel.uiState.currentUser!!.firstName)
-                UserInfoCard(stringResource(id = R.string.profile_surname)+ ": " + viewModel.uiState.currentUser!!.lastName)
-                UserInfoCard(stringResource(id = R.string.profile_username)+ ": " + viewModel.uiState.currentUser!!.username)
-                UserInfoCard(stringResource(id = R.string.profile_email)+ ": " + viewModel.uiState.currentUser!!.email)
-            }
-            else{
-                UserInfoCard(stringResource(id = R.string.profile_name)+ ": ")
-                UserInfoCard(stringResource(id = R.string.profile_surname)+ ": ")
-                UserInfoCard(stringResource(id = R.string.profile_username)+ ": ")
-                UserInfoCard(stringResource(id = R.string.profile_email)+ ": ")
+            if (viewModel.uiState.currentUser != null) {
+                UserInfoCard(stringResource(id = R.string.profile_name) + ": " + viewModel.uiState.currentUser!!.firstName)
+                UserInfoCard(stringResource(id = R.string.profile_surname) + ": " + viewModel.uiState.currentUser!!.lastName)
+                UserInfoCard(stringResource(id = R.string.profile_username) + ": " + viewModel.uiState.currentUser!!.username)
+                UserInfoCard(stringResource(id = R.string.profile_email) + ": " + viewModel.uiState.currentUser!!.email)
+            } else {
+                UserInfoCard(stringResource(id = R.string.profile_name) + ": ")
+                UserInfoCard(stringResource(id = R.string.profile_surname) + ": ")
+                UserInfoCard(stringResource(id = R.string.profile_username) + ": ")
+                UserInfoCard(stringResource(id = R.string.profile_email) + ": ")
             }
         }
     }

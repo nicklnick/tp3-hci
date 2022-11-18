@@ -30,7 +30,7 @@ fun AppNavHost(
     )
     {
 //          - = - = - App screens go here - = - = -
-        composable(route = "landing"){
+        composable(route = "landing") {
             LandingScreen(
                 { navController.navigate("register") },
                 { navController.navigate("login") },
@@ -39,7 +39,7 @@ fun AppNavHost(
             )
         }
 
-        composable(route = "login"){
+        composable(route = "login") {
             LoginScreen(
                 { navController.navigate("landing") },
                 { navController.navigate("home") },
@@ -47,60 +47,58 @@ fun AppNavHost(
             )
         }
 
-        composable(route = "register"){
+        composable(route = "register") {
             RegisterScreen(
                 { navController.navigate("landing") },
                 { navController.navigate("home") },
             )
         }
 
-        composable(route = NavItem.Home.route){
+        composable(route = NavItem.Home.route) {
             HomeScreen(
                 NavigateToCategoryScreen = { route -> navController.navigate("category/$route") },
                 navController,
                 viewModel,
-                NavigateToRoutineDetails = { route -> navController.navigate("routine/$route")},
+                NavigateToRoutineDetails = { route -> navController.navigate("routine/$route") },
                 checkAirPlaneMode
             )
         }
         composable(
             route = "category/{route}",
             arguments = listOf(navArgument("route") { type = NavType.StringType })
-        ) {
-            NavBackStackEntry ->
+        ) { NavBackStackEntry ->
             CategoryScreen(
                 NavBackStackEntry.arguments?.getString("route").toString(),
                 navController,
                 viewModel,
-                NavigateToRoutineDetails = { route -> navController.navigate("routine/$route")}
+                NavigateToRoutineDetails = { route -> navController.navigate("routine/$route") }
             )
         }
         composable(
             route = "search/{route}",
             arguments = listOf(navArgument("route") { type = NavType.StringType })
-        ){
-            NavBackStackEntry ->
+        ) { NavBackStackEntry ->
             SearchScreen(
                 NavBackStackEntry.arguments?.getString("route").toString(),
                 navController,
                 viewModel,
-                NavigateToRoutineDetails = { route -> navController.navigate("routine/$route")}
+                NavigateToRoutineDetails = { route -> navController.navigate("routine/$route") }
             )
         }
 
-        composable(route = NavItem.Favourites.route){
+        composable(route = NavItem.Favourites.route) {
             FavouritesScreen(
-                NavigateToRoutineDetails = { route -> navController.navigate("routine/$route")},
+                NavigateToRoutineDetails = { route -> navController.navigate("routine/$route") },
                 navController,
                 viewModel,
                 checkAirPlaneMode
             )
         }
 
-        composable(route = NavItem.Routines.route){
+        composable(route = NavItem.Routines.route) {
             MyRoutinesScreen(
                 navController = navController,
-                NavigateToRoutineDetails = { route -> navController.navigate("routine/$route")},
+                NavigateToRoutineDetails = { route -> navController.navigate("routine/$route") },
                 viewModel = viewModel,
                 checkAirplaneMode = checkAirPlaneMode
             )
@@ -108,25 +106,27 @@ fun AppNavHost(
 
         composable(
             route = "routine/{id}",
-            deepLinks = listOf(navDeepLink { uriPattern = "$uri/routine/{id}" }, navDeepLink { uriPattern = "$secureUri/routine/{id}" }),
+            deepLinks = listOf(
+                navDeepLink { uriPattern = "$uri/routine/{id}" },
+                navDeepLink { uriPattern = "$secureUri/routine/{id}" }),
             arguments = listOf(navArgument("id") { type = NavType.IntType })
-        ) {
-            NavBackStackEntry -> RoutineDetailsScreen(
-            NavBackStackEntry.arguments?.getInt("id")!!,
-            {navController.navigate("routine/${NavBackStackEntry.arguments?.getInt("id")}/execution")},
-            viewModel,
-            navController)
+        ) { NavBackStackEntry ->
+            RoutineDetailsScreen(
+                NavBackStackEntry.arguments?.getInt("id")!!,
+                { navController.navigate("routine/${NavBackStackEntry.arguments?.getInt("id")}/execution") },
+                viewModel,
+                navController
+            )
         }
 
         composable(
             route = "routine/{id}/execution",
             arguments = listOf(navArgument("id") { type = NavType.IntType }),
-        ){
-            NavBackStackEntry ->
+        ) { NavBackStackEntry ->
             ExecutionScreen(
                 NavBackStackEntry.arguments?.getInt("id")!!,
-                {navController.navigate("routine/${NavBackStackEntry.arguments?.getInt("id")}")},
-                {navController.navigate("routine/${NavBackStackEntry.arguments?.getInt("id")}/review")},
+                { navController.navigate("routine/${NavBackStackEntry.arguments?.getInt("id")}") },
+                { navController.navigate("routine/${NavBackStackEntry.arguments?.getInt("id")}/review") },
                 viewModel
             )
         }
@@ -134,43 +134,37 @@ fun AppNavHost(
         composable(
             route = "routine/{id}/review",
             arguments = listOf(navArgument("id") { type = NavType.IntType }),
-        ){ NavBackStackEntry ->
+        ) { NavBackStackEntry ->
             RoutineReviewScreen(
                 NavBackStackEntry.arguments?.getInt("id")!!,
-                {navController.navigate("home")},
+                { navController.navigate("home") },
                 viewModel
             )
         }
 
-        composable(route = "profile"){
+        composable(route = "profile") {
             MyProfileScreen(viewModel)
         }
 
-        composable(route = "settings"){
+        composable(route = "settings") {
             SettingsScreen(viewModel)
         }
 
-        composable(route = "help"){
+        composable(route = "help") {
             HelpScreen()
         }
 
-        composable("allRoutines"){
+        composable("allRoutines") {
             AllRoutinesScreen(
                 navController,
                 viewModel,
-                NavigateToRoutineDetails = { route -> navController.navigate("routine/$route")}
+                NavigateToRoutineDetails = { route -> navController.navigate("routine/$route") }
             )
         }
-        composable("not-signed-in"){
+        composable("not-signed-in") {
             NotSignedInScreen {
                 navController.navigate("login")
             }
-        }
-
-
-
-        composable("test"){
-            TestScreen()
         }
     }
 }

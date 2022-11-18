@@ -38,8 +38,8 @@ fun LoginScreenPhone(backFunc: () -> Unit, loginFunc: () -> Unit, viewModel: Mai
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         scaffoldState = scaffoldState,
-        snackbarHost = { SnackbarHost(it){ data -> ErrorSnackBar(data = data) } },
-    ){
+        snackbarHost = { SnackbarHost(it) { data -> ErrorSnackBar(data = data) } },
+    ) {
         Image(
             painter = painterResource(id = R.drawable.bkg3),
             contentDescription = null,
@@ -51,12 +51,17 @@ fun LoginScreenPhone(backFunc: () -> Unit, loginFunc: () -> Unit, viewModel: Mai
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxSize(),
         ) {
-            Row (
+            Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 30.dp, start = 30.dp)
             ) {
-                IconFAB(icon = Icons.Filled.KeyboardArrowLeft, { backFunc() } , Modifier.size(80.dp), Quaternary, Primary)
+                IconFAB(
+                    icon = Icons.Filled.KeyboardArrowLeft,
+                    { backFunc() },
+                    Modifier.size(80.dp),
+                    Quaternary,
+                    Primary)
             }
 
             Card(
@@ -77,47 +82,47 @@ fun LoginScreenPhone(backFunc: () -> Unit, loginFunc: () -> Unit, viewModel: Mai
                         fontSize = 50.sp,
                         color = Color.DarkGray
                     )
-                    GenericInputField(label = stringResource(R.string.login_user), value = user, {user = it }, true)
+                    GenericInputField(
+                        label = stringResource(R.string.login_user),
+                        value = user,
+                        { user = it },
+                        true
+                    )
 
-                    GenericInputField(label = stringResource(R.string.login_password), value = password, {password = it }, false)
-
-                    val bicepName = Categories.Bicep.getName()
-                    val tricepName = Categories.Tricep.getName()
-                    val chestName = Categories.Chest.getName()
-                    val shouldersName = Categories.Shoulders.getName()
-                    val backName = Categories.Back.getName()
-                    val legsName = Categories.Legs.getName()
-                    val absName = Categories.Abs.getName()
-                    val fullBodyName = Categories.FullBody.getName()
-
+                    GenericInputField(
+                        label = stringResource(R.string.login_password),
+                        value = password,
+                        { password = it },
+                        false
+                    )
                     GenericLongButton(
                         stringResource(R.string.login_continue), {
-                        viewModel.login(user, password,
-                            {
-                                viewModel.setupViewModel()
-                                loginFunc()
-                            },
-                            {
-                                if(it == "Connection error")
-                                    scaffoldState.snackbarHostState.showSnackbar("   Error connecting to API   ")
+                            viewModel.login(user, password,
+                                {
+                                    viewModel.setupViewModel()
+                                    loginFunc()
+                                },
+                                {
+                                    if (it == "Connection error")
+                                        scaffoldState.snackbarHostState.showSnackbar("   Error connecting to API   ")
 
-                                if(it == "Invalid username or password")
-                                    scaffoldState.snackbarHostState.showSnackbar("Invalid username or password.")
-                            }
-                        )},
+                                    if (it == "Invalid username or password")
+                                        scaffoldState.snackbarHostState.showSnackbar("Invalid username or password.")
+                                }
+                            )
+                        },
                         !viewModel.uiState.isFetching
                     )
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.Center
-                    ){
+                    ) {
 
-                        if(viewModel.uiState.isFetching){
+                        if (viewModel.uiState.isFetching) {
                             CircularProgressIndicator()
                         }
                     }
                 }
-
             }
         }
     }

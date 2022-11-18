@@ -1,23 +1,20 @@
 import android.annotation.SuppressLint
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.fitness_first.MainViewModel
 import com.example.fitness_first.R
@@ -25,15 +22,9 @@ import com.example.fitness_first.ui.components.*
 import com.example.fitness_first.ui.screens.LoadingScreen
 import com.example.fitness_first.ui.theme.Quaternary
 import com.example.fitness_first.ui.theme.Secondary
-import com.example.fitness_first.ui.theme.Tertiary
-import kotlinx.coroutines.launch
-import androidx.compose.material.Text
-import androidx.compose.runtime.*
-import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.text.style.TextAlign
-import androidx.lifecycle.viewModelScope
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
+import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter", "CoroutineCreationDuringComposition")
 @OptIn(ExperimentalMaterialApi::class)
@@ -54,8 +45,8 @@ fun FavouritesScreen(
     val scaffoldState = rememberScaffoldState()
 
     var checked by remember { mutableStateOf(false) }
-    if(!checked){
-        if(checkAirplaneMode()){
+    if (!checked) {
+        if (checkAirplaneMode()) {
             scope.launch {
                 scaffoldState.snackbarHostState.showSnackbar("Airplane mode ON. Please turn it off.")
             }
@@ -63,32 +54,35 @@ fun FavouritesScreen(
         checked = true
     }
 
-    Box{
+    Box {
         Scaffold(
             scaffoldState = scaffoldState,
-            topBar = { TopBarWFilter(
-                {scope.launch {
-                    scaffoldState.drawerState.open()
-                }},
-                onClickFilter = { showFilters(scope = scope, sheetState = sheetState) },
-                navController,
-                viewModel
-            )
+            topBar = {
+                TopBarWFilter(
+                    {
+                        scope.launch {
+                            scaffoldState.drawerState.open()
+                        }
+                    },
+                    onClickFilter = { showFilters(scope = scope, sheetState = sheetState) },
+                    navController,
+                    viewModel
+                )
             },
             bottomBar = { BottomBar(navController = navController, viewModel) },
             drawerContent = { NavigationDrawer(navController, viewModel) },
             backgroundColor = Color.Transparent,
-            snackbarHost = { SnackbarHost(it){ data -> ErrorSnackBar(data = data) } },
-            modifier = Modifier.pointerInput(Unit){
+            snackbarHost = { SnackbarHost(it) { data -> ErrorSnackBar(data = data) } },
+            modifier = Modifier.pointerInput(Unit) {
                 detectTapGestures(onTap = {
                     scope.launch {
-                        if(sheetState.isExpanded){
+                        if (sheetState.isExpanded) {
                             sheetState.collapse()
                         }
                     }
                 })
             }
-        ){
+        ) {
             BottomSheetScaffold(
                 scaffoldState = bottomScaffoldState,
                 sheetContent = { sortSheet(viewModel) },
@@ -112,11 +106,10 @@ fun FavouritesScreen(
                             color = Secondary,
                             modifier = Modifier.padding(start = 10.dp, top = 5.dp)
                         )
-                        if(viewModel.uiState.isFetching){
+                        if (viewModel.uiState.isFetching) {
                             LoadingScreen()
-                        }
-                        else{
-                            if( viewModel.uiState.routines.orEmpty().any {it.liked}){
+                        } else {
+                            if (viewModel.uiState.routines.orEmpty().any { it.liked }) {
                                 SwipeRefresh(
                                     state = rememberSwipeRefreshState(isRefreshing = viewModel.uiState.isFetching),
                                     onRefresh = { viewModel.getRoutinesWFilter() },
@@ -127,7 +120,7 @@ fun FavouritesScreen(
                                             .fillMaxHeight(0.91f)
                                             .padding(bottom = 5.dp),
                                         horizontalAlignment = Alignment.CenterHorizontally,
-                                    ){
+                                    ) {
                                         items(
                                             viewModel.uiState.routines.orEmpty()
                                         ) { routine ->
@@ -151,8 +144,7 @@ fun FavouritesScreen(
                                         }
                                     }
                                 }
-                            }
-                            else{
+                            } else {
                                 Text(
                                     text = stringResource(R.string.no_favourites),
                                     fontSize = MaterialTheme.typography.h5.fontSize,

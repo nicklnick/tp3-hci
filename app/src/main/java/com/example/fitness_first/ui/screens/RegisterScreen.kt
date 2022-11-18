@@ -15,15 +15,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.fitness_first.R
 import com.example.fitness_first.ui.components.GenericInputField
 import com.example.fitness_first.ui.components.GenericLongButton
 import com.example.fitness_first.ui.components.IconFAB
-import com.example.fitness_first.ui.theme.FitnessfirstTheme
 import com.example.fitness_first.ui.theme.Primary
 import com.example.fitness_first.ui.theme.Quaternary
 
@@ -31,7 +28,7 @@ import com.example.fitness_first.ui.theme.Quaternary
 fun RegisterScreen(backFunc: () -> Unit, registerFunc: () -> Unit) {
     Surface(
         modifier = Modifier.fillMaxSize(),
-    ){
+    ) {
         Image(
             painter = painterResource(id = R.drawable.bkg3),
             contentDescription = null,
@@ -42,12 +39,18 @@ fun RegisterScreen(backFunc: () -> Unit, registerFunc: () -> Unit) {
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxSize(),
         ) {
-            Row (
+            Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 30.dp, start = 30.dp)
             ) {
-                IconFAB(icon = Icons.Filled.KeyboardArrowLeft, { backFunc() }, Modifier.size(80.dp), Quaternary, Primary )
+                IconFAB(
+                    icon = Icons.Filled.KeyboardArrowLeft,
+                    { backFunc() },
+                    Modifier.size(80.dp),
+                    Quaternary,
+                    Primary
+                )
             }
 
             Card(
@@ -67,13 +70,31 @@ fun RegisterScreen(backFunc: () -> Unit, registerFunc: () -> Unit) {
                         fontSize = 50.sp,
                         color = Color.DarkGray
                     )
-                    GenericInputField(label = stringResource(R.string.reg_email), value = "", {}, true)
+                    GenericInputField(
+                        label = stringResource(R.string.reg_email),
+                        value = "",
+                        {},
+                        true
+                    )
 
-                    GenericInputField(label = stringResource(R.string.reg_user), value = "", {}, true)
+                    GenericInputField(
+                        label = stringResource(R.string.reg_user),
+                        value = "",
+                        {},
+                        true
+                    )
 
-                    GenericInputField(label = stringResource(R.string.reg_password), value = "", {}, false)
+                    GenericInputField(
+                        label = stringResource(R.string.reg_password),
+                        value = "",
+                        {},
+                        false
+                    )
 
-                    GenericLongButton(stringResource(R.string.reg_continue),  { registerFunc() } ,true )
+                    GenericLongButton(
+                        stringResource(R.string.reg_continue),
+                        { registerFunc() },
+                        true)
                 }
             }
         }

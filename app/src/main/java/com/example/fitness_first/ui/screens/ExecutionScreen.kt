@@ -11,7 +11,6 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.KeyboardArrowRight
-import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -41,12 +40,12 @@ import com.example.fitness_first.ui.theme.Tertiary
 @Composable
 fun ExecutionScreen(id: Int, prev: () -> Unit, finish: () -> Unit, viewModel: MainViewModel) {
     val configuration = LocalConfiguration.current
-    when(configuration.orientation) {
+    when (configuration.orientation) {
         Configuration.ORIENTATION_PORTRAIT -> {
-            showVerticalLayout(viewModel.uiState.currentRoutine!!.name, prev,finish,  viewModel)
+            showVerticalLayout(viewModel.uiState.currentRoutine!!.name, prev, finish, viewModel)
         }
         else -> {
-            showLandscapeLayout(viewModel.uiState.currentRoutine!!.name,prev,finish, viewModel)
+            showLandscapeLayout(viewModel.uiState.currentRoutine!!.name, prev, finish, viewModel)
         }
     }
 }
@@ -84,7 +83,7 @@ private fun showVerticalLayout(routineTitle: String, prev: () -> Unit, finish: (
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.fillMaxWidth(0.8f),
                     horizontalArrangement = Arrangement.Center
-                ){
+                ) {
                     Text(
                         text = routineTitle,
                         modifier = Modifier.padding(start = 20.dp),
@@ -150,9 +149,11 @@ private fun showVerticalLayout(routineTitle: String, prev: () -> Unit, finish: (
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.Center,
                             ) {
-                                Text(viewModel.uiState.currentExecSeries!!.cycleName,
+                                Text(
+                                    viewModel.uiState.currentExecSeries!!.cycleName,
                                     fontSize = 30.sp,
-                                    fontWeight = FontWeight.SemiBold)
+                                    fontWeight = FontWeight.SemiBold
+                                )
                             }
                             Card(
                                 border = BorderStroke(1.dp, Primary),
@@ -202,7 +203,7 @@ private fun showVerticalLayout(routineTitle: String, prev: () -> Unit, finish: (
                                     backgroundColor = Tertiary,
                                     elevation = 20.dp,
                                 ) {
-                                    if(viewModel.uiState.currentExecExercise!!.duration != 0)
+                                    if (viewModel.uiState.currentExecExercise!!.duration != 0)
                                         Text(
                                             "${viewModel.uiState.currentTimeExercise} seconds",
                                             fontSize = 35.sp,
@@ -234,7 +235,7 @@ private fun showVerticalLayout(routineTitle: String, prev: () -> Unit, finish: (
                                 .fillMaxSize()
                                 .padding(5.dp)
                         ) {
-                            if(!viewModel.isFirstExercise()){
+                            if (!viewModel.isFirstExercise()) {
                                 IconFAB(
                                     icon = Icons.Filled.KeyboardArrowLeft,
                                     func = { viewModel.previousExercise() },
@@ -247,8 +248,8 @@ private fun showVerticalLayout(routineTitle: String, prev: () -> Unit, finish: (
                             }
 
 
-                            if(viewModel.canPauseExecution()){
-                                if(viewModel.uiState.pausedExec){
+                            if (viewModel.canPauseExecution()) {
+                                if (viewModel.uiState.pausedExec) {
                                     IconFAB(
                                         icon = Icons.Filled.PlayArrow,
                                         func = { viewModel.unpauseExecution() },
@@ -258,8 +259,7 @@ private fun showVerticalLayout(routineTitle: String, prev: () -> Unit, finish: (
                                         Tertiary,
                                         Secondary
                                     )
-                                }
-                                else{
+                                } else {
                                     IconFAB(
                                         icon = ImageVector.vectorResource(R.drawable.pause_icons),
                                         func = { viewModel.pauseExecution() },
@@ -276,9 +276,10 @@ private fun showVerticalLayout(routineTitle: String, prev: () -> Unit, finish: (
                                 icon = Icons.Filled.KeyboardArrowRight,
                                 func = {
                                     viewModel.nextExercise()
-                                    if(viewModel.uiState.execFinished){
+                                    if (viewModel.uiState.execFinished) {
                                         finish()
-                                } },
+                                    }
+                                },
                                 modifier = Modifier
                                     .size(100.dp)
                                     .offset(x = 240.dp),
@@ -291,7 +292,7 @@ private fun showVerticalLayout(routineTitle: String, prev: () -> Unit, finish: (
                 }
             }
 
-            if(viewModel.hasNextExercise()){
+            if (viewModel.hasNextExercise()) {
                 Row(
                     modifier = Modifier.fillMaxSize(),
                     horizontalArrangement = Arrangement.End,
@@ -323,11 +324,12 @@ private fun showVerticalLayout(routineTitle: String, prev: () -> Unit, finish: (
                         }
                     }
                 }
-            }
-            else
-                Divider(modifier = Modifier
-                    .fillMaxWidth()
-                    .height(100.dp), color= Color.Transparent)
+            } else
+                Divider(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(100.dp), color = Color.Transparent
+                )
         }
     }
 }
@@ -477,7 +479,7 @@ private fun showLandscapeLayout(routineTitle: String,prev: () -> Unit, finish: (
                                     backgroundColor = Tertiary,
                                     elevation = 20.dp,
                                 ) {
-                                    if(viewModel.uiState.currentExecExercise!!.duration != 0)
+                                    if (viewModel.uiState.currentExecExercise!!.duration != 0)
                                         Text(
                                             "${viewModel.uiState.currentTimeExercise} seconds",
                                             fontSize = 35.sp,
@@ -509,61 +511,61 @@ private fun showLandscapeLayout(routineTitle: String,prev: () -> Unit, finish: (
                                 verticalArrangement = Arrangement.Center,
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
-                                 Box(
-                                        modifier = Modifier.fillMaxWidth(),
-                                    ) {
-                                        if(!viewModel.isFirstExercise()){
-                                            IconFAB(
-                                                icon = Icons.Filled.KeyboardArrowLeft,
-                                                func = { viewModel.previousExercise() },
-                                                modifier = Modifier
-                                                    .size(75.dp)
-                                                    .offset(x = 0.dp),
-                                                Tertiary,
-                                                Secondary
-                                            )
-                                        }
-
-
-                                        if(viewModel.canPauseExecution()){
-                                            if(viewModel.uiState.pausedExec){
-                                                IconFAB(
-                                                    icon = Icons.Filled.PlayArrow,
-                                                    func = { viewModel.unpauseExecution() },
-                                                    modifier = Modifier
-                                                        .size(75.dp)
-                                                        .offset(x = 85.dp),
-                                                    Tertiary,
-                                                    Secondary
-                                                )
-                                            }
-                                            else{
-                                                IconFAB(
-                                                    icon = ImageVector.vectorResource(R.drawable.pause_icons),
-                                                    func = { viewModel.pauseExecution() },
-                                                    modifier = Modifier
-                                                        .size(75.dp)
-                                                        .offset(x = 85.dp),
-                                                    Tertiary,
-                                                    Secondary
-                                                )
-                                            }
-                                        }
-
+                                Box(
+                                    modifier = Modifier.fillMaxWidth(),
+                                ) {
+                                    if (!viewModel.isFirstExercise()) {
                                         IconFAB(
-                                            icon = Icons.Filled.KeyboardArrowRight,
-                                            func = {
-                                                viewModel.nextExercise()
-                                                if(viewModel.uiState.execFinished){
-                                                    finish()
-                                                } },
+                                            icon = Icons.Filled.KeyboardArrowLeft,
+                                            func = { viewModel.previousExercise() },
                                             modifier = Modifier
                                                 .size(75.dp)
-                                                .offset(x = 170.dp),
+                                                .offset(x = 0.dp),
                                             Tertiary,
                                             Secondary
                                         )
                                     }
+
+
+                                    if (viewModel.canPauseExecution()) {
+                                        if (viewModel.uiState.pausedExec) {
+                                            IconFAB(
+                                                icon = Icons.Filled.PlayArrow,
+                                                func = { viewModel.unpauseExecution() },
+                                                modifier = Modifier
+                                                    .size(75.dp)
+                                                    .offset(x = 85.dp),
+                                                Tertiary,
+                                                Secondary
+                                            )
+                                        } else {
+                                            IconFAB(
+                                                icon = ImageVector.vectorResource(R.drawable.pause_icons),
+                                                func = { viewModel.pauseExecution() },
+                                                modifier = Modifier
+                                                    .size(75.dp)
+                                                    .offset(x = 85.dp),
+                                                Tertiary,
+                                                Secondary
+                                            )
+                                        }
+                                    }
+
+                                    IconFAB(
+                                        icon = Icons.Filled.KeyboardArrowRight,
+                                        func = {
+                                            viewModel.nextExercise()
+                                            if (viewModel.uiState.execFinished) {
+                                                finish()
+                                            }
+                                        },
+                                        modifier = Modifier
+                                            .size(75.dp)
+                                            .offset(x = 170.dp),
+                                        Tertiary,
+                                        Secondary
+                                    )
+                                }
 
 //                                }
                             }
@@ -622,7 +624,7 @@ private fun showLandscapeLayout(routineTitle: String,prev: () -> Unit, finish: (
                             }
                         }
                     }
-                    if(viewModel.hasNextExercise()){
+                    if (viewModel.hasNextExercise()) {
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.End
@@ -657,11 +659,12 @@ private fun showLandscapeLayout(routineTitle: String,prev: () -> Unit, finish: (
                                 }
                             }
                         }
-                    }
-                    else
-                        Divider(modifier = Modifier
-                            .fillMaxWidth()
-                            .height(100.dp), color= Color.Transparent)
+                    } else
+                        Divider(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(100.dp), color = Color.Transparent
+                        )
                 }
             }
         }
