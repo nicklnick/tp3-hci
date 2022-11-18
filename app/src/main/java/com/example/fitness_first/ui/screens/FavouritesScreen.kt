@@ -1,6 +1,7 @@
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -8,8 +9,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,17 +28,21 @@ import com.example.fitness_first.ui.theme.Secondary
 import com.example.fitness_first.ui.theme.Tertiary
 import kotlinx.coroutines.launch
 import androidx.compose.material.Text
+import androidx.compose.runtime.*
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.style.TextAlign
+import androidx.lifecycle.viewModelScope
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter", "CoroutineCreationDuringComposition")
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun FavouritesScreen(
     NavigateToRoutineDetails: (route: String) -> Unit,
     navController: NavHostController,
-    viewModel: MainViewModel
+    viewModel: MainViewModel,
+    checkAirplaneMode: () -> Boolean
 ) {
     val scope = rememberCoroutineScope()
     val sheetState = rememberBottomSheetState(
@@ -49,6 +52,17 @@ fun FavouritesScreen(
         bottomSheetState = sheetState
     )
     val scaffoldState = rememberScaffoldState()
+
+    var checked by remember { mutableStateOf(false) }
+    if(!checked){
+        if(checkAirplaneMode()){
+            scope.launch {
+                scaffoldState.snackbarHostState.showSnackbar("Airplane mode ON. Please turn it off.")
+            }
+        }
+        checked = true
+    }
+
     Box{
         Scaffold(
             scaffoldState = scaffoldState,
@@ -63,7 +77,17 @@ fun FavouritesScreen(
             },
             bottomBar = { BottomBar(navController = navController, viewModel) },
             drawerContent = { NavigationDrawer(navController, viewModel) },
-            backgroundColor = Color.Transparent
+            backgroundColor = Color.Transparent,
+            snackbarHost = { SnackbarHost(it){ data -> ErrorSnackBar(data = data) } },
+            modifier = Modifier.pointerInput(Unit){
+                detectTapGestures(onTap = {
+                    scope.launch {
+                        if(sheetState.isExpanded){
+                            sheetState.collapse()
+                        }
+                    }
+                })
+            }
         ){
             BottomSheetScaffold(
                 scaffoldState = bottomScaffoldState,

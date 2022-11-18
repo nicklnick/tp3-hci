@@ -18,7 +18,8 @@ import com.example.fitness_first.util.getViewModelFactory
 fun AppNavHost(
     navController: NavHostController = rememberNavController(),
     startDestination: String = "landing",
-    viewModel: MainViewModel = androidx.lifecycle.viewmodel.compose.viewModel(factory = getViewModelFactory())
+    viewModel: MainViewModel = androidx.lifecycle.viewmodel.compose.viewModel(factory = getViewModelFactory()),
+    checkAirPlaneMode: () -> Boolean
 ) {
     val uri = "http://fitness-first.com"
     val secureUri = "https://fitness-first.com"
@@ -58,8 +59,8 @@ fun AppNavHost(
                 NavigateToCategoryScreen = { route -> navController.navigate("category/$route") },
                 navController,
                 viewModel,
-                NavigateToAllRoutinesScreen = { navController.navigate("allRoutines") },
-                NavigateToRoutineDetails = { route -> navController.navigate("routine/$route")}
+                NavigateToRoutineDetails = { route -> navController.navigate("routine/$route")},
+                checkAirPlaneMode
             )
         }
         composable(
@@ -91,7 +92,8 @@ fun AppNavHost(
             FavouritesScreen(
                 NavigateToRoutineDetails = { route -> navController.navigate("routine/$route")},
                 navController,
-                viewModel
+                viewModel,
+                checkAirPlaneMode
             )
         }
 
@@ -99,7 +101,8 @@ fun AppNavHost(
             MyRoutinesScreen(
                 navController = navController,
                 NavigateToRoutineDetails = { route -> navController.navigate("routine/$route")},
-                viewModel = viewModel
+                viewModel = viewModel,
+                checkAirplaneMode = checkAirPlaneMode
             )
         }
 
