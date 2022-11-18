@@ -110,7 +110,7 @@ fun HomeScreen(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(bottom = 5.dp),
-                                horizontalArrangement = Arrangement.spacedBy(16.dp),
+//                                horizontalArrangement = Arrangement.spacedBy(16.dp),
                                 verticalAlignment = Alignment.CenterVertically,
                                 contentPadding = PaddingValues(start = 16.dp, bottom = 32.dp)
                             ){
@@ -154,7 +154,7 @@ fun HomeScreen(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(bottom = 5.dp),
-                                horizontalArrangement = Arrangement.spacedBy(16.dp),
+//                                horizontalArrangement = Arrangement.spacedBy(16.dp),
                                 verticalAlignment = Alignment.CenterVertically,
                                 contentPadding = PaddingValues(start = 16.dp, bottom = 32.dp )
 

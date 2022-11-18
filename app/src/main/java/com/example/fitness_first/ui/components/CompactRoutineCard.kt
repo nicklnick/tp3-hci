@@ -27,7 +27,7 @@ import com.example.fitness_first.ui.theme.Secondary
 @Composable
 fun CompactRoutineCard(label : String, clickEvent: () -> Unit, category: String) {
     Row(
-        modifier = Modifier.size(width = 150.dp, height = 110.dp),
+        modifier = Modifier.size(width = 150.dp, height = 110.dp).padding(start = 8.dp, end = 8.dp),
     ){
         Card(
             onClick =  clickEvent ,
