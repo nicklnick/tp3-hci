@@ -10,9 +10,9 @@ class ReviewRemoteDataSource(
     private val apiReviewService : ApiReviewService
 ) : RemoteDataSource()
 {
-    suspend fun getReviews(routineId: Int) : NetworkPagedContent<NetworkUserReview> {
+    suspend fun getReviews(routineId: Int, page: Int) : NetworkPagedContent<NetworkUserReview> {
         return handleApiResponse {
-            apiReviewService.getReviews(routineId)
+            apiReviewService.getReviews(routineId, page)
         }
     }
 

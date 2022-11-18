@@ -16,12 +16,17 @@ class ReviewRepository(
     private var reviews: List<Review> = emptyList()
 
     suspend fun getReviews(routineId: Int, refresh: Boolean = false): List<Review> {
+        var page = 0
         if (refresh || reviews.isEmpty()) {
-            val result = remoteDataSource.getReviews(routineId)
-            // Thread-safe write to latestNews
-            reviewMutex.withLock {
-                this.reviews = result.content.map { it.asModel(routineId) }
-            }
+            this.reviews = emptyList()
+            do {
+                val result = remoteDataSource.getReviews(routineId, page)
+                // Thread-safe write to latestNews
+                reviewMutex.withLock {
+                    this.reviews = this.reviews.plus(result.content.map { it.asModel(routineId) })
+                }
+                page++
+            } while(!result.isLastPage)
         }
 
         return reviewMutex.withLock { this.reviews }

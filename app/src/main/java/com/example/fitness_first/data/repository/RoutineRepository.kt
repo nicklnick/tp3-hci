@@ -14,11 +14,16 @@ class RoutineRepository (
     private var routines: List<Routine> = emptyList()
 
     suspend fun getRoutines(refresh: Boolean = false): List<Routine> {
+        var page = 0
         if( refresh || routines.isEmpty()){
-            val result = remoteDataSource.getRoutines()
-            routinesMutex.withLock {
-                this.routines = result.content.map { it.asModel() }
-            }
+            this.routines = emptyList()
+            do {
+                val result = remoteDataSource.getRoutines(page)
+                routinesMutex.withLock {
+                    this.routines = this.routines.plus(result.content.map { it.asModel() })
+                }
+                page++
+            } while(!result.isLastPage)
         }
         return routinesMutex.withLock { this.routines }
     }

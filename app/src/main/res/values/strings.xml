@@ -84,10 +84,8 @@
 
     <!-- SearchScreen -->
     <string name="search_results">Search Results:</string>
-    <string name="no_results">No Routines found with this name </string>
-    <string name="no_routines">No Routines found in the entire app (._.) ( l: ) ( .-. ) ( :l ) (._.)</string>
-
-
+    <string name="no_results">No Routines found with this Name</string>
+    <string name="no_routines">No Routines found in the entire App (._.) ( l: ) ( .-. ) ( :l ) (._.)</string>
 
     <!-- Navigation -->
     <string name="nav_home">Home</string>

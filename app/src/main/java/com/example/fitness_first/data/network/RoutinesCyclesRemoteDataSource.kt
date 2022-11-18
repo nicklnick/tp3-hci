@@ -8,9 +8,9 @@ class RoutinesCyclesRemoteDataSource (
     private val routinesCyclesService: ApiRoutinesCyclesService
 ) : RemoteDataSource() {
 
-    suspend fun getRoutinesCycles(routineId: Int) : NetworkPagedContent<NetworkCompleteCycle> {
+    suspend fun getRoutinesCycles(routineId: Int, page: Int) : NetworkPagedContent<NetworkCompleteCycle> {
         return handleApiResponse {
-            routinesCyclesService.getRoutinesCycles(routineId)
+            routinesCyclesService.getRoutinesCycles(routineId, page)
         }
     }
 }
