@@ -1,25 +1,18 @@
 package com.example.fitness_first.ui.components
 
-import android.content.Context
-import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.fitness_first.ui.theme.LightBlue
-import com.example.fitness_first.ui.theme.Primary
 import com.example.fitness_first.ui.theme.Quaternary
 import com.example.fitness_first.ui.theme.Secondary
 
@@ -30,7 +23,7 @@ fun CompactRoutineCard(label : String, clickEvent: () -> Unit, category: String)
         modifier = Modifier.size(width = 150.dp, height = 110.dp).padding(start = 8.dp, end = 8.dp),
     ){
         Card(
-            onClick =  clickEvent ,
+            onClick = clickEvent,
             modifier = Modifier.fillMaxSize(),
             backgroundColor = Quaternary,
             border = BorderStroke(2.dp, Secondary),
@@ -41,7 +34,7 @@ fun CompactRoutineCard(label : String, clickEvent: () -> Unit, category: String)
                 modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.SpaceAround
-            ){
+            ) {
                 Surface(
                     color = Color.Transparent,
                     modifier = Modifier
@@ -58,7 +51,7 @@ fun CompactRoutineCard(label : String, clickEvent: () -> Unit, category: String)
                             fontSize = 20.sp,
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,
-                            modifier = Modifier.padding(start = 10.dp, end = 5.dp )
+                            modifier = Modifier.padding(start = 10.dp, end = 5.dp)
                         )
                     }
                 }

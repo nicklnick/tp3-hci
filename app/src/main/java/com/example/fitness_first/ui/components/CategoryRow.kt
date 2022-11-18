@@ -25,8 +25,8 @@ fun CategoryRow(
             bottom = 32.dp
         ),
         horizontalArrangement = Arrangement.spacedBy(16.dp)
-    ){
-        items(categories){ item ->
+    ) {
+        items(categories) { item ->
             CategoryCard(
                 text = stringResource(item.name),
                 icon = painterResource(item.icon),

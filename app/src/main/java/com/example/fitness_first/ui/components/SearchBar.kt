@@ -15,16 +15,13 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
-import com.example.fitness_first.R
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.fitness_first.MainViewModel
-import com.example.fitness_first.ui.theme.Quaternary
+import com.example.fitness_first.R
 import com.example.fitness_first.ui.theme.Secondary
 import com.example.fitness_first.ui.theme.Tertiary
 
@@ -44,7 +41,12 @@ fun SearchBar(navController: NavHostController, viewModel: MainViewModel) {
             focusedIndicatorColor = Color.Transparent,
         ),
         shape = CircleShape,
-        trailingIcon = { Icon(imageVector = Icons.Default.Search, contentDescription = "searchBar") },
+        trailingIcon = {
+            Icon(
+                imageVector = Icons.Default.Search,
+                contentDescription = "searchBar"
+            )
+        },
         value = query,
         onValueChange = {
             query = it
@@ -53,7 +55,8 @@ fun SearchBar(navController: NavHostController, viewModel: MainViewModel) {
             Text(
                 text = stringResource(R.string.search),
                 modifier = Modifier.padding(horizontal = 5.dp),
-                textAlign = TextAlign.Center)
+                textAlign = TextAlign.Center
+            )
         },
         singleLine = true,
         keyboardOptions = KeyboardOptions(

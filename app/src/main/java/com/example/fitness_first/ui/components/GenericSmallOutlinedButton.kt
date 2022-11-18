@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
@@ -29,7 +28,7 @@ fun GenericSmallOutlinedButton(label: String, clickEvent: () -> Unit, enabled: B
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         OutlinedButton(
-            onClick =  clickEvent ,
+            onClick = clickEvent,
             enabled = enabled,
             shape = RoundedCornerShape(30.dp),
             modifier = Modifier.width(150.dp).height(50.dp),

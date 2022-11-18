@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.sp
 import com.example.fitness_first.ui.theme.Primary
 
 @Composable
-fun GenericLongButton(text: String, func: ()->Unit, enabled: Boolean){
+fun GenericLongButton(text: String, func: ()->Unit, enabled: Boolean) {
     Button(
         onClick = func,
         modifier = Modifier.fillMaxWidth().height(90.dp).padding(top = 20.dp, bottom = 20.dp),
@@ -30,7 +30,7 @@ fun GenericLongButton(text: String, func: ()->Unit, enabled: Boolean){
         ),
         enabled = enabled
 
-    ){
+    ) {
         Text(
             text,
             fontSize = 20.sp,

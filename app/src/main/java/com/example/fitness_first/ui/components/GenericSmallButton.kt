@@ -19,7 +19,7 @@ fun GenericSmallButton(label: String, clickEvent: () -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Button(
-            onClick =  clickEvent ,
+            onClick = clickEvent,
             enabled = true,
             shape = RoundedCornerShape(30.dp),
             modifier = Modifier.width(150.dp).height(50.dp)

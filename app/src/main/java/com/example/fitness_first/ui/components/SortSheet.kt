@@ -32,7 +32,7 @@ fun sortSheet(
             .height(400.dp),
         contentAlignment = Alignment.TopStart
     ) {
-        Column{
+        Column {
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(10.dp),
@@ -49,7 +49,8 @@ fun sortSheet(
 
             viewModel.uiState.filters.forEachIndexed { index, filter ->
                 Row(
-                    modifier = Modifier.fillMaxWidth().padding(start = 15.dp,end = 15.dp, top= 7.dp,bottom=7.dp),
+                    modifier = Modifier.fillMaxWidth()
+                        .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 7.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Start
                 ) {
@@ -58,12 +59,12 @@ fun sortSheet(
                         {
                             viewModel.getRoutinesWFilter(filter.order, filter.dir, index)
                         },
-                        backgroundColor = if(viewModel.uiState.orderBy == index) Secondary else Tertiary
+                        backgroundColor = if (viewModel.uiState.orderBy == index) Secondary else Tertiary
                     ) {
                         Text(
                             text = stringResource(filter.text),
                             fontSize = 24.sp,
-                            modifier = Modifier.padding(start = 7.dp,  top = 2.dp, bottom = 2.dp)
+                            modifier = Modifier.padding(start = 7.dp, top = 2.dp, bottom = 2.dp)
                         )
                     }
                 }

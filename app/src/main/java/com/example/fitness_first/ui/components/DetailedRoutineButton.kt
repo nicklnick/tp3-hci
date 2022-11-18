@@ -7,12 +7,11 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -30,9 +29,9 @@ import com.example.fitness_first.ui.theme.*
 // - - - - - - - - - - - - - - -
 
 @Composable
-fun DetailedRoutineButton(name: String, category: String, liked: Boolean, func: ()->Unit, likeFunc: ()->Unit, difficulty: String){
+fun DetailedRoutineButton(name: String, category: String, liked: Boolean, func: ()->Unit, likeFunc: ()->Unit, difficulty: String) {
     OutlinedButton(
-        onClick =  func,
+        onClick = func,
         modifier = Modifier
             .width(350.dp)
             .height(85.dp)
@@ -44,12 +43,12 @@ fun DetailedRoutineButton(name: String, category: String, liked: Boolean, func: 
         ),
         border = BorderStroke(2.dp, Primary),
         contentPadding = PaddingValues(0.dp),
-    ){
+    ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.End,
             modifier = Modifier.fillMaxSize()
-        ){
+        ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center,
@@ -82,13 +81,13 @@ fun DetailedRoutineButton(name: String, category: String, liked: Boolean, func: 
                             )
                         }
                         var backColor = rookie
-                        if( difficulty == "beginner"){
+                        if (difficulty == "beginner") {
                             backColor = beginner
-                        }else if( difficulty == "intermediate"){
+                        } else if (difficulty == "intermediate") {
                             backColor = intermediate
-                        }else if( difficulty == "advanced"){
+                        } else if (difficulty == "advanced") {
                             backColor = advanced
-                        }else if(difficulty == "expert"){
+                        } else if (difficulty == "expert") {
                             backColor = expert
                         }
                         Card(
@@ -106,11 +105,11 @@ fun DetailedRoutineButton(name: String, category: String, liked: Boolean, func: 
                 }
             }
             val tint by animateColorAsState(
-                targetValue = if(liked) Primary else Color.DarkGray
+                targetValue = if (liked) Primary else Color.DarkGray
             )
             IconToggleButton(
                 checked = liked,
-                onCheckedChange = { likeFunc();},
+                onCheckedChange = { likeFunc(); },
                 modifier = Modifier.padding(end = 10.dp),
             ) {
                 Icon(

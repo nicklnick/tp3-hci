@@ -15,12 +15,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.fitness_first.MainViewModel
-import com.example.fitness_first.ui.theme.FitnessfirstTheme
 import com.example.fitness_first.ui.theme.Secondary
 import com.example.fitness_first.ui.theme.Tertiary
 
@@ -31,14 +29,14 @@ fun NavigationDrawer(
     viewModel: MainViewModel
 ) {
     Card(
-        modifier =  Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize(),
         backgroundColor = Secondary
-    ){
+    ) {
         Column(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxSize(),
-        ){
+        ) {
             Card(
                 backgroundColor = Tertiary,
                 modifier = Modifier
@@ -46,7 +44,7 @@ fun NavigationDrawer(
                     .padding(6.dp),
                 contentColor = Color.DarkGray,
                 shape = CircleShape,
-            ){
+            ) {
                 Icon(
                     imageVector = Icons.Filled.AccountCircle,
                     contentDescription = "Account",
@@ -69,7 +67,7 @@ fun NavigationDrawer(
                             viewModel.logout { navController.navigate(NavItem.SignOut.route) }
                         }
                     )
-                ){ item ->
+                ) { item ->
                     Card(
                         backgroundColor = Tertiary,
                         onClick = item.onClick,
@@ -79,11 +77,11 @@ fun NavigationDrawer(
                             .padding(6.dp),
                         contentColor = Color.DarkGray,
                         shape = RoundedCornerShape(15.dp),
-                    ){
+                    ) {
                         Row(
                             modifier = Modifier.padding(start = 15.dp),
                             verticalAlignment = Alignment.CenterVertically,
-                        ){
+                        ) {
                             Icon(
                                 imageVector = ImageVector.vectorResource(item.navItem.icon),
                                 contentDescription = stringResource(item.navItem.name),
@@ -99,18 +97,6 @@ fun NavigationDrawer(
                     }
                 }
             }
-        }
-    }
-
-
-}
-
-@Preview(showBackground = true)
-@Composable
-fun LandingScreenPreview() {
-    FitnessfirstTheme {
-        Surface(modifier = Modifier.fillMaxSize()) {
-            //NavigationDrawer(NavController())
         }
     }
 }

@@ -30,7 +30,7 @@ fun BottomBar(navController: NavHostController, viewModel: MainViewModel){
         backgroundColor = Quaternary,
         modifier = Modifier.height(60.dp)
     ) {
-        viewModel.uiState.bottomBarItems.forEach{ screen ->
+        viewModel.uiState.bottomBarItems.forEach { screen ->
             addItem(
                 screen = screen,
                 currentDestination = currentDestination,
@@ -63,8 +63,8 @@ fun RowScope.addItem(
         } == true,
         unselectedContentColor = LocalContentColor.current.copy(alpha = ContentAlpha.disabled),
         onClick = {
-            navController.navigate(screen.route){
-                if(screen.route == NavItem.Home.route)
+            navController.navigate(screen.route) {
+                if (screen.route == NavItem.Home.route)
                     popUpTo(navController.graph.findStartDestination().id)
                 launchSingleTop = true
             }

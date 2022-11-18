@@ -87,7 +87,7 @@ fun SeriesCard(title: String, repetitions: Int, cycleExerciseList: List<FullCycl
                 Column(
                     modifier = Modifier.fillMaxSize()
                 ) {
-                    for(fullCycleExercise in cycleExerciseList)
+                    for (fullCycleExercise in cycleExerciseList)
                         ExerciseDetailRow(fullCycleExercise = fullCycleExercise)
                 }
             }
@@ -120,7 +120,7 @@ private fun ExerciseDetailRow(fullCycleExercise: FullCycleExercise) {
             border = BorderStroke(1.dp, Secondary)
         ) {
             var detail = fullCycleExercise.repetitions
-            if(detail == 0) {
+            if (detail == 0) {
                 detail = fullCycleExercise.duration
                 Text(
                     text = detail.toString() + "s",
@@ -132,7 +132,6 @@ private fun ExerciseDetailRow(fullCycleExercise: FullCycleExercise) {
                     textAlign = TextAlign.Center,
                 )
             }
-
         }
     }
 }

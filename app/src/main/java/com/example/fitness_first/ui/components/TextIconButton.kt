@@ -16,9 +16,9 @@ import androidx.compose.ui.unit.sp
 import com.example.fitness_first.ui.theme.Tertiary
 
 @Composable
-fun TextIconButton(text: String, icon: ImageVector, func: ()->Unit){
+fun TextIconButton(text: String, icon: ImageVector, func: ()->Unit) {
     Button(
-        onClick = {func},
+        onClick = { func },
         modifier = Modifier
             .width(130.dp)
             .height(35.dp)
@@ -35,11 +35,11 @@ fun TextIconButton(text: String, icon: ImageVector, func: ()->Unit){
             bottom = 0.dp,
         )
 
-    ){
+    ) {
         Row(
             verticalAlignment = Alignment.CenterVertically
-        ){
-            Icon(imageVector = icon,"My Profile")
+        ) {
+            Icon(imageVector = icon, "My Profile")
             Text(
                 text,
                 fontSize = 10.sp,
@@ -47,6 +47,5 @@ fun TextIconButton(text: String, icon: ImageVector, func: ()->Unit){
                 color = Color.DarkGray,
             )
         }
-
     }
 }

@@ -37,7 +37,7 @@ fun ErrorSnackBar(data: SnackbarData) {
                 contentColor = ErrorColor,
                 shape = RoundedCornerShape(10.dp),
                 modifier = Modifier.fillMaxWidth()
-            ){
+            ) {
                 Text(
                     data.message,
                     fontSize = 25.sp,

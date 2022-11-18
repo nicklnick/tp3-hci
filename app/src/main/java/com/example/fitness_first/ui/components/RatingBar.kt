@@ -3,7 +3,6 @@ package com.example.fitness_first.ui.components
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Star
@@ -11,8 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.example.fitness_first.ui.theme.Primary
-import kotlin.math.ceil
-import kotlin.math.floor
 
 /* TODO: Add behaviour */
 /* From: https://www.jetpackcompose.app/snippets/RatingBar */
@@ -32,7 +29,7 @@ fun RatingBar(
     Column() {
         Row(modifier = modifier) {
             repeat(filledStars) {
-                if(clickable){
+                if (clickable) {
                     Icon(
                         imageVector = Icons.Outlined.Star,
                         contentDescription = null,
@@ -40,7 +37,7 @@ fun RatingBar(
                         modifier = Modifier.clickable { fillStars(id) }
                     )
                     id += 1
-                }else{
+                } else {
                     Icon(
                         imageVector = Icons.Outlined.Star,
                         contentDescription = null,
@@ -50,15 +47,15 @@ fun RatingBar(
             }
             id = 1
             repeat(unfilledStars) {
-                if(clickable){
+                if (clickable) {
                     Icon(
                         imageVector = Icons.Outlined.Star,
                         contentDescription = null,
                         tint = Color.DarkGray,
-                        modifier = Modifier.clickable { fillStars(id)}
+                        modifier = Modifier.clickable { fillStars(id) }
                     )
                     id += 1
-                }else{
+                } else {
                     Icon(
                         imageVector = Icons.Outlined.Star,
                         contentDescription = null,
@@ -69,7 +66,6 @@ fun RatingBar(
             }
         }
     }
-
 }
 
 fun fillStars(id: Int){

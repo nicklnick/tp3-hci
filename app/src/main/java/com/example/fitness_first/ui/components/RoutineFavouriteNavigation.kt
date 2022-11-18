@@ -1,10 +1,10 @@
 package com.example.fitness_first.ui.components
 
-import android.text.Selection
-import android.widget.Button
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.selection.toggleable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
@@ -15,24 +15,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.example.fitness_first.ui.theme.FitnessfirstTheme
 import com.example.fitness_first.ui.theme.Primary
 import com.example.fitness_first.ui.theme.Tertiary
 
 
 @Composable
-fun RoutineFavouriteNavigation(selected : String, nonSelected : String){
+fun RoutineFavouriteNavigation(selected : String, nonSelected : String) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceEvenly,
         modifier = Modifier.fillMaxHeight()
-    ){
+    ) {
         SelectedButton(label = "My Routines") {
-            
+
         }
         NonSelectedButton(label = "Favourites") {
-            
+
         }
     }
 }
@@ -40,7 +38,7 @@ fun RoutineFavouriteNavigation(selected : String, nonSelected : String){
 @Composable
 fun SelectedButton(label: String, clickEvent: () -> Unit) {
     Button(
-        onClick =  clickEvent,
+        onClick = clickEvent,
         enabled = true,
         shape = RoundedCornerShape(16.dp),
         colors = ButtonDefaults.buttonColors(
@@ -58,7 +56,7 @@ fun SelectedButton(label: String, clickEvent: () -> Unit) {
 @Composable
 fun NonSelectedButton(label: String, clickEvent: () -> Unit) {
     Button(
-        onClick =  clickEvent ,
+        onClick = clickEvent,
         enabled = true,
         shape = RoundedCornerShape(16.dp),
         colors = ButtonDefaults.buttonColors(
@@ -66,7 +64,7 @@ fun NonSelectedButton(label: String, clickEvent: () -> Unit) {
             backgroundColor = Tertiary
         ),
 
-    ) {
+        ) {
         Text(text = label.uppercase(), fontWeight = FontWeight.Bold, color = Color.Black)
     }
 }
