@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.fitness_first.R
@@ -33,7 +34,9 @@ fun NotSignedInScreen(toLoginScreen: () -> Unit) {
         ) {
             Card(
                 backgroundColor = Color.White,
-                modifier = Modifier.fillMaxWidth(0.9f).fillMaxHeight(0.3f),
+                modifier = Modifier
+                    .fillMaxWidth(0.9f)
+                    .fillMaxHeight(0.3f),
                 border = BorderStroke(2.dp, Primary)
             ) {
                 Column(
@@ -42,11 +45,11 @@ fun NotSignedInScreen(toLoginScreen: () -> Unit) {
                     modifier = Modifier.fillMaxSize(),
                 ) {
                     Text(
-                        "You don't seem to be logged in. You must do so if you wish to see this routine.",
+                        stringResource(R.string.err_not_logged_in),
                         fontSize = 20.sp,
                         modifier = Modifier.padding(10.dp)
                     )
-                    GenericSmallButton("Login", toLoginScreen)
+                    GenericSmallButton(stringResource(R.string.land_login), toLoginScreen)
                 }
             }
         }

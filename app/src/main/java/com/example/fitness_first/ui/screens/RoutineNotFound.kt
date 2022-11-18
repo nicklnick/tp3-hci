@@ -9,9 +9,11 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.fitness_first.R
 import com.example.fitness_first.ui.theme.Quaternary
 import com.example.fitness_first.ui.theme.Secondary
 
@@ -27,7 +29,7 @@ fun RoutineNotFound() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                "We can't seem to find that routine :(",
+                stringResource(R.string.err_routine_not_found),
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 color = Quaternary,

@@ -95,6 +95,8 @@ fun LoginScreenPhone(backFunc: () -> Unit, loginFunc: () -> Unit, viewModel: Mai
                         { password = it },
                         false
                     )
+                    val msgApiError = stringResource(R.string.err_api)
+                    val msgUserOrPasswError = stringResource(R.string.err_user_or_passw)
                     GenericLongButton(
                         stringResource(R.string.login_continue), {
                             viewModel.login(user, password,
@@ -104,10 +106,10 @@ fun LoginScreenPhone(backFunc: () -> Unit, loginFunc: () -> Unit, viewModel: Mai
                                 },
                                 {
                                     if (it == "Connection error")
-                                        scaffoldState.snackbarHostState.showSnackbar("   Error connecting to API   ")
+                                        scaffoldState.snackbarHostState.showSnackbar(msgApiError)
 
                                     if (it == "Invalid username or password" || it == "")
-                                        scaffoldState.snackbarHostState.showSnackbar("Invalid username or password.")
+                                        scaffoldState.snackbarHostState.showSnackbar(msgUserOrPasswError)
                                 }
                             )
                         },

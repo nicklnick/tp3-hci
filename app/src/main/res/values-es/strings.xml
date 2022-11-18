@@ -120,7 +120,15 @@
     <string name="settings_bottombar">Barra Inferior: </string>
 
     <!-- Mensajes de Error -->
-    <string name="err_airplanemode">Modo Avión encendido. Por favor apagálo.</string>
+    <string name="err_airplanemode">Modo Avión detectado, por favor apagálo</string>
+    <string name="err_api">   Error conectándose a la API   </string>
+    <string name="err_user_or_passw">Usuario o Contraseña inválidos</string>
+    <string name="err_not_logged_in">
+        Parece que no iniciaste sesión. Tenés que hacerlo si queres ver esta rutina.
+    </string>
+    <string name="err_routine_not_found">Parece que no podemos encontrar esa rutina :(</string>
+
+    <!-- Execution Screen -->
     <string name="exec_seconds">segundos</string>
     <string name="exec_reps">repeticiones</string>
 </resources>

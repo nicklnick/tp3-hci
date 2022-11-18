@@ -45,12 +45,12 @@
     <string name="date_up">Date Up</string>
     <string name="date_down">Date Down</string>
 
-    <string name="no_user_routines">Looks like you haven\'t made any Routines. Use our Web version to make some!</string>
+    <string name="no_user_routines">Looks like you haven\'t made any Routines. Use our Website to make some!</string>
 
 
     <!-- Favourites -->
     <string name="favourites">Favourites</string>
-    <string name="no_favourites">No liked Routines where found, go do some liking!</string>
+    <string name="no_favourites">No liked Routines were found, go do some liking!</string>
 
     <!-- Components -->
     <string name="search">Search</string>
@@ -114,7 +114,15 @@
     <string name="settings_bottombar">Bottom Bar: </string>
 
     <!-- Mensajes de Error -->
-    <string name="err_airplanemode">Airplane mode On. Please turn it Off.</string>
+    <string name="err_airplanemode">Airplane Mode detected, please turn it Off</string>
+    <string name="err_api">   Error connecting to API   </string>
+    <string name="err_user_or_passw">Invalid Username or Password</string>
+    <string name="err_not_logged_in">
+    You don\'t seem to be logged in. You must do so if you wish to see this routine.
+    </string>
+    <string name="err_routine_not_found">We can\'t seem to find that routine :(</string>
+
+    <!-- Execution -->
     <string name="exec_seconds">seconds</string>
     <string name="exec_reps">reps</string>
 

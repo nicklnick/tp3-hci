@@ -98,6 +98,8 @@ fun LoginScreenTablet(backFunc: () -> Unit, loginFunc: () -> Unit, viewModel: Ma
                             .fillMaxWidth(0.6f)
                             .fillMaxHeight()
                     ) {
+                        val msgApiError = stringResource(R.string.err_api)
+                        val msgUserOrPasswError = stringResource(R.string.err_user_or_passw)
                         GenericLongButton(
                             stringResource(R.string.login_continue), {
                                 viewModel.login(user, password,
@@ -107,10 +109,10 @@ fun LoginScreenTablet(backFunc: () -> Unit, loginFunc: () -> Unit, viewModel: Ma
                                     },
                                     {
                                         if (it == "Connection error")
-                                            scaffoldState.snackbarHostState.showSnackbar("   Error connecting to API   ")
+                                            scaffoldState.snackbarHostState.showSnackbar(msgApiError)
 
                                         if (it == "Invalid username or password")
-                                            scaffoldState.snackbarHostState.showSnackbar("Invalid username or password.")
+                                            scaffoldState.snackbarHostState.showSnackbar(msgUserOrPasswError)
                                     }
                                 )
                             },
