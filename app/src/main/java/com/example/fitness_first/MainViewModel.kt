@@ -1,6 +1,5 @@
 package com.example.fitness_first
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -14,7 +13,6 @@ import com.example.fitness_first.util.SettingsManager
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.util.*
 import kotlin.time.Duration.Companion.seconds
 
 class MainViewModel(
@@ -220,6 +218,7 @@ class MainViewModel(
                 message = e.message,
                 isFetching = false
             )
+
         }
     }
 
@@ -371,14 +370,11 @@ class MainViewModel(
                 isFetching = false,
                 favouriteRoutines = response
             )
-            Log.d("amount of routines", uiState.routines!!.size.toString())
-            Log.d("amount of liked", uiState.favouriteRoutines!!.size.toString())
             uiState.routines.orEmpty().forEach { routine ->
                 if (uiState.favouriteRoutines.orEmpty()
                         .find { it.id == routine.id } != null
                 ) {
                     routine.liked = true
-                    Log.d("Routine liked", routine.liked.toString())
                 }
             }
         }.onFailure { e ->
